@@ -9,13 +9,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'ホーム', href: '/' },
-    { name: 'チーム', href: '/team' },
-    { name: '試合結果', href: '/matches' },
-    { name: 'ニュース', href: '/news' },
-    { name: '練習・活動', href: '/activities' },
-    { name: 'ギャラリー', href: '/gallery' },
-    { name: 'お問い合わせ', href: '/contact' },
+    { name: 'Team', href: '/team' },
+    { name: 'Schedule', href: '/activities' },
+    { name: 'Gallery', href: '/gallery' },
   ]
 
   return (
@@ -25,14 +21,14 @@ const Header = () => {
           {/* ロゴ */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                <span className="text-black font-orbitron font-bold text-lg">G</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-yellow-400/50 transition-all duration-300 hover:scale-105">
+                <span className="text-black font-garamond font-black text-lg">G</span>
               </div>
               <div className="hidden sm:block">
-                <h1 className="font-orbitron font-bold text-xl gold-gradient">
+                <h1 className="font-garamond font-bold text-xl gold-gradient">
                   GENS ICHIHARA
                 </h1>
-                <p className="text-yellow-400/80 text-xs font-rajdhani">
+                <p className="text-yellow-400/80 text-xs font-garamond">
                   FUTSAL OFFICIAL
                 </p>
               </div>
@@ -45,7 +41,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-white hover:text-yellow-400 font-rajdhani font-medium transition-colors duration-300 relative group"
+                className="text-white hover:text-yellow-400 font-inter font-medium transition-colors duration-300 relative group"
               >
                 {item.name}
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -53,12 +49,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="outline" size="sm" isGlowing>
-              入団申込
-            </Button>
-          </div>
 
           {/* モバイルメニューボタン */}
           <div className="md:hidden">
@@ -79,17 +69,12 @@ const Header = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-white hover:text-yellow-400 font-rajdhani font-medium transition-colors duration-300"
+                  className="block px-3 py-2 text-white hover:text-yellow-400 font-inter font-medium transition-colors duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="px-3 py-2">
-                <Button variant="outline" size="sm" className="w-full" isGlowing>
-                  入団申込
-                </Button>
-              </div>
             </div>
           </div>
         )}

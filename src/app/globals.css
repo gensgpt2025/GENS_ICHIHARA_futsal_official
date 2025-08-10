@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 :root {
   --background: #0a0a0a;
@@ -18,29 +17,47 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-garamond: var(--font-garamond);
+  --font-inter: var(--font-inter);
 }
 
 body {
   background: var(--dark-bg);
   color: var(--foreground);
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
 }
 
-.font-orbitron {
-  font-family: 'Orbitron', monospace;
+.font-garamond {
+  font-family: var(--font-garamond), serif;
 }
 
-.font-rajdhani {
-  font-family: 'Rajdhani', sans-serif;
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
 }
 
 .neon-glow {
   text-shadow: 
-    0 0 5px var(--neon-gold),
-    0 0 10px var(--neon-gold),
-    0 0 20px var(--neon-gold),
-    0 0 40px var(--neon-gold);
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 40px #ffffff,
+    0 0 80px #ffffff;
+}
+
+.neon-glow-subtitle {
+  text-shadow: 
+    0 0 5px #ffffff,
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 40px #ffffff;
+}
+
+.neon-glow-small {
+  text-shadow: 
+    0 0 2.5px #fff8dc,
+    0 0 5px #ffeaa7,
+    0 0 10px #fdcb6e,
+    0 0 20px #e17055;
 }
 
 .neon-border {

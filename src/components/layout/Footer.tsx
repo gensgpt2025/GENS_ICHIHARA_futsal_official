@@ -12,19 +12,19 @@ const Footer = () => {
           {/* ロゴとチーム情報 */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                <span className="text-black font-orbitron font-bold text-xl">G</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-black font-garamond font-black text-xl">G</span>
               </div>
               <div>
-                <h2 className="font-orbitron font-bold text-xl gold-gradient">
+                <h2 className="font-garamond font-bold text-xl gold-gradient">
                   GENS ICHIHARA
                 </h2>
-                <p className="text-yellow-400/80 text-sm font-rajdhani">
+                <p className="text-yellow-400/80 text-sm font-garamond">
                   FUTSAL OFFICIAL
                 </p>
               </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed mb-6 font-rajdhani">
+            <p className="text-gray-300 text-sm leading-relaxed mb-6 font-inter">
               千葉県市原市を拠点とするフットサルチーム。<br />
               情熱と技術、そしてチームワークを大切に、<br />
               地域に愛されるチームを目指しています。
@@ -41,10 +41,10 @@ const Footer = () => {
 
           {/* クイックリンク */}
           <div>
-            <h3 className="font-orbitron font-bold text-yellow-400 mb-4">
+            <h3 className="font-garamond font-bold text-yellow-400 mb-4">
               クイックリンク
             </h3>
-            <ul className="space-y-2 font-rajdhani">
+            <ul className="space-y-2 font-inter">
               <li>
                 <Link href="/team" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
                   チーム紹介
@@ -75,10 +75,10 @@ const Footer = () => {
 
           {/* 連絡先 */}
           <div>
-            <h3 className="font-orbitron font-bold text-yellow-400 mb-4">
+            <h3 className="font-garamond font-bold text-yellow-400 mb-4">
               お問い合わせ
             </h3>
-            <div className="space-y-3 font-rajdhani">
+            <div className="space-y-3 font-inter">
               <div className="flex items-center space-x-3 text-sm text-gray-300">
                 <MapPin size={16} className="text-yellow-400 flex-shrink-0" />
                 <span>千葉県市原市</span>
@@ -98,14 +98,14 @@ const Footer = () => {
         {/* 著作権 */}
         <div className="mt-8 pt-8 border-t border-yellow-400/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm font-rajdhani">
+            <p className="text-gray-400 text-sm font-inter">
               © {currentYear} GENS ICHIHARA FUTSAL OFFICIAL. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-rajdhani">
+              <Link href="/privacy" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-inter">
                 プライバシーポリシー
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-rajdhani">
+              <Link href="/terms" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-inter">
                 利用規約
               </Link>
             </div>
