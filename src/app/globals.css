@@ -74,6 +74,13 @@ body {
   background-clip: text;
 }
 
+.crown-gold {
+  color: #ffd700;
+  text-shadow: 
+    0 0 6px rgba(255, 255, 255, 0.2),
+    0 0 12px rgba(255, 255, 255, 0.1);
+}
+
 .glass-effect {
   backdrop-filter: blur(10px);
   background: rgba(255, 215, 0, 0.05);

@@ -26,7 +26,7 @@ export default function Home() {
                 {/* ロゴの上限から48px下にタイトル配置 */}
                 <div className="absolute top-12 inset-x-0 z-50">
                   <h1 className="font-garamond font-black text-4xl sm:text-6xl lg:text-7xl mb-2">
-                    <span className="text-yellow-400 neon-glow-subtitle">
+                    <span className="crown-gold">
                       GENS ICHIHARA
                     </span>
                   </h1>
@@ -34,12 +34,15 @@ export default function Home() {
                     Futsal Official Website
                   </p>
                 </div>
+                {/* ロゴの最下部にテキスト配置 */}
+                <div className="absolute bottom-20 inset-x-0 z-50">
+                  <p className="font-garamond text-2xl sm:text-3xl lg:text-5xl text-gray-300 leading-relaxed text-center">
+                    Switch Zero, Fight Hard.<br />
+                    - 0秒切替 ・ 最強球際 -
+                  </p>
+                </div>
               </div>
             </div>
-            <p className="font-inter text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              千葉県市原市を拠点とするフットサルチーム<br />
-              情熱と技術、そしてチームワークで頂点を目指す
-            </p>
           </div>
 
         </div>
@@ -49,62 +52,30 @@ export default function Home() {
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-yellow-400/5 rounded-full blur-3xl animate-pulse-gold" style={{animationDelay: '1s'}}></div>
       </section>
 
-      {/* 最新エピソードセクション */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* チーム紹介セクション */}
+      <section className="pt-0 pb-10 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
-              LATEST EPISODES
+          <div className="text-center">
+            <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-6">
+              Team Policy
             </h2>
-            <p className="font-inter text-lg text-gray-300">
-              チームの軌跡を映像で振り返る
+            <p className="font-garamond text-2xl text-gray-300 leading-relaxed">
+              献身・誠実・尊重・感謝
             </p>
           </div>
-
-          <SmartphoneVideoPlayer />
         </div>
       </section>
 
-      {/* チーム紹介セクション */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+      {/* ギャラリーセクション */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-6">
-                ABOUT TEAM
-              </h2>
-              <p className="font-inter text-lg text-gray-300 leading-relaxed mb-6">
-                GENS ICHIHARAは2019年に設立された千葉県市原市を拠点とするフットサルチームです。
-                技術向上はもちろん、チームワークと地域貢献を大切にしています。
-              </p>
-              <p className="font-inter text-lg text-gray-300 leading-relaxed mb-8">
-                初心者から経験者まで、フットサルを愛する全ての人が成長できる環境を提供し、
-                共に頂点を目指します。
-              </p>
-            </div>
-            <div className="relative">
-              <div className="glass-effect rounded-2xl p-8 neon-border">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="font-garamond font-bold text-3xl gold-gradient mb-2">25+</div>
-                    <div className="font-inter text-gray-300">アクティブメンバー</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-garamond font-bold text-3xl gold-gradient mb-2">5</div>
-                    <div className="font-inter text-gray-300">年間の経験</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-garamond font-bold text-3xl gold-gradient mb-2">週2</div>
-                    <div className="font-inter text-gray-300">定期練習</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-garamond font-bold text-3xl gold-gradient mb-2">100%</div>
-                    <div className="font-inter text-gray-300">情熱</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="text-center mb-5">
+            <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
+              Gallery
+            </h2>
           </div>
+
+          <SmartphoneVideoPlayer />
         </div>
       </section>
     </div>
