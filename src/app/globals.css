@@ -1,8 +1,16 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --gold-primary: #ffd700;
+  --gold-secondary: #ffed4e;
+  --gold-accent: #ffc107;
+  --neon-gold: #ffd700;
+  --dark-bg: #000000;
+  --dark-surface: #111111;
+  --gradient-gold: linear-gradient(135deg, #ffd700, #ffed4e, #ffc107);
 }
 
 @theme inline {
@@ -12,15 +20,70 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--dark-bg);
+  color: var(--foreground);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.font-orbitron {
+  font-family: 'Orbitron', monospace;
+}
+
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.neon-glow {
+  text-shadow: 
+    0 0 5px var(--neon-gold),
+    0 0 10px var(--neon-gold),
+    0 0 20px var(--neon-gold),
+    0 0 40px var(--neon-gold);
+}
+
+.neon-border {
+  border: 2px solid var(--gold-primary);
+  box-shadow: 
+    0 0 10px var(--neon-gold),
+    inset 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+.gold-gradient {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { text-shadow: 0 0 5px var(--neon-gold), 0 0 10px var(--neon-gold), 0 0 20px var(--neon-gold); }
+  50% { text-shadow: 0 0 2px var(--neon-gold), 0 0 5px var(--neon-gold), 0 0 10px var(--neon-gold); }
+}
+
+.animate-neon-flicker {
+  animation: neon-flicker 1.5s ease-in-out infinite;
 }
