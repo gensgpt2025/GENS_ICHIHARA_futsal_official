@@ -60,7 +60,9 @@ export default function Home() {
               Team Policy
             </h2>
             <p className="font-garamond text-2xl text-gray-300 leading-relaxed">
-              献身・誠実・尊重・感謝
+              献身・誠実・尊重・感謝<br />
+              勝利に偶然などない<br />
+              本気の先へ
             </p>
           </div>
         </div>

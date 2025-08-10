@@ -75,10 +75,12 @@ body {
 }
 
 .crown-gold {
-  color: #ffd700;
+  color: #ff8c00;
   text-shadow: 
-    0 0 6px rgba(255, 255, 255, 0.2),
-    0 0 12px rgba(255, 255, 255, 0.1);
+    0 0 2px #ffffff,
+    0 0 5px #ffd700,
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 15px rgba(255, 215, 0, 0.6);
 }
 
 .glass-effect {
