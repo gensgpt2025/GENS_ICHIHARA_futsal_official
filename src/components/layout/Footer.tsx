@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Instagram, Twitter } from 'lucide-react'
+import { Instagram } from 'lucide-react'
+import XIcon from '@/components/icons/XIcon'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -24,18 +25,38 @@ const Footer = () => {
                 </p>
               </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed mb-6 font-inter">
-              千葉県市原市を拠点とするフットサルチーム。<br />
-              情熱と技術、そしてチームワークを大切に、<br />
-              地域に愛されるチームを目指しています。
+            <p className="text-gray-300 text-sm leading-relaxed mb-4 font-inter">
+              千葉県市原市を拠点とするフットサルチームです。<br />
+              練習試合・練習参加　大歓迎です。<br />
+              ☞{' '}
+              <Link href="/contact" className="text-yellow-400 hover:text-yellow-300 transition-colors underline">
+                お問い合わせフォーム
+              </Link>
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors">
-                <Twitter size={20} />
-              </a>
+            <div className="mb-6">
+              <p className="text-gray-300 text-sm mb-2 font-inter">
+                公式SNSはこちら
+              </p>
+              <div className="flex space-x-4">
+                <a 
+                  href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+                <a 
+                  href="https://x.com/gens_ichihara?s=21&t=u0eICswe6_8pqSUQU224UA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                  aria-label="X (Twitter)"
+                >
+                  <XIcon size={20} />
+                </a>
+              </div>
             </div>
           </div>
 
@@ -73,23 +94,30 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 連絡先 */}
+          {/* スポンサー */}
           <div>
             <h3 className="font-garamond font-bold text-yellow-400 mb-4">
-              お問い合わせ
+              Sponsor
             </h3>
-            <div className="space-y-3 font-inter">
-              <div className="flex items-center space-x-3 text-sm text-gray-300">
-                <MapPin size={16} className="text-yellow-400 flex-shrink-0" />
-                <span>千葉県市原市</span>
+            <div className="space-y-4 font-inter">
+              <div className="hover:opacity-80 transition-opacity">
+                <img 
+                  src="/sponsors/cwg-banner.svg" 
+                  alt="CWG" 
+                  className="w-full max-w-[180px] h-auto"
+                />
               </div>
-              <div className="flex items-center space-x-3 text-sm text-gray-300">
-                <Phone size={16} className="text-yellow-400 flex-shrink-0" />
-                <span>お問い合わせフォームから</span>
-              </div>
-              <div className="flex items-center space-x-3 text-sm text-gray-300">
-                <Mail size={16} className="text-yellow-400 flex-shrink-0" />
-                <span>contact@gensichihara.com</span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-300">ちゃとらAtelier GENS</span>
+                <a 
+                  href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                  aria-label="ちゃとらAtelier GENS Instagram"
+                >
+                  <Instagram size={18} />
+                </a>
               </div>
             </div>
           </div>

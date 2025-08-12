@@ -48,8 +48,8 @@ export default function Home() {
         </div>
 
         {/* 背景エフェクト */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-400/5 rounded-full blur-3xl animate-pulse-gold"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-yellow-400/5 rounded-full blur-3xl animate-pulse-gold" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/20 rounded-full blur-3xl animate-pulse-gold"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-white/20 rounded-full blur-3xl animate-pulse-gold" style={{animationDelay: '1s'}}></div>
       </section>
 
       {/* チーム紹介セクション */}
