@@ -1,58 +1,83 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-
-interface Episode {
-  id: number
-  title: string
-  videoSrc: string
-}
-
-const episodes: Episode[] = [
-  { id: 0, title: 'Episode 0', videoSrc: '/videos/episode-0.mp4' },
-  { id: 1, title: 'Episode 1', videoSrc: '/videos/episode-1.mp4' },
-  { id: 2, title: 'Episode 2', videoSrc: '/videos/episode-2.mp4' },
-]
+import { VideoItem } from '@/types/gallery'
+import { getMovieGalleryVideos, getVideoUrl } from '@/lib/gallery'
+import { generateVideoSources, getVideoMimeType } from '@/lib/videoUtils'
 
 const SmartphoneVideoPlayer = () => {
+  const [videos, setVideos] = useState<VideoItem[]>([])
   const [selectedEpisode, setSelectedEpisode] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        const movieVideos = await getMovieGalleryVideos()
+        setVideos(movieVideos)
+        setLoading(false)
+      } catch (error) {
+        console.error('Failed to load videos:', error)
+        setLoading(false)
+      }
+    }
+
+    loadVideos()
+  }, [])
+
   const goToPrevious = () => {
-    setSelectedEpisode(prev => prev > 0 ? prev - 1 : episodes.length - 1)
+    setSelectedEpisode(prev => prev > 0 ? prev - 1 : videos.length - 1)
   }
 
   const goToNext = () => {
-    setSelectedEpisode(prev => prev < episodes.length - 1 ? prev + 1 : 0)
+    setSelectedEpisode(prev => prev < videos.length - 1 ? prev + 1 : 0)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center w-full py-8">
+        <div className="text-yellow-400">読み込み中...</div>
+      </div>
+    )
+  }
+
+  if (videos.length === 0) {
+    return (
+      <div className="flex justify-center items-center w-full py-8">
+        <div className="text-gray-400">動画がありません</div>
+      </div>
+    )
   }
 
   return (
-    <div className="flex justify-center items-center w-full py-8">
+    <div className="flex justify-center items-center w-full py-6 sm:py-8 px-4">
       {/* メインスマートフォンフレーム */}
-      <div className="relative w-80 h-[600px] bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden z-10">
+      <div className="relative w-72 sm:w-80 h-[540px] sm:h-[600px] bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden z-10">
         {/* スマートフォンの画面エリア */}
-        <div className="absolute inset-4 bg-black rounded-[2rem] overflow-hidden">
+        <div className="absolute inset-3 sm:inset-4 bg-black rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden">
           
           {/* エピソード選択バー（スマホ画面上部） */}
-          <div className="relative h-16 bg-gray-800/50 backdrop-blur-sm border-b border-yellow-400/20 flex items-center justify-between px-4">
+          <div className="relative h-14 sm:h-16 bg-gray-800/50 backdrop-blur-sm border-b border-yellow-400/20 flex items-center justify-between px-2 sm:px-4">
             {/* 左矢印 */}
             <button 
               onClick={goToPrevious}
-              className="text-yellow-400 hover:text-yellow-300 transition-colors p-2 hover:bg-yellow-400/10 rounded-full"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors p-1.5 sm:p-2 hover:bg-yellow-400/10 rounded-full flex-shrink-0"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={18} className="sm:w-6 sm:h-6" />
             </button>
 
             {/* ファイル名表示 */}
-            <div className="text-yellow-400 font-medium text-sm">
-              {episodes[selectedEpisode].title}
+            <div className="text-yellow-400 font-medium text-xs sm:text-sm text-center flex-1 min-w-0 truncate px-2">
+              {videos[selectedEpisode]?.title}
             </div>
 
             {/* 右矢印 */}
             <button 
               onClick={goToNext}
-              className="text-yellow-400 hover:text-yellow-300 transition-colors p-2 hover:bg-yellow-400/10 rounded-full"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors p-1.5 sm:p-2 hover:bg-yellow-400/10 rounded-full flex-shrink-0"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={18} className="sm:w-6 sm:h-6" />
             </button>
           </div>
 
@@ -65,7 +90,17 @@ const SmartphoneVideoPlayer = () => {
               preload="metadata"
               style={{ aspectRatio: '9/16' }}
             >
-              <source src={episodes[selectedEpisode].videoSrc} type="video/mp4" />
+              {/* 複数フォーマット対応 */}
+              {videos[selectedEpisode] && generateVideoSources(getVideoUrl(videos[selectedEpisode].filename)).map((source, index) => (
+                <source key={index} src={source.src} type={source.type} />
+              ))}
+              {/* フォールバック: 元のファイル */}
+              {videos[selectedEpisode] && (
+                <source 
+                  src={getVideoUrl(videos[selectedEpisode].filename)} 
+                  type={getVideoMimeType(videos[selectedEpisode].filename)} 
+                />
+              )}
               お使いのブラウザは動画再生をサポートしていません。
             </video>
           </div>

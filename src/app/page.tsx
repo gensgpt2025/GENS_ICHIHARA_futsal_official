@@ -73,7 +73,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-5">
             <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
-              Gallery
+              Movie Gallery
             </h2>
           </div>
 

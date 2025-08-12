@@ -1,0 +1,83 @@
+{
+  "photos": [
+    {
+      "id": "photo_001",
+      "title": "GENS ロゴ",
+      "filename": "gens.png",
+      "date": "2025-01-01",
+      "category": "team",
+      "thumbnail": "gens_thumb.png",
+      "description": "GENS ICHIHARAチームロゴ",
+      "year": "2025"
+    },
+    {
+      "id": "photo_002", 
+      "title": "SwitchZero Fight Hard",
+      "filename": "switchzero_fight_hard.png",
+      "date": "2025-01-15",
+      "category": "event",
+      "thumbnail": "switchzero_fight_hard_thumb.png",
+      "description": "SwitchZero Fight Hardイベント画像",
+      "year": "2025"
+    },
+    {
+      "id": "photo_003",
+      "title": "炎冠の誓い GENS",
+      "filename": "enkan_no_chikai_gens.png",
+      "date": "2025-02-01",
+      "category": "team",
+      "thumbnail": "enkan_no_chikai_gens_thumb.png",
+      "description": "炎冠の誓い GENS イメージ",
+      "year": "2025"
+    }
+  ],
+  "videos": [
+    {
+      "id": "video_001",
+      "title": "Episode 0",
+      "filename": "episode-0.mp4",
+      "date": "2025-01-01",
+      "category": "episode",
+      "thumbnail": "episode-0_thumb.jpg",
+      "description": "チーム紹介動画 Episode 0",
+      "showInMovieGallery": true,
+      "year": "2025"
+    },
+    {
+      "id": "video_002",
+      "title": "Episode 1", 
+      "filename": "episode-1.mp4",
+      "date": "2025-01-15",
+      "category": "episode",
+      "thumbnail": "episode-1_thumb.jpg",
+      "description": "チーム紹介動画 Episode 1",
+      "showInMovieGallery": true,
+      "year": "2025"
+    },
+    {
+      "id": "video_003",
+      "title": "Episode 2",
+      "filename": "episode-2.mp4", 
+      "date": "2025-02-01",
+      "category": "episode",
+      "thumbnail": "episode-2_thumb.jpg",
+      "description": "チーム紹介動画 Episode 2",
+      "showInMovieGallery": true,
+      "year": "2025"
+    }
+  ],
+  "categories": {
+    "photos": {
+      "practice": "練習",
+      "match": "試合",
+      "event": "イベント", 
+      "team": "チーム"
+    },
+    "videos": {
+      "episode": "エピソード",
+      "match": "試合",
+      "training": "練習",
+      "highlight": "ハイライト"
+    }
+  }
+}
