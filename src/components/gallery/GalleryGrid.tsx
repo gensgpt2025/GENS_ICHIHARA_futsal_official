@@ -39,7 +39,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
           <img 
             src={`/gallery/photos/${photo.filename}`}
             alt={photo.title}
-            className="w-full h-40 object-cover rounded"
+            className="w-full h-40 object-contain rounded bg-gray-900"
           />
           <div className="mt-2 text-center">
             <div className="text-sm font-bold text-yellow-400">{photo.title}</div>
@@ -56,7 +56,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
           onClick={() => onVideoClick?.(video, index)}
         >
           <video 
-            className="w-full h-40 object-cover rounded"
+            className="w-full h-40 object-contain rounded bg-gray-900"
             preload="metadata"
             muted
           >
