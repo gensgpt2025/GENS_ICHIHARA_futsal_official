@@ -26,7 +26,7 @@ export default function Home() {
                 {/* ロゴの上限から48px下にタイトル配置 */}
                 <div className="absolute top-12 inset-x-0 z-50">
                   <h1 className="font-garamond font-black text-4xl sm:text-6xl lg:text-7xl mb-2">
-                    <span className="crown-gold">
+                    <span className="text-gold-glow">
                       GENS ICHIHARA
                     </span>
                   </h1>

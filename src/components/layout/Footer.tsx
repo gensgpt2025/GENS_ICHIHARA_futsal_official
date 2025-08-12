@@ -100,12 +100,8 @@ const Footer = () => {
               Sponsor
             </h3>
             <div className="space-y-4 font-inter">
-              <div className="hover:opacity-80 transition-opacity">
-                <img 
-                  src="/sponsors/cwg-banner.svg" 
-                  alt="CWG" 
-                  className="w-full max-w-[180px] h-auto"
-                />
+              <div className="text-sm text-gray-300">
+                CWG
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-300">ちゃとらAtelier GENS</span>

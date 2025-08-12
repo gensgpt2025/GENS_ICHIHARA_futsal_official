@@ -19,6 +19,7 @@
   --font-mono: var(--font-geist-mono);
   --font-garamond: var(--font-garamond);
   --font-inter: var(--font-inter);
+  --font-playfair: var(--font-playfair);
 }
 
 body {
@@ -34,6 +35,10 @@ body {
 
 .font-inter {
   font-family: var(--font-inter), sans-serif;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), serif;
 }
 
 .neon-glow {
@@ -112,4 +117,21 @@ body {
 
 .animate-neon-flicker {
   animation: neon-flicker 1.5s ease-in-out infinite;
+}
+
+.text-gold-glow {
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255, 248, 231, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    text-shadow: 0 0 20px rgba(255, 248, 231, 0.9);
+  }
+  50% { 
+    opacity: 0.8; 
+    text-shadow: 0 0 30px rgba(255, 248, 231, 1);
+  }
 }
