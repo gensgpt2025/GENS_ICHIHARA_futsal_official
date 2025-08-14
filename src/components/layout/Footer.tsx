@@ -73,22 +73,22 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/matches" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
-                  試合結果
+                  試合予定・結果
                 </Link>
               </li>
               <li>
-                <Link href="/news" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
-                  ニュース
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
-                  練習・活動
-                </Link>
+                <a href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                  SNS
+                </a>
               </li>
               <li>
                 <Link href="/gallery" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
                   ギャラリー
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                  お問合せ
                 </Link>
               </li>
             </ul>

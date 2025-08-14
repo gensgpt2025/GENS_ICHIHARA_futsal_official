@@ -22,7 +22,7 @@ const ComingSoon = () => {
             className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-inter font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-yellow-400/50"
           >
             <ArrowLeft size={18} />
-            <span>ホームに戻る</span>
+            <span>HOME</span>
           </Link>
         </div>
       </div>

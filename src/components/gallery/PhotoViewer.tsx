@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { PhotoItem } from '@/types/gallery'
 import { getPhotoUrl } from '@/lib/gallery'
-import { X, ChevronLeft, ChevronRight, Calendar, ArrowLeft } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Calendar, ArrowLeft, ArrowUp } from 'lucide-react'
 
 interface PhotoViewerProps {
   photos: PhotoItem[]
@@ -110,8 +110,14 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
     setTimeout(() => {
       setIsClosing(false)
       onClose()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }, 300)
+  }
+
+  const handleScrollToTop = () => {
+    handleClose()
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 350)
   }
 
   if (!isOpen || !currentPhoto) return null
@@ -209,6 +215,15 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
             </button>
           </>
         )}
+
+        {/* フローティングTopボタン */}
+        <button
+          onClick={handleScrollToTop}
+          className="fixed bottom-6 right-6 z-20 w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center group"
+          title="ギャラリーのトップに戻る"
+        >
+          <ArrowUp size={20} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+        </button>
 
         {/* インジケーター */}
         {photos.length > 1 && (

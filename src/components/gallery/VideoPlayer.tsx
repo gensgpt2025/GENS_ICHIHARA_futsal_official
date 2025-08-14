@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { VideoItem } from '@/types/gallery'
 import { getVideoUrl } from '@/lib/gallery'
 import { generateVideoSources, getVideoMimeType, isSupportedVideoFormat } from '@/lib/videoUtils'
-import { X, Calendar, Play, Pause, Volume2, VolumeX, Maximize, ArrowLeft } from 'lucide-react'
+import { X, Calendar, Play, Pause, Volume2, VolumeX, Maximize, ArrowLeft, ArrowUp } from 'lucide-react'
 
 interface VideoPlayerProps {
   video: VideoItem | null
@@ -110,8 +110,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     setTimeout(() => {
       setIsClosing(false)
       onClose()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }, 300)
+  }
+
+  const handleScrollToTop = () => {
+    handleClose()
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 350)
   }
 
   const togglePlay = () => {
@@ -337,6 +343,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             </div>
           </div>
         )}
+
+        {/* フローティングTopボタン */}
+        <button
+          onClick={handleScrollToTop}
+          className="fixed bottom-6 right-6 z-20 w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center group"
+          title="ギャラリーのトップに戻る"
+        >
+          <ArrowUp size={20} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+        </button>
       </div>
     </div>
   )

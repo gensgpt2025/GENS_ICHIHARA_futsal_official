@@ -92,7 +92,7 @@ const GalleryPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black relative z-0">
+    <div className="min-h-screen bg-black cyber-grid relative z-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* ヘッダー */}
@@ -100,9 +100,6 @@ const GalleryPage: React.FC = () => {
           <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
             Gallery
           </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            GENS ICHIHARAの活動や試合の写真・動画をご覧ください
-          </p>
         </div>
 
         {/* タブナビゲーション */}
@@ -117,8 +114,8 @@ const GalleryPage: React.FC = () => {
               }`}
             >
               <Camera size={18} />
-              <span className="hidden sm:inline">写真</span>
-              <span className="sm:hidden">写真</span>
+              <span className="hidden sm:inline">Photo</span>
+              <span className="sm:hidden">Photo</span>
             </button>
             <button
               onClick={() => setActiveTab('videos')}
@@ -129,8 +126,8 @@ const GalleryPage: React.FC = () => {
               }`}
             >
               <Video size={18} />
-              <span className="hidden sm:inline">動画</span>
-              <span className="sm:hidden">動画</span>
+              <span className="hidden sm:inline">Video</span>
+              <span className="sm:hidden">Video</span>
             </button>
           </div>
         </div>
@@ -168,7 +165,7 @@ const GalleryPage: React.FC = () => {
             className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <ArrowLeft size={20} />
-            <span>ホームに戻る</span>
+            <span>HOME</span>
           </Link>
         </div>
       </div>

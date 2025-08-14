@@ -35,7 +35,7 @@ export default function Home() {
                   </p>
                 </div>
                 {/* ロゴの最下部にテキスト配置 */}
-                <div className="absolute bottom-20 inset-x-0 z-50">
+                <div className="absolute bottom-15 inset-x-0 z-50">
                   <p className="font-garamond text-2xl sm:text-3xl lg:text-5xl text-gray-300 leading-relaxed text-center">
                     Switch Zero, Fight Hard.<br />
                     - 0秒切替 ・ 最強球際 -
