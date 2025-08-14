@@ -32,7 +32,7 @@ export const getImageFormat = (filename: string): string | null => {
   const extension = getFileExtension(filename);
   
   for (const [format, extensions] of Object.entries(SUPPORTED_IMAGE_FORMATS)) {
-    if (extensions.includes(extension)) {
+    if ((extensions as readonly string[]).includes(extension)) {
       return format;
     }
   }
@@ -43,13 +43,13 @@ export const getImageFormat = (filename: string): string | null => {
 // HEIC/HEIF形式かチェック
 export const isHEICFormat = (filename: string): boolean => {
   const extension = getFileExtension(filename);
-  return SUPPORTED_IMAGE_FORMATS.HEIC.includes(extension);
+  return (SUPPORTED_IMAGE_FORMATS.HEIC as readonly string[]).includes(extension);
 };
 
 // SVG形式かチェック
 export const isSVGFormat = (filename: string): boolean => {
   const extension = getFileExtension(filename);
-  return SUPPORTED_IMAGE_FORMATS.SVG.includes(extension);
+  return (SUPPORTED_IMAGE_FORMATS.SVG as readonly string[]).includes(extension);
 };
 
 // モバイルで撮影された画像の可能性をチェック

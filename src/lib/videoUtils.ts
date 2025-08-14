@@ -31,7 +31,7 @@ export const getVideoFormat = (filename: string): string | null => {
   const extension = getVideoFileExtension(filename);
   
   for (const [format, extensions] of Object.entries(SUPPORTED_VIDEO_FORMATS)) {
-    if (extensions.includes(extension)) {
+    if ((extensions as readonly string[]).includes(extension)) {
       return format;
     }
   }

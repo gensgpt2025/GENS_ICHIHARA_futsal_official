@@ -29,7 +29,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [isClosing, setIsClosing] = useState(false)
   
   const videoRef = useRef<HTMLVideoElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (isOpen) {

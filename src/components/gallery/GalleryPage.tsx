@@ -6,7 +6,8 @@ import { getPhotos, getVideos } from '@/lib/gallery'
 import GalleryGrid from './GalleryGrid'
 import PhotoViewer from './PhotoViewer'
 import VideoPlayer from './VideoPlayer'
-import { Camera, Video } from 'lucide-react'
+import { Camera, Video, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 type TabType = 'photos' | 'videos'
 
@@ -93,6 +94,17 @@ const GalleryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black relative z-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 戻るボタン */}
+        <div className="mb-6 relative z-50">
+          <Link 
+            href="/"
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative z-50"
+          >
+            <ArrowLeft size={18} />
+            <span>トップに戻る</span>
+          </Link>
+        </div>
+
         {/* ヘッダー */}
         <div className="text-center mb-8">
           <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">

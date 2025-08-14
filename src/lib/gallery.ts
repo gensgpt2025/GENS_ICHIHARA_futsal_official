@@ -7,7 +7,20 @@ export async function getGalleryData(): Promise<GalleryData> {
       return {
         photos: [],
         videos: [],
-        categories: { photos: {}, videos: {} }
+        categories: { 
+          photos: {
+            practice: '練習',
+            match: '試合',
+            event: 'イベント',
+            team: 'チーム'
+          }, 
+          videos: {
+            episode: 'エピソード',
+            match: '試合',
+            training: '練習',
+            highlight: 'ハイライト'
+          }
+        }
       }
     }
 
@@ -22,8 +35,18 @@ export async function getGalleryData(): Promise<GalleryData> {
       photos: [],
       videos: [],
       categories: {
-        photos: {},
-        videos: {}
+        photos: {
+          practice: '練習',
+          match: '試合',
+          event: 'イベント',
+          team: 'チーム'
+        },
+        videos: {
+          episode: 'エピソード',
+          match: '試合',
+          training: '練習',
+          highlight: 'ハイライト'
+        }
       }
     }
   }
