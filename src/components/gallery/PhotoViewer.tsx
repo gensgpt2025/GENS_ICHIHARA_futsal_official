@@ -110,6 +110,7 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
     setTimeout(() => {
       setIsClosing(false)
       onClose()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }, 300)
   }
 
