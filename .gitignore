@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# audit logs - 個人情報を含む可能性があるため
+/logs

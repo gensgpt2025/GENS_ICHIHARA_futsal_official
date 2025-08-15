@@ -26,6 +26,53 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errors, setErrors] = useState<{[key: string]: string}>({})
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0)
+
+  // バリデーション関数
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {}
+
+    // 名前の検証
+    if (!formData.name.trim()) {
+      newErrors.name = 'お名前は必須項目です'
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'お名前は2文字以上で入力してください'
+    } else if (formData.name.length > 50) {
+      newErrors.name = 'お名前は50文字以内で入力してください'
+    }
+
+    // メールアドレスの検証
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!formData.email.trim()) {
+      newErrors.email = 'メールアドレスは必須項目です'
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = '正しいメールアドレスを入力してください'
+    } else if (formData.email.length > 100) {
+      newErrors.email = 'メールアドレスは100文字以内で入力してください'
+    }
+
+    // 件名の検証
+    if (!formData.subject.trim()) {
+      newErrors.subject = '件名は必須項目です'
+    } else if (formData.subject.trim().length < 5) {
+      newErrors.subject = '件名は5文字以上で入力してください'
+    } else if (formData.subject.length > 100) {
+      newErrors.subject = '件名は100文字以内で入力してください'
+    }
+
+    // メッセージの検証
+    if (!formData.message.trim()) {
+      newErrors.message = 'メッセージは必須項目です'
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'メッセージは10文字以上で入力してください'
+    } else if (formData.message.length > 1000) {
+      newErrors.message = 'メッセージは1000文字以内で入力してください'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -33,11 +80,64 @@ export default function ContactPage() {
       ...prev,
       [name]: value
     }))
+    
+    // エラーがある場合はクリア
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+
+  // 監査ログ記録関数
+  const logAuditEvent = async (action: string, status: 'success' | 'error', errorMessage?: string) => {
+    try {
+      await fetch('/api/audit-log', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action,
+          formData: {
+            category: formData.category,
+          },
+          status,
+          errorMessage
+        })
+      })
+    } catch (error) {
+      // 監査ログの失敗は元の処理を妨げない
+      console.warn('Audit log failed:', error)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // バリデーションチェック
+    if (!validateForm()) {
+      await logAuditEvent('contact_form_validation_failed', 'error', 'Form validation failed')
+      return
+    }
+    
+    // 送信頻度制限チェック（1分間に1回まで）
+    const now = Date.now()
+    const timeSinceLastSubmit = now - lastSubmitTime
+    const minInterval = 60 * 1000 // 1分
+
+    if (timeSinceLastSubmit < minInterval) {
+      const remainingTime = Math.ceil((minInterval - timeSinceLastSubmit) / 1000)
+      setErrors({
+        form: `送信間隔が短すぎます。${remainingTime}秒後に再度お試しください。`
+      })
+      await logAuditEvent('contact_form_rate_limited', 'error', `Rate limited: ${remainingTime}s remaining`)
+      return
+    }
+
     setIsSubmitting(true)
+    setErrors({})
     
     try {
       // FormSubmitサービスを使用してメール送信
@@ -57,6 +157,7 @@ export default function ContactPage() {
       
       if (response.ok) {
         setSubmitStatus('success')
+        setLastSubmitTime(now)
         // フォームをリセット
         setFormData({
           name: '',
@@ -65,12 +166,20 @@ export default function ContactPage() {
           subject: '',
           message: ''
         })
+        setErrors({})
+        
+        // 成功の監査ログ
+        await logAuditEvent('contact_form_submitted', 'success')
       } else {
         setSubmitStatus('error')
+        // 送信失敗の監査ログ
+        await logAuditEvent('contact_form_submit_failed', 'error', `HTTP ${response.status}`)
       }
     } catch (error) {
       console.error('送信エラー:', error)
       setSubmitStatus('error')
+      // エラーの監査ログ
+      await logAuditEvent('contact_form_submit_error', 'error', error instanceof Error ? error.message : 'Unknown error')
     } finally {
       setIsSubmitting(false)
     }
@@ -115,6 +224,14 @@ export default function ContactPage() {
                 </div>
               )}
 
+              {errors.form && (
+                <div className="mb-6 p-4 bg-red-400/10 border border-red-400/30 rounded-lg">
+                  <p className="text-red-400 text-center">
+                    {errors.form}
+                  </p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* 名前 */}
                 <div>
@@ -129,9 +246,17 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
+                    maxLength={50}
+                    className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:ring-1 transition-colors ${
+                      errors.name 
+                        ? 'border-red-400 focus:border-red-400 focus:ring-red-400' 
+                        : 'border-gray-600 focus:border-yellow-400 focus:ring-yellow-400'
+                    }`}
                     placeholder="山田 太郎"
                   />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                  )}
                 </div>
 
                 {/* メールアドレス */}
@@ -147,9 +272,17 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
+                    maxLength={100}
+                    className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:ring-1 transition-colors ${
+                      errors.email 
+                        ? 'border-red-400 focus:border-red-400 focus:ring-red-400' 
+                        : 'border-gray-600 focus:border-yellow-400 focus:ring-yellow-400'
+                    }`}
                     placeholder="example@email.com"
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                  )}
                 </div>
 
                 {/* お問い合わせ種別 */}
@@ -185,9 +318,17 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
+                    maxLength={100}
+                    className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:ring-1 transition-colors ${
+                      errors.subject 
+                        ? 'border-red-400 focus:border-red-400 focus:ring-red-400' 
+                        : 'border-gray-600 focus:border-yellow-400 focus:ring-yellow-400'
+                    }`}
                     placeholder="お問い合わせの件名をご記入ください"
                   />
+                  {errors.subject && (
+                    <p className="mt-1 text-sm text-red-400">{errors.subject}</p>
+                  )}
                 </div>
 
                 {/* メッセージ */}
@@ -202,9 +343,20 @@ export default function ContactPage() {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors resize-vertical"
+                    maxLength={1000}
+                    className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:ring-1 transition-colors resize-vertical ${
+                      errors.message 
+                        ? 'border-red-400 focus:border-red-400 focus:ring-red-400' 
+                        : 'border-gray-600 focus:border-yellow-400 focus:ring-yellow-400'
+                    }`}
                     placeholder="お問い合わせ内容を詳しくご記入ください"
                   />
+                  <div className="flex justify-between items-center mt-1">
+                    {errors.message && (
+                      <p className="text-sm text-red-400">{errors.message}</p>
+                    )}
+                    <p className="text-xs text-gray-400 ml-auto">{formData.message.length}/1000</p>
+                  </div>
                 </div>
 
                 {/* 送信ボタン */}
