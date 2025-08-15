@@ -8,52 +8,95 @@ import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
 const teamMembers = [
   {
     id: 1,
-    name: "田中 太郎",
+    name: "** **",
     position: "FP",
     number: 10,
-    photo: "/team/player1.jpg",
-    motto: "全力プレーで仲間を信じる"
+    photo: "/team/player1.jpg"
   },
   {
     id: 2,
-    name: "佐藤 次郎",
-    position: "GK",
-    number: 1,
-    photo: "/team/player2.jpg",
-    motto: "最後の砦として守り抜く"
+    name: "** **",
+    position: "FP",
+    number: 9,
+    photo: "/team/player2.jpg"
   },
   {
     id: 3,
-    name: "鈴木 三郎",
+    name: "** **",
     position: "FP",
-    number: 7,
-    photo: "/team/player3.jpg",
-    motto: "スピードで相手を翻弄する"
+    number: 8,
+    photo: "/team/player3.jpg"
   },
   {
     id: 4,
-    name: "高橋 四郎",
+    name: "** **",
     position: "FP",
-    number: 9,
-    photo: "/team/player4.jpg",
-    motto: "得点で勝利に貢献"
+    number: 7,
+    photo: "/team/player4.jpg"
+  },
+  {
+    id: 5,
+    name: "** **",
+    position: "FP",
+    number: 6,
+    photo: "/team/player5.jpg"
+  },
+  {
+    id: 6,
+    name: "** **",
+    position: "FP",
+    number: 5,
+    photo: "/team/player6.jpg"
+  },
+  {
+    id: 7,
+    name: "** **",
+    position: "FP",
+    number: 4,
+    photo: "/team/player7.jpg"
+  },
+  {
+    id: 8,
+    name: "** **",
+    position: "FP",
+    number: 3,
+    photo: "/team/player8.jpg"
+  },
+  {
+    id: 9,
+    name: "** **",
+    position: "FP",
+    number: 2,
+    photo: "/team/player9.jpg"
+  },
+  {
+    id: 10,
+    name: "** **",
+    position: "GK",
+    number: 1,
+    photo: "/team/player10.jpg"
+  },
+  {
+    id: 11,
+    name: "Hiroki Sugaya",
+    position: "GK",
+    number: 22,
+    photo: "/team/player11.jpg"
   }
 ]
 
 const staff = [
   {
     id: 1,
-    name: "山田 監督",
-    role: "監督",
-    photo: "/team/coach1.jpg",
-    message: "チーム一丸となって戦い抜きます"
+    name: "Hiroki Sugaya",
+    role: "ヘッドコーチ",
+    photo: "/team/coach1.jpg"
   },
   {
     id: 2,
-    name: "伊藤 コーチ",
+    name: "** **",
     role: "アシスタントコーチ",
-    photo: "/team/coach2.jpg",
-    message: "選手の成長をサポートします"
+    photo: "/team/coach2.jpg"
   }
 ]
 
@@ -62,32 +105,21 @@ export default function TeamPage() {
     <div className="min-h-screen bg-black cyber-grid">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* ヘッダー */}
-        <div className="text-center mb-12">
-          <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-6">
-            Team
-          </h1>
-        </div>
-
-        {/* チームアイデンティティセクション */}
+        {/* チームポリシー */}
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="font-garamond font-bold text-2xl lg:text-3xl gold-gradient mb-8">
-              Team Identity
+              Team Policy
             </h2>
           </div>
-
+          
           {/* メインスローガン */}
           <div className="text-center mb-12 p-8 bg-gray-900/50 rounded-xl border border-yellow-400/20">
             <h3 className="font-garamond text-3xl sm:text-4xl lg:text-5xl text-gray-200 leading-relaxed mb-4">
               Switch Zero, Fight Hard.
             </h3>
             <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">
-              - 0秒切替 ・ 最強球際 -
-            </p>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
-              瞬時の判断と切り替え、そして決して諦めない球際への執念。
-              これが私たちGENS ICHIHARAの戦い方です。
+              — 0秒切替・最強球際 —
             </p>
           </div>
 
@@ -97,28 +129,28 @@ export default function TeamPage() {
               <Heart className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">献身</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
-                チームのために全力を尽くす
+                最後の一歩まで走り切る
               </p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">誠実</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
-                常に正直で真摯な姿勢
+                正々堂々、プレーで示す
               </p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">尊重</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
-                相手と仲間への深い敬意
+                相手・仲間・審判をリスペクト
               </p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Target className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">感謝</h4>
               <p className="text-gray-300 text-sm leading-relaxed">
-                すべてに対する謙虚な心
+                支えるすべてに「ありがとう」
               </p>
             </div>
           </div>
@@ -133,9 +165,9 @@ export default function TeamPage() {
               本気の先へ
             </p>
             <p className="text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              市原市を拠点とし、地域に愛されるチームとして成長し続けます。
-              一人一人の個性を活かしながら、チーム一丸となって頂点を目指します。
-              フットサルを通じて、人として、選手として、常に成長し続けることが私たちの使命です。
+              私たちは「情熱・挑戦・絆」を胸に、Switch Zero, Fight Hard. を体現する。<br />
+              フットサルを通じて、人としても選手としても成長を重ね、<br />
+              地域に信頼されるクラブとして、チーム一丸で頂点を目指し続ける。
             </p>
           </div>
         </section>
@@ -164,8 +196,7 @@ export default function TeamPage() {
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold text-lg text-white mb-1">{member.name}</h4>
-                    <p className="text-yellow-400 text-sm mb-2">{member.position} #{member.number}</p>
-                    <p className="text-gray-300 text-xs leading-relaxed">{member.motto}</p>
+                    <p className="text-yellow-400 text-sm">{member.position} #{member.number}</p>
                   </div>
                 </div>
               ))}
@@ -174,7 +205,7 @@ export default function TeamPage() {
 
           {/* スタッフ紹介 */}
           <div>
-            <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Coaching Staff</h3>
+            <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Staff</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {staff.map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
@@ -188,8 +219,7 @@ export default function TeamPage() {
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold text-lg text-white mb-1">{member.name}</h4>
-                    <p className="text-yellow-400 text-sm mb-2">{member.role}</p>
-                    <p className="text-gray-300 text-xs leading-relaxed">{member.message}</p>
+                    <p className="text-yellow-400 text-sm">{member.role}</p>
                   </div>
                 </div>
               ))}

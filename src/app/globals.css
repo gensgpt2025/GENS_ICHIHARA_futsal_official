@@ -27,6 +27,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%23ffd700" stroke="%23ffed4e" stroke-width="2"/></svg>') 12 12, auto;
 }
 
 .font-garamond {
@@ -134,4 +135,17 @@ body {
     opacity: 0.8; 
     text-shadow: 0 0 30px rgba(255, 248, 231, 1);
   }
+}
+
+/* カスタムカーソル設定 */
+* {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%23ffd700" stroke="%23ffed4e" stroke-width="2"/></svg>') 12 12, auto;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23ffed4e" stroke="%23ffd700" stroke-width="3"/></svg>') 12 12, pointer;
+}
+
+input, textarea, select {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="%23ffc107" stroke="%23ffd700" stroke-width="2"/></svg>') 12 12, text;
 }

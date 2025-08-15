@@ -39,20 +39,41 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // 実際の送信処理をここに実装
-    // この例では2秒後に成功として処理
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitStatus('success')
-      // フォームをリセット
-      setFormData({
-        name: '',
-        email: '',
-        category: 'general',
-        subject: '',
-        message: ''
+    try {
+      // FormSubmitサービスを使用してメール送信
+      const formSubmitData = new FormData()
+      formSubmitData.append('name', formData.name)
+      formSubmitData.append('email', formData.email)
+      formSubmitData.append('category', formData.category)
+      formSubmitData.append('subject', formData.subject)
+      formSubmitData.append('message', formData.message)
+      formSubmitData.append('_subject', `GENS ICHIHARA お問い合わせ: ${formData.subject}`)
+      formSubmitData.append('_template', 'table')
+      
+      const response = await fetch('https://formsubmit.co/gensichihara@gmail.com', {
+        method: 'POST',
+        body: formSubmitData
       })
-    }, 2000)
+      
+      if (response.ok) {
+        setSubmitStatus('success')
+        // フォームをリセット
+        setFormData({
+          name: '',
+          email: '',
+          category: 'general',
+          subject: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('送信エラー:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -81,6 +102,15 @@ export default function ContactPage() {
                   <p className="text-green-400 text-center">
                     お問い合わせありがとうございます。<br />
                     内容を確認の上、後日ご返信いたします。
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-400/10 border border-red-400/30 rounded-lg">
+                  <p className="text-red-400 text-center">
+                    送信に失敗しました。<br />
+                    時間をおいて再度お試しください。
                   </p>
                 </div>
               )}
@@ -136,9 +166,9 @@ export default function ContactPage() {
                     className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-colors"
                   >
                     <option value="general">一般的なお問い合わせ</option>
-                    <option value="join">入団・体験に関して</option>
+                    <option value="practice">練習参加のお問い合わせ</option>
+                    <option value="match">練習試合のお問い合わせ</option>
                     <option value="sponsor">スポンサー・協賛について</option>
-                    <option value="media">取材・メディア関係</option>
                     <option value="other">その他</option>
                   </select>
                 </div>
@@ -237,39 +267,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* SNS連携 */}
-            <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6 sm:p-8">
-              <h2 className="font-garamond font-bold text-xl lg:text-2xl text-yellow-400 mb-6 flex items-center">
-                <Users className="mr-2" size={24} />
-                SNS・最新情報
-              </h2>
-              
-              <div className="space-y-4">
-                <p className="text-gray-300 mb-4">
-                  最新の活動情報やニュースは各SNSでお知らせしています
-                </p>
-                
-                {/* SNSリンクのプレースホルダー */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-gray-800/30 rounded-lg p-4 text-center">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <ExternalLink size={20} className="text-blue-400" />
-                    </div>
-                    <p className="text-white font-medium">Twitter</p>
-                    <p className="text-xs text-gray-400">準備中</p>
-                  </div>
-                  
-                  <div className="bg-gray-800/30 rounded-lg p-4 text-center">
-                    <div className="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <ExternalLink size={20} className="text-pink-400" />
-                    </div>
-                    <p className="text-white font-medium">Instagram</p>
-                    <p className="text-xs text-gray-400">準備中</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* スポンサー・協賛募集 */}
             <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6 sm:p-8">
               <h2 className="font-garamond font-bold text-xl lg:text-2xl text-yellow-400 mb-6 flex items-center">
@@ -280,7 +277,7 @@ export default function ContactPage() {
               <div className="space-y-4 text-gray-300">
                 <p>
                   GENS ICHIHARAでは、チーム活動を支援していただける
-                  スポンサー・協賛企業様を募集しています。
+                  スポンサー・協賛企業様・個人様を募集しています。
                 </p>
                 
                 <div className="bg-gray-800/30 rounded-lg p-4">
@@ -294,7 +291,7 @@ export default function ContactPage() {
                 </div>
                 
                 <p className="text-sm">
-                  詳細については、下記お問い合わせフォームより
+                  詳細については、お問い合わせフォームより
                   「スポンサー・協賛について」を選択してご連絡ください。
                 </p>
               </div>

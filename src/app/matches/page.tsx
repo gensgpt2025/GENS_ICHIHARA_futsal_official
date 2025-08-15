@@ -33,29 +33,38 @@ interface MatchResult {
 const upcomingMatches: UpcomingMatch[] = [
   {
     id: '1',
-    date: '2025-01-20',
-    time: '19:00',
-    opponent: '浦安FC',
-    venue: '市原フットサルアリーナ',
-    competition: '市原リーグ',
-    isHome: true
+    date: '2025-01-25',
+    time: '19:30',
+    opponent: 'イーグルスSC',
+    venue: 'モラージュ柏',
+    competition: '千葉県チャレンジリーグ',
+    isHome: false
   },
   {
     id: '2',
-    date: '2025-01-27',
-    time: '20:30',
-    opponent: 'FC千葉',
-    venue: '千葉県総合スポーツセンター',
-    competition: '市原リーグ',
+    date: '2025-02-02',
+    time: '14:00',
+    opponent: 'ライオンズSC',
+    venue: 'フッティパーク印西',
+    competition: '千葉県フットサル選手権',
     isHome: false
   },
   {
     id: '3',
-    date: '2025-02-03',
-    time: '18:00',
-    opponent: '市原ユナイテッド',
-    venue: '市原フットサルアリーナ',
-    competition: '市原リーグ',
+    date: '2025-02-09',
+    time: '10:30',
+    opponent: 'タイガーズSC',
+    venue: '館山体育館',
+    competition: '東金市リーグ',
+    isHome: false
+  },
+  {
+    id: '4',
+    date: '2025-02-16',
+    time: '16:00',
+    opponent: 'ファルコンズSC',
+    venue: '晴れのち晴れ',
+    competition: '練習試合',
     isHome: true
   }
 ]
@@ -63,50 +72,63 @@ const upcomingMatches: UpcomingMatch[] = [
 const recentResults: MatchResult[] = [
   {
     id: '1',
-    date: '2025-01-10',
-    opponent: 'FC東京',
-    homeScore: 3,
-    awayScore: 1,
-    venue: '市原フットサルアリーナ',
-    competition: '市原リーグ',
-    isHome: true,
+    date: '2025-01-12',
+    opponent: 'ホークスSC',
+    homeScore: 4,
+    awayScore: 2,
+    venue: 'モラージュ柏',
+    competition: '千葉県チャレンジリーグ',
+    isHome: false,
     result: 'win',
-    goalScorers: ['田中 10\'', '佐藤 25\'', '鈴木 38\'']
+    goalScorers: ['#10 12\'', '#7 28\'', '#9 35\'', '#22 43\'']
   },
   {
     id: '2',
-    date: '2024-12-28',
-    opponent: '千葉FC',
-    homeScore: 2,
+    date: '2024-12-22',
+    opponent: 'シャークスSC',
+    homeScore: 3,
     awayScore: 0,
-    venue: '市原フットサルアリーナ',
+    venue: '晴れのち晴れ',
     competition: '練習試合',
     isHome: true,
     result: 'win',
-    goalScorers: ['高橋 15\'', '田中 33\'']
+    goalScorers: ['#8 18\'', '#6 31\'', '#4 44\'']
   },
   {
     id: '3',
-    date: '2024-12-21',
-    opponent: '船橋フットサル',
-    homeScore: 1,
-    awayScore: 1,
-    venue: '船橋アリーナ',
-    competition: '市原リーグ',
+    date: '2024-12-15',
+    opponent: 'ウルブズSC',
+    homeScore: 2,
+    awayScore: 2,
+    venue: 'フッティパーク印西',
+    competition: '千葉県フットサル選手権',
     isHome: false,
     result: 'draw',
-    goalScorers: ['佐藤 42\'']
+    goalScorers: ['#10 25\'', '#3 38\'']
   },
   {
     id: '4',
-    date: '2024-12-14',
-    opponent: '柏レイソル',
-    homeScore: 0,
-    awayScore: 2,
-    venue: '柏の葉フットサルコート',
-    competition: '市原リーグ',
+    date: '2024-12-08',
+    opponent: 'ドラゴンズSC',
+    homeScore: 1,
+    awayScore: 3,
+    venue: '館山体育館',
+    competition: '東金市リーグ',
     isHome: false,
-    result: 'loss'
+    result: 'loss',
+    goalScorers: ['#5 22\'']
+  },
+  {
+    id: '5',
+    date: '2024-11-30',
+    opponent: 'レパーズSC',
+    homeScore: 5,
+    awayScore: 1,
+    venue: '晴れのち晴れ',
+    competition: '練習試合',
+    isHome: true,
+    result: 'win',
+    goalScorers: ['#10 8\'', '#10 15\'', '#7 23\'', '#9 39\'', '#2 45\'']
   }
 ]
 

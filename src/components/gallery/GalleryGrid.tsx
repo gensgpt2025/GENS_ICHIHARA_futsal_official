@@ -33,7 +33,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
       {photos.map((photo, index) => (
         <div 
           key={photo.id}
-          className="w-full h-64 bg-transparent border-2 border-yellow-400 rounded-lg p-4"
+          className="w-full h-64 bg-gray-900/50 border border-yellow-400/20 rounded-lg p-4 hover:border-yellow-400/40 transition-all duration-300"
           onClick={() => onPhotoClick?.(photo, index)}
         >
           <img 
@@ -52,7 +52,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
       {videos.map((video, index) => (
         <div 
           key={video.id}
-          className="w-full h-64 bg-transparent border-2 border-yellow-400 rounded-lg p-4"
+          className="w-full h-64 bg-gray-900/50 border border-yellow-400/20 rounded-lg p-4 hover:border-yellow-400/40 transition-all duration-300"
           onClick={() => onVideoClick?.(video, index)}
         >
           <video 

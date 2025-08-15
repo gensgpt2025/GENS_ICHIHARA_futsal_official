@@ -77,9 +77,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                <Link href="/sns" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
                   SNS
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/gallery" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
@@ -106,7 +106,7 @@ const Footer = () => {
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-300">ちゃとらAtelier GENS</span>
                 <a 
-                  href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr"
+                  href="https://www.instagram.com/chatora_atelier_gens?igsh=b3E2YnM3MWc4bWpq&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-yellow-400 hover:text-yellow-300 transition-colors"
