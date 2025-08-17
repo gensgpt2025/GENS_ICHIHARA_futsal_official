@@ -97,13 +97,6 @@ export function getPhotoUrl(filename: string): string {
   return `/gallery/photos/${filename}`
 }
 
-export function getVideoUrl(filename: string): string {
-  return `/gallery/videos/${filename}`
-}
-
-export function getThumbnailUrl(filename: string, type: 'photo' | 'video'): string {
-  if (type === 'photo') {
-    return `/gallery/photos/thumbnails/${filename}`
-  }
-  return `/gallery/videos/thumbnails/${filename}`
+export function getThumbnailUrl(filename: string): string {
+  return `/gallery/photos/thumbnails/${filename}`
 }

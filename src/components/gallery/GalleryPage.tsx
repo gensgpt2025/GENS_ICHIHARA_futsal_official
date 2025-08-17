@@ -1,30 +1,21 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { PhotoItem, VideoItem } from '@/types/gallery'
-import { getPhotos, getVideos } from '@/lib/gallery'
+import { PhotoItem } from '@/types/gallery'
+import { getPhotos } from '@/lib/gallery'
 import GalleryGrid from './GalleryGrid'
 import PhotoViewer from './PhotoViewer'
-import VideoPlayer from './VideoPlayer'
-import { Camera, Video, ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
-type TabType = 'photos' | 'videos'
-
 const GalleryPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('photos')
   const [photos, setPhotos] = useState<PhotoItem[]>([])
-  const [videos, setVideos] = useState<VideoItem[]>([])
   const [loading, setLoading] = useState(true)
   
   // Photo Viewer
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null)
   const [photoIndex, setPhotoIndex] = useState(0)
   const [isPhotoViewerOpen, setIsPhotoViewerOpen] = useState(false)
-  
-  // Video Player
-  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null)
-  const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false)
 
   useEffect(() => {
     loadGalleryData()
@@ -35,22 +26,15 @@ const GalleryPage: React.FC = () => {
       console.log('🔍 Starting gallery data load...')
       setLoading(true)
       
-      console.log('📡 Fetching photos and videos...')
-      const [photoData, videoData] = await Promise.all([
-        getPhotos(),
-        getVideos()
-      ])
+      console.log('📡 Fetching photos...')
+      const photoData = await getPhotos()
       
       console.log('📸 Raw photos data:', photoData)
-      console.log('🎥 Raw videos data:', videoData)
       
       setPhotos(photoData)
-      setVideos(videoData)
       
       console.log('✅ Photos loaded:', photoData.length, 'items')
-      console.log('✅ Videos loaded:', videoData.length, 'items')
       console.log('📄 Photos state:', photoData)
-      console.log('📹 Videos state:', videoData)
       
       setLoading(false)
     } catch (error) {
@@ -65,10 +49,6 @@ const GalleryPage: React.FC = () => {
     setIsPhotoViewerOpen(true)
   }
 
-  const handleVideoClick = (video: VideoItem, index: number) => {
-    setSelectedVideo(video)
-    setIsVideoPlayerOpen(true)
-  }
 
   const handlePhotoViewerNext = () => {
     const nextIndex = (photoIndex + 1) % photos.length
@@ -98,47 +78,30 @@ const GalleryPage: React.FC = () => {
         {/* ヘッダー */}
         <div className="text-center mb-8">
           <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
-            Gallery
+            Photo Gallery
           </h1>
         </div>
 
-        {/* タブナビゲーション */}
-        <div className="flex justify-center mb-8 px-4">
-          <div className="bg-gray-900 rounded-lg p-1 flex w-full max-w-md">
-            <button
-              onClick={() => setActiveTab('photos')}
-              className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 rounded-md transition-all duration-300 flex-1 ${
-                activeTab === 'photos'
-                  ? 'bg-yellow-400 text-black font-semibold'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              <Camera size={18} />
-              <span className="hidden sm:inline">Photo</span>
-              <span className="sm:hidden">Photo</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('videos')}
-              className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 rounded-md transition-all duration-300 flex-1 ${
-                activeTab === 'videos'
-                  ? 'bg-yellow-400 text-black font-semibold'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              <Video size={18} />
-              <span className="hidden sm:inline">Video</span>
-              <span className="sm:hidden">Video</span>
-            </button>
-          </div>
+        {/* YouTube動画リンク */}
+        <div className="text-center mb-8">
+          <a
+            href="https://www.youtube.com/@GENSICHIHARA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            <span className="text-lg">動画は 公式youtubeで公開中</span>
+            <ExternalLink size={20} />
+          </a>
         </div>
 
 
         {/* ギャラリーグリッド */}
         <GalleryGrid
-          photos={activeTab === 'photos' ? photos : []}
-          videos={activeTab === 'videos' ? videos : []}
+          photos={photos}
+          videos={[]}
           onPhotoClick={handlePhotoClick}
-          onVideoClick={handleVideoClick}
+          onVideoClick={() => {}}
         />
 
         {/* PhotoViewer */}
@@ -149,13 +112,6 @@ const GalleryPage: React.FC = () => {
           onClose={() => setIsPhotoViewerOpen(false)}
           onNext={handlePhotoViewerNext}
           onPrevious={handlePhotoViewerPrevious}
-        />
-
-        {/* VideoPlayer */}
-        <VideoPlayer
-          video={selectedVideo}
-          isOpen={isVideoPlayerOpen}
-          onClose={() => setIsVideoPlayerOpen(false)}
         />
 
         {/* ホームに戻るボタン */}

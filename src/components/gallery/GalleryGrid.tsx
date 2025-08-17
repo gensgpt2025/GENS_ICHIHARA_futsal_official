@@ -3,9 +3,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { PhotoItem, VideoItem } from '@/types/gallery'
-import { getPhotoUrl, getVideoUrl, getThumbnailUrl } from '@/lib/gallery'
+import { getPhotoUrl, getThumbnailUrl } from '@/lib/gallery'
 import { isSupportedImageFormat, getFormatDescription } from '@/lib/imageUtils'
-import { isSupportedVideoFormat, getVideoFormatDescription } from '@/lib/videoUtils'
 import { Play } from 'lucide-react'
 
 interface GalleryGridProps {

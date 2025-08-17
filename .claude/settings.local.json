@@ -12,7 +12,9 @@
       "Bash(copy \"C:\\Users\\psuga\\.claude\\gens-ichihara\\Switch Zero,Fight Hard..mp4\" \"public/gallery/\")",
       "Bash(cp:*)",
       "Bash(mv:*)",
-      "Bash(ffmpeg:*)"
+      "Bash(ffmpeg:*)",
+      "Bash(rm:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": [],
