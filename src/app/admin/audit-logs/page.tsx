@@ -1,5 +1,6 @@
 'use client'
 
+import { notFound } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { Eye, Download, Calendar, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 
@@ -17,6 +18,9 @@ interface AuditLogEntry {
 }
 
 export default function AuditLogsPage() {
+  // 🚨 セキュリティ対策: 管理者ページを一時的に無効化
+  notFound()
+  
   const [logs, setLogs] = useState<AuditLogEntry[]>([])
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
   const [loading, setLoading] = useState(false)
