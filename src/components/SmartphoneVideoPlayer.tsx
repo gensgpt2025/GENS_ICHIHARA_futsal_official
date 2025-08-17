@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { VideoItem } from '@/types/gallery'
 import { getMovieGalleryVideos } from '@/lib/gallery'
@@ -90,9 +91,11 @@ const SmartphoneVideoPlayer = () => {
                 className="w-full h-full relative cursor-pointer group"
                 onClick={() => currentVideo.youtubeUrl && openYouTube(currentVideo.youtubeUrl)}
               >
-                <img
+                <Image
                   src={getYouTubeThumbnail(currentVideo.youtubeId)}
                   alt={currentVideo.title}
+                  width={360}
+                  height={640}
                   className="w-full h-full object-cover"
                   style={{ aspectRatio: '9/16' }}
                 />

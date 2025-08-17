@@ -2,7 +2,7 @@
 
 import { notFound } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
-import { Eye, Download, Calendar, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import { Download, Calendar, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
 
 interface AuditLogEntry {
   timestamp: string

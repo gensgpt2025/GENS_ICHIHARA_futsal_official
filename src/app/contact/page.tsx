@@ -6,13 +6,11 @@ import {
   ArrowLeft, 
   Mail, 
   MapPin, 
-  Users, 
   Heart, 
   Send,
   User,
   MessageSquare,
   Building,
-  ExternalLink,
   UserCheck
 } from 'lucide-react'
 

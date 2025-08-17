@@ -6,7 +6,6 @@ import {
   ArrowLeft, 
   Users, 
   ExternalLink,
-  Twitter,
   Instagram,
   Youtube
 } from 'lucide-react'

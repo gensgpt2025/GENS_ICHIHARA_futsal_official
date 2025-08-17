@@ -1,10 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { PhotoItem, VideoItem } from '@/types/gallery'
-import { getPhotoUrl } from '@/lib/gallery'
-import { Play } from 'lucide-react'
 
 interface GalleryGridProps {
   photos?: PhotoItem[]
@@ -19,11 +17,6 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
   onPhotoClick,
   onVideoClick
 }) => {
-  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set())
-
-  const handleImageError = (id: string) => {
-    setImageErrors(prev => new Set(prev).add(id))
-  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -34,9 +27,11 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
           className="w-full h-64 bg-gray-900/50 border border-yellow-400/20 rounded-lg p-4 hover:border-yellow-400/40 transition-all duration-300"
           onClick={() => onPhotoClick?.(photo, index)}
         >
-          <img 
+          <Image 
             src={`/gallery/photos/${photo.filename}`}
             alt={photo.title}
+            width={300}
+            height={160}
             className="w-full h-40 object-contain rounded bg-gray-900"
           />
           <div className="mt-2 text-center">

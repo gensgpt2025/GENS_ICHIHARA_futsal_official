@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 
 const ComingSoon = () => {
@@ -8,10 +9,13 @@ const ComingSoon = () => {
       <div className="w-full max-w-4xl mx-auto px-4">
         {/* Coming Soon SVG */}
         <div className="flex justify-center mb-8">
-          <img 
+          <Image 
             src="/coming_soon.svg" 
             alt="Coming Soon" 
+            width={800}
+            height={400}
             className="w-full max-w-2xl h-auto"
+            priority
           />
         </div>
         
