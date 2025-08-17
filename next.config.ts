@@ -76,7 +76,14 @@ const nextConfig: NextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // ローカルの画像パターンを許可
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        port: '',
+        pathname: '/vi/**',
+      },
+    ],
     // カスタムローダーでHEIC対応
     loader: 'default',
     // デバイスサイズ設定
