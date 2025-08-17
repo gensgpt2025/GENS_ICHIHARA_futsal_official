@@ -18,7 +18,9 @@ export async function getGalleryData(): Promise<GalleryData> {
             episode: 'エピソード',
             match: '試合',
             training: '練習',
-            highlight: 'ハイライト'
+            highlight: 'ハイライト',
+            anthem: 'アンセム',
+            motto: 'モットー'
           }
         }
       }
@@ -45,7 +47,9 @@ export async function getGalleryData(): Promise<GalleryData> {
           episode: 'エピソード',
           match: '試合',
           training: '練習',
-          highlight: 'ハイライト'
+          highlight: 'ハイライト',
+          anthem: 'アンセム',
+          motto: 'モットー'
         }
       }
     }
