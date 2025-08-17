@@ -15,19 +15,22 @@ export const getAllSupportedVideoExtensions = (): string[] => {
 };
 
 // ファイル拡張子が対応しているかチェック
-export const isSupportedVideoFormat = (filename: string): boolean => {
+export const isSupportedVideoFormat = (filename: string | undefined): boolean => {
+  if (!filename) return false;
   const extension = getVideoFileExtension(filename);
   return getAllSupportedVideoExtensions().includes(extension);
 };
 
 // ファイル拡張子を取得（小文字で返す）
-export const getVideoFileExtension = (filename: string): string => {
+export const getVideoFileExtension = (filename: string | undefined): string => {
+  if (!filename) return '';
   const lastDot = filename.lastIndexOf('.');
   return lastDot !== -1 ? filename.slice(lastDot).toLowerCase() : '';
 };
 
 // 動画フォーマットタイプを取得
-export const getVideoFormat = (filename: string): string | null => {
+export const getVideoFormat = (filename: string | undefined): string | null => {
+  if (!filename) return null;
   const extension = getVideoFileExtension(filename);
   
   for (const [format, extensions] of Object.entries(SUPPORTED_VIDEO_FORMATS)) {
@@ -40,7 +43,8 @@ export const getVideoFormat = (filename: string): string | null => {
 };
 
 // MIMEタイプを取得
-export const getVideoMimeType = (filename: string): string => {
+export const getVideoMimeType = (filename: string | undefined): string => {
+  if (!filename) return 'video/mp4'; // フォールバック
   const extension = getVideoFileExtension(filename);
   
   switch (extension) {
@@ -85,7 +89,8 @@ export const getOptimalVideoFormat = (availableFormats: string[]): string => {
 };
 
 // 動画フォーマットの説明を取得
-export const getVideoFormatDescription = (filename: string): string => {
+export const getVideoFormatDescription = (filename: string | undefined): string => {
+  if (!filename) return '未対応フォーマット';
   const format = getVideoFormat(filename);
   
   switch (format) {
@@ -105,7 +110,8 @@ export const getVideoFormatDescription = (filename: string): string => {
 };
 
 // 複数フォーマット用のsourceタグ生成
-export const generateVideoSources = (baseFilename: string): Array<{src: string, type: string}> => {
+export const generateVideoSources = (baseFilename: string | undefined): Array<{src: string, type: string}> => {
+  if (!baseFilename) return [];
   // 実際のファイル拡張子を確認して、そのファイルのみを返す
   const extension = getVideoFileExtension(baseFilename);
   const mimeType = getVideoMimeType(baseFilename);

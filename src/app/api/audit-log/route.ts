@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     // IPアドレスの取得と匿名化
     const forwarded = request.headers.get('x-forwarded-for')
     const realIP = request.headers.get('x-real-ip')
-    const rawIP = forwarded?.split(',')[0] || realIP || request.ip || 'unknown'
+    const rawIP = forwarded?.split(',')[0] || realIP || 'unknown'
     const anonymizedIP = anonymizeIP(rawIP)
 
     // 監査ログエントリーの作成

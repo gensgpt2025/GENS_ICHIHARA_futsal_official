@@ -57,7 +57,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h2 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-6">
-              Team Policy
+              GENS SPIRIT
             </h2>
             <p className="font-garamond text-2xl text-gray-300 leading-relaxed">
               献身・誠実・尊重・感謝<br />

@@ -12,10 +12,12 @@ export interface PhotoItem {
 export interface VideoItem {
   id: string
   title: string
-  filename: string
+  filename?: string
+  youtubeId?: string
+  youtubeUrl?: string
   date: string
   category: VideoCategory
-  thumbnail: string
+  thumbnail?: string
   description: string
   showInMovieGallery: boolean
   year: string
@@ -31,7 +33,7 @@ export interface GalleryData {
 }
 
 export type PhotoCategory = 'practice' | 'match' | 'event' | 'team'
-export type VideoCategory = 'episode' | 'match' | 'training' | 'highlight'
+export type VideoCategory = 'episode' | 'match' | 'training' | 'highlight' | 'anthem' | 'motto'
 
 export interface GalleryFilter {
   category?: PhotoCategory | VideoCategory

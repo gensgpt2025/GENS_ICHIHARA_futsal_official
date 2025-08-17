@@ -189,14 +189,6 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
           </div>
         </div>
 
-        {/* 説明文 */}
-        {currentPhoto.description && (
-          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/70 to-transparent">
-            <p className="text-white text-center opacity-90 text-sm sm:text-base">
-              {currentPhoto.description}
-            </p>
-          </div>
-        )}
 
         {/* ナビゲーション */}
         {photos.length > 1 && (
@@ -227,7 +219,7 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
 
         {/* インジケーター */}
         {photos.length > 1 && (
-          <div className={`absolute left-1/2 transform -translate-x-1/2 ${currentPhoto.description ? 'bottom-16 sm:bottom-20' : 'bottom-4 sm:bottom-6'}`}>
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-4 sm:bottom-6">
             <div className="flex space-x-1 sm:space-x-2 justify-center">
               {photos.map((_, index) => (
                 <div

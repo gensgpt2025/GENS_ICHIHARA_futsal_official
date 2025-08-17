@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter, EB_Garamond, Playfair_Display } from "next/fo
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import MouseGlow from "@/components/MouseGlow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${garamond.variable} ${inter.variable} ${playfairDisplay.variable} antialiased`}
       >
+        <MouseGlow />
         <Header />
         <main className="min-h-screen pt-16">
           {children}

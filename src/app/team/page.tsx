@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
 
 // サンプルメンバーデータ（実際のデータに置き換える）
@@ -78,19 +79,19 @@ const teamMembers = [
   },
   {
     id: 11,
-    name: "Hiroki Sugaya",
+    name: "菅谷 裕樹　Hiroki Sugaya",
     position: "GK",
     number: 22,
-    photo: "/team/player11.jpg"
+    photo: "/team/hiroki-sugaya.png"
   }
 ]
 
 const staff = [
   {
     id: 1,
-    name: "Hiroki Sugaya",
+    name: "菅谷 裕樹　Hiroki Sugaya",
     role: "ヘッドコーチ",
-    photo: "/team/coach1.jpg"
+    photo: "/team/coach-hiroki.png"
   },
   {
     id: 2,
@@ -109,7 +110,7 @@ export default function TeamPage() {
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="font-garamond font-bold text-2xl lg:text-3xl gold-gradient mb-8">
-              Team Policy
+              GENS SPIRIT
             </h2>
           </div>
           
@@ -186,13 +187,23 @@ export default function TeamPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {teamMembers.map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
-                  <div className="aspect-square bg-gray-800 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <span className="text-2xl font-bold text-yellow-400">#{member.number}</span>
+                  <div className="aspect-square bg-gray-800 flex items-center justify-center relative">
+                    {member.photo === "/team/hiroki-sugaya.png" ? (
+                      <Image
+                        src={member.photo}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <div className="w-20 h-20 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                          <span className="text-2xl font-bold text-yellow-400">#{member.number}</span>
+                        </div>
+                        <p className="text-gray-400 text-sm">Photo Coming Soon</p>
                       </div>
-                      <p className="text-gray-400 text-sm">Photo Coming Soon</p>
-                    </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold text-lg text-white mb-1">{member.name}</h4>
@@ -209,13 +220,23 @@ export default function TeamPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {staff.map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
-                  <div className="aspect-square bg-gray-800 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <Users className="w-8 h-8 text-yellow-400" />
+                  <div className="aspect-square bg-gray-800 flex items-center justify-center relative">
+                    {member.photo === "/team/coach-hiroki.png" ? (
+                      <Image
+                        src={member.photo}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <div className="w-20 h-20 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                          <Users className="w-8 h-8 text-yellow-400" />
+                        </div>
+                        <p className="text-gray-400 text-sm">Photo Coming Soon</p>
                       </div>
-                      <p className="text-gray-400 text-sm">Photo Coming Soon</p>
-                    </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold text-lg text-white mb-1">{member.name}</h4>

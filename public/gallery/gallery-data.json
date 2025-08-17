@@ -2,7 +2,7 @@
   "photos": [
     {
       "id": "photo_001",
-      "title": "GENS ロゴ",
+      "title": "GENS ICHIHARA Logo",
       "filename": "gens.png",
       "date": "2025-01-01",
       "category": "team",
@@ -22,12 +22,12 @@
     },
     {
       "id": "photo_003",
-      "title": "炎冠の誓い GENS",
+      "title": "炎冠の誓い",
       "filename": "enkan_no_chikai_gens.png",
       "date": "2025-02-01",
       "category": "team",
       "thumbnail": "enkan_no_chikai_gens_thumb.png",
-      "description": "炎冠の誓い GENS イメージ",
+      "description": "炎冠の誓い - GENSの心意気",
       "year": "2025"
     }
   ],
@@ -35,10 +35,10 @@
     {
       "id": "video_001",
       "title": "Episode 0",
-      "filename": "episode-0.mp4",
+      "youtubeId": "qDh07HMR7LQ",
+      "youtubeUrl": "https://youtube.com/shorts/qDh07HMR7LQ?si=z5l54VJyzGhyBQha",
       "date": "2025-01-01",
       "category": "episode",
-      "thumbnail": "episode-0_thumb.jpg",
       "description": "チーム紹介動画 Episode 0",
       "showInMovieGallery": true,
       "year": "2025"
@@ -46,10 +46,10 @@
     {
       "id": "video_002",
       "title": "Episode 1", 
-      "filename": "episode-1.mp4",
+      "youtubeId": "8tdQSdsDH2g",
+      "youtubeUrl": "https://youtube.com/shorts/8tdQSdsDH2g?si=VbPhunuYqE3tTApm",
       "date": "2025-01-15",
       "category": "episode",
-      "thumbnail": "episode-1_thumb.jpg",
       "description": "チーム紹介動画 Episode 1",
       "showInMovieGallery": true,
       "year": "2025"
@@ -57,11 +57,33 @@
     {
       "id": "video_003",
       "title": "Episode 2",
-      "filename": "episode-2.mp4", 
+      "youtubeId": "6GcS2Ik6wSQ",
+      "youtubeUrl": "https://youtube.com/shorts/6GcS2Ik6wSQ?si=XlIVBC0BaDh56f_h",
       "date": "2025-02-01",
       "category": "episode",
-      "thumbnail": "episode-2_thumb.jpg",
       "description": "チーム紹介動画 Episode 2",
+      "showInMovieGallery": true,
+      "year": "2025"
+    },
+    {
+      "id": "video_004",
+      "title": "Flame Crown Anthem",
+      "youtubeId": "FraYb6UU54s",
+      "youtubeUrl": "https://youtu.be/FraYb6UU54s",
+      "date": "2025-02-15",
+      "category": "anthem",
+      "description": "炎冠の賛美歌 - チームアンセム",
+      "showInMovieGallery": true,
+      "year": "2025"
+    },
+    {
+      "id": "video_005",
+      "title": "Switch Zero, Fight Hard",
+      "youtubeId": "odmGV9qn0DY",
+      "youtubeUrl": "https://youtu.be/odmGV9qn0DY",
+      "date": "2025-02-14",
+      "category": "motto",
+      "description": "チームモットー動画 - 0秒切替・最強球際",
       "showInMovieGallery": true,
       "year": "2025"
     }
@@ -77,7 +99,9 @@
       "episode": "エピソード",
       "match": "試合",
       "training": "練習",
-      "highlight": "ハイライト"
+      "highlight": "ハイライト",
+      "anthem": "アンセム",
+      "motto": "モットー"
     }
   }
 }
