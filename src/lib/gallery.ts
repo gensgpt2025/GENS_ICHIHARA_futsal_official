@@ -97,6 +97,3 @@ export function getPhotoUrl(filename: string): string {
   return `/gallery/photos/${filename}`
 }
 
-export function getThumbnailUrl(filename: string): string {
-  return `/gallery/photos/thumbnails/${filename}`
-}
