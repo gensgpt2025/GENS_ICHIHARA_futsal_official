@@ -29,108 +29,10 @@ interface MatchResult {
 }
 
 
-// サンプルデータ
-const upcomingMatches: UpcomingMatch[] = [
-  {
-    id: '1',
-    date: '2025-01-25',
-    time: '19:30',
-    opponent: 'イーグルスSC',
-    venue: 'モラージュ柏',
-    competition: '千葉県チャレンジリーグ',
-    isHome: false
-  },
-  {
-    id: '2',
-    date: '2025-02-02',
-    time: '14:00',
-    opponent: 'ライオンズSC',
-    venue: 'フッティパーク印西',
-    competition: '千葉県フットサル選手権',
-    isHome: false
-  },
-  {
-    id: '3',
-    date: '2025-02-09',
-    time: '10:30',
-    opponent: 'タイガーズSC',
-    venue: '館山体育館',
-    competition: '東金市リーグ',
-    isHome: false
-  },
-  {
-    id: '4',
-    date: '2025-02-16',
-    time: '16:00',
-    opponent: 'ファルコンズSC',
-    venue: '晴れのち晴れ',
-    competition: '練習試合',
-    isHome: true
-  }
-]
+// データ配列（現在は空）
+const upcomingMatches: UpcomingMatch[] = []
 
-const recentResults: MatchResult[] = [
-  {
-    id: '1',
-    date: '2025-01-12',
-    opponent: 'ホークスSC',
-    homeScore: 4,
-    awayScore: 2,
-    venue: 'モラージュ柏',
-    competition: '千葉県チャレンジリーグ',
-    isHome: false,
-    result: 'win',
-    goalScorers: ['#10 12\'', '#7 28\'', '#9 35\'', '#22 43\'']
-  },
-  {
-    id: '2',
-    date: '2024-12-22',
-    opponent: 'シャークスSC',
-    homeScore: 3,
-    awayScore: 0,
-    venue: '晴れのち晴れ',
-    competition: '練習試合',
-    isHome: true,
-    result: 'win',
-    goalScorers: ['#8 18\'', '#6 31\'', '#4 44\'']
-  },
-  {
-    id: '3',
-    date: '2024-12-15',
-    opponent: 'ウルブズSC',
-    homeScore: 2,
-    awayScore: 2,
-    venue: 'フッティパーク印西',
-    competition: '千葉県フットサル選手権',
-    isHome: false,
-    result: 'draw',
-    goalScorers: ['#10 25\'', '#3 38\'']
-  },
-  {
-    id: '4',
-    date: '2024-12-08',
-    opponent: 'ドラゴンズSC',
-    homeScore: 1,
-    awayScore: 3,
-    venue: '館山体育館',
-    competition: '東金市リーグ',
-    isHome: false,
-    result: 'loss',
-    goalScorers: ['#5 22\'']
-  },
-  {
-    id: '5',
-    date: '2024-11-30',
-    opponent: 'レパーズSC',
-    homeScore: 5,
-    awayScore: 1,
-    venue: '晴れのち晴れ',
-    competition: '練習試合',
-    isHome: true,
-    result: 'win',
-    goalScorers: ['#10 8\'', '#10 15\'', '#7 23\'', '#9 39\'', '#2 45\'']
-  }
-]
+const recentResults: MatchResult[] = []
 
 
 export default function MatchesPage() {
@@ -204,7 +106,15 @@ export default function MatchesPage() {
         {activeSection === 'upcoming' && (
           <section className="mb-12">
             <div className="space-y-4">
-              {upcomingMatches.map((match) => (
+              {upcomingMatches.length === 0 ? (
+                <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-8 text-center">
+                  <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-bold text-white mb-2">試合予定</h3>
+                  <p className="text-gray-300">現在、予定されている試合はありません。</p>
+                  <p className="text-gray-400 text-sm mt-2">新しい試合が決まり次第、こちらに掲載いたします。</p>
+                </div>
+              ) : (
+                upcomingMatches.map((match) => (
                 <div key={match.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6 hover:border-yellow-400/40 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
@@ -249,7 +159,7 @@ export default function MatchesPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
           </section>
         )}
@@ -258,7 +168,15 @@ export default function MatchesPage() {
         {activeSection === 'results' && (
           <section className="mb-12">
             <div className="space-y-4">
-              {recentResults.map((match) => {
+              {recentResults.length === 0 ? (
+                <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-8 text-center">
+                  <Trophy size={48} className="mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-bold text-white mb-2">試合結果</h3>
+                  <p className="text-gray-300">まだ試合結果がありません。</p>
+                  <p className="text-gray-400 text-sm mt-2">試合が終了次第、こちらに結果を掲載いたします。</p>
+                </div>
+              ) : (
+                recentResults.map((match) => {
                 const resultStyle = getResultStyle(match.result)
                 return (
                   <div key={match.id} className={`bg-gray-900/50 rounded-xl border ${resultStyle.border} p-6 hover:border-opacity-60 transition-all duration-300`}>
@@ -312,7 +230,7 @@ export default function MatchesPage() {
                     </div>
                   </div>
                 )
-              })}
+              }))}
             </div>
           </section>
         )}

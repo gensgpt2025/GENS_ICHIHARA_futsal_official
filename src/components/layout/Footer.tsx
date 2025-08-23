@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Instagram } from 'lucide-react'
+import { Instagram, Youtube } from 'lucide-react'
 import XIcon from '@/components/icons/XIcon'
 
 const Footer = () => {
@@ -55,6 +55,15 @@ const Footer = () => {
                   aria-label="X (Twitter)"
                 >
                   <XIcon size={20} />
+                </a>
+                <a 
+                  href="https://www.youtube.com/@gensichihara"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                  aria-label="YouTube"
+                >
+                  <Youtube size={20} />
                 </a>
               </div>
             </div>
