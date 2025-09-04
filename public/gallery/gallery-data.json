@@ -29,6 +29,16 @@
       "thumbnail": "enkan_no_chikai_gens_thumb.png",
       "description": "炎冠の誓い - GENSの心意気",
       "year": "2025"
+    },
+    {
+      "id": "photo_004",
+      "title": "CWG バナー",
+      "filename": "CWG_512x256_fill.png",
+      "date": "2025-09-04",
+      "category": "event",
+      "thumbnail": "",
+      "description": "CWG バナー画像",
+      "year": "2025"
     }
   ],
   "videos": [
