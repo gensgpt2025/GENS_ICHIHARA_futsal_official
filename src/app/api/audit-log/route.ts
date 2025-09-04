@@ -53,7 +53,33 @@ async function ensureLogDirectory(): Promise<void> {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    // 同一オリジンからのPOSTのみ許可
+    const origin = request.headers.get('origin') || ''
+    const host = request.headers.get('host') || ''
+    let originAllowed = false
+    if (origin) {
+      try {
+        const originHost = new URL(origin).host
+        originAllowed = originHost === host
+      } catch {
+        originAllowed = false
+      }
+    }
+    if (!originAllowed) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    // ボディサイズ簡易チェック（10KB超は拒否）しつつJSONを解析
+    const raw = await request.text()
+    if (raw.length > 10 * 1024) {
+      return NextResponse.json({ error: 'Payload too large' }, { status: 413 })
+    }
+    let body: any
+    try {
+      body = JSON.parse(raw)
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    }
     
     // 必要なフィールドの検証
     if (!body.action || !body.formData) {
@@ -104,8 +130,12 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // 管理者のみアクセス可能（実際の実装では認証が必要）
-    const authHeader = request.headers.get('authorization')
-    if (!authHeader || authHeader !== 'Bearer admin-token') {
+    const expected = process.env.AUDIT_ADMIN_TOKEN
+    const authHeader = request.headers.get('authorization') || ''
+    const provided = authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : ''
+    if (!expected || provided !== expected) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -114,6 +144,9 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams
     const date = searchParams.get('date') || new Date().toISOString().split('T')[0]
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return NextResponse.json({ error: 'Invalid date' }, { status: 400 })
+    }
     
     const logDir = path.join(process.cwd(), 'logs')
     const logFilePath = path.join(logDir, `audit-${date}.log`)

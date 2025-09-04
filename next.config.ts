@@ -12,7 +12,9 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
+              process.env.NODE_ENV === 'production'
+                ? "script-src 'self'"
+                : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https:",
@@ -21,7 +23,9 @@ const nextConfig: NextConfig = {
               "base-uri 'self'",
               "form-action 'self' https://formsubmit.co",
               "frame-ancestors 'none'",
-              "connect-src 'self' https://formsubmit.co https://vercel.live",
+              process.env.NODE_ENV === 'production'
+                ? "connect-src 'self' https://formsubmit.co"
+                : "connect-src 'self' https://formsubmit.co https://vercel.live",
               "worker-src 'self' blob:",
               "manifest-src 'self'",
             ].join('; ')

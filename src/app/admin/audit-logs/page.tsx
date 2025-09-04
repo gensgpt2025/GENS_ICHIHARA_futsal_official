@@ -18,6 +18,10 @@ interface AuditLogEntry {
 }
 
 export default function AuditLogsPage() {
+  // ページ公開制御（環境変数で明示的に有効化時のみ表示）
+  if (process.env.NEXT_PUBLIC_ENABLE_AUDIT_PAGE !== 'true') {
+    notFound()
+  }
   // 🚨 セキュリティ対策: 管理者ページを一時的に無効化
   notFound()
   
