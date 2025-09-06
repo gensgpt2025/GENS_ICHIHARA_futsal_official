@@ -86,6 +86,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/music" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                  Music
+                </Link>
+              </li>
+              <li>
                 <Link href="/sns" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
                   SNS
                 </Link>

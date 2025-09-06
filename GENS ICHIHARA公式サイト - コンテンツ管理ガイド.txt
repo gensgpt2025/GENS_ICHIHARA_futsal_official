@@ -1,0 +1,218 @@
+● 📚 GENS ICHIHARA公式サイト - コンテンツ管理ガイド
+
+  🎯 サイト概要
+
+  - サイト名: GENS ICHIHARA 公式ウェブサイト
+  - 技術: Next.js 15.4.6 + TypeScript
+  - ホスティング: Vercel
+  - リポジトリ: https://github.com/gensgpt2025/GENS_ICHIHARA_futsal_official
+
+  ---
+  📸 写真の追加方法
+
+  1. 画像ファイルの配置
+
+  場所: public/gallery/photos/
+  ファイル形式: .png, .jpg, .jpeg 推奨
+  ファイル名例: team-photo-2025.jpg
+
+  2. gallery-data.jsonの更新
+
+  // ファイル場所: public/gallery/gallery-data.json
+  {
+    "photos": [
+      // 既存の写真...
+      {
+        "id": "photo_004",           // 新しいユニークID
+        "title": "新しい写真のタイトル",
+        "filename": "新しい画像ファイル名.jpg",
+        "date": "2025-08-17",        // 日付 (YYYY-MM-DD形式)
+        "category": "team",          // team/event/practice/match
+        "thumbnail": "",             // 空でOK
+        "description": "写真の説明文",
+        "year": "2025"
+      }
+    ]
+  }
+
+  3. カテゴリ一覧
+
+  - team: チーム関連
+  - event: イベント
+  - practice: 練習
+  - match: 試合
+
+  ---
+  🎬 動画の追加方法
+
+  1. YouTubeに動画をアップロード
+
+  動画をYouTubeにアップロードし、URLとIDを取得
+
+  2. gallery-data.jsonの更新
+
+  {
+    "videos": [
+      // 既存の動画...
+      {
+        "id": "video_006",
+        "title": "新しい動画のタイトル",
+        "youtubeId": "YouTubeのビデオID",          // 例: "FraYb6UU54s"
+        "youtubeUrl": "https://youtu.be/ビデオID", // フルURL
+        "date": "2025-08-17",
+        "category": "episode",     // episode/match/training/highlight/anthem/motto
+        "description": "動画の説明",
+        "showInMovieGallery": true, // トップページに表示するか
+        "year": "2025"
+      }
+    ]
+  }
+
+  3. YouTubeビデオIDの取得方法
+
+  YouTube URL: https://youtu.be/FraYb6UU54s
+  ビデオID: FraYb6UU54s (URL末尾の部分)
+
+  または
+  YouTube URL: https://www.youtube.com/watch?v=FraYb6UU54s
+  ビデオID: FraYb6UU54s (?v=の後の部分)
+
+  4. 動画カテゴリ一覧
+
+  - episode: エピソード
+  - match: 試合
+  - training: 練習
+  - highlight: ハイライト
+  - anthem: アンセム
+  - motto: モットー
+
+  ---
+  📰 ニュース・お知らせの追加
+
+  現在の仕様
+
+  ニュースページは「Coming Soon」状態です。将来的にコンテンツを追加する場合：
+
+  ファイル場所: src/app/news/page.tsx
+  更新内容: ComingSoonコンポーネントを実際のニュース一覧に変更
+
+  ---
+  👥 チームメンバーの追加
+
+  1. 画像ファイルの配置
+
+  場所: public/team/
+  ファイル名例: 新しいメンバー名.png
+
+  2. チームページの更新
+
+  ファイル場所: src/app/team/page.tsx
+  更新箇所: チームメンバー一覧セクション
+
+  // 新しいメンバーカードを追加
+  <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6">
+    <Image
+      src="/team/新しいメンバー名.png"
+      alt="新しいメンバー名"
+      width={400}
+      height={400}
+      className="w-full aspect-square object-cover rounded-lg mb-4"
+    />
+    <h3 className="text-xl font-bold text-yellow-400 mb-2">
+      新しいメンバー名
+    </h3>
+    <p className="text-gray-300 mb-4">
+      ポジション・役職
+    </p>
+    <p className="text-sm text-gray-400">
+      メンバーの紹介文
+    </p>
+  </div>
+
+  ---
+  🔧 技術的な更新手順
+
+  1. ローカル環境での確認
+
+  # 開発サーバー起動
+  npm run dev
+
+  # ブラウザで確認
+  http://localhost:3000
+
+  2. ビルドテスト
+
+  # エラーチェック
+  npm run build
+
+  3. デプロイ
+
+  # Gitに変更をコミット
+  git add .
+  git commit -m "add: 新しいコンテンツを追加"
+
+  # 本番環境にプッシュ
+  git push origin master
+
+  4. 自動デプロイ
+
+  Vercelが自動でデプロイを実行（数分で反映）
+
+  ---
+  📝 利用規約・プライバシーポリシーの更新
+
+  更新方法
+
+  ファイル場所:
+  - src/app/terms/page.tsx (利用規約)
+  - src/app/privacy/page.tsx (プライバシーポリシー)
+
+  更新箇所: 静的HTMLコンテンツ部分
+  注意事項: XSS対策のため、HTMLタグ内のテキストのみ変更可能
+
+  最終更新日の変更
+
+  <p className="text-center text-gray-600">
+    最終更新日: 2025-08-17  // ← この日付を更新
+  </p>
+
+  ---
+  🛡️ セキュリティ注意事項
+
+  ✅ 安全な操作
+
+  - 画像ファイルの追加
+  - gallery-data.jsonの編集
+  - 日付・テキストの変更
+
+  ⚠️ 注意が必要な操作
+
+  - JavaScriptコードの変更
+  - 設定ファイルの変更
+  - 依存関係の更新
+
+  🚨 避けるべき操作
+
+  - セキュリティ設定の変更
+  - 認証関連コードの変更
+  - 外部ライブラリの追加
+
+  ---
+  📞 サポート情報
+
+  問題が発生した場合
+
+  1. エラーメッセージを記録
+  2. 変更内容を確認
+  3. 必要に応じて以前の状態に戻す
+
+  バックアップ
+
+  - Git履歴で全変更が記録済み
+  - Vercelで以前のデプロイに戻すことが可能
+
+  ---
+  🎉 完了！
+
+  このガイドに従って、安全にコンテンツを追加・更新できます。
+  質問や問題が発生した場合は、変更を行う前に相談することをお勧めします。
