@@ -4,6 +4,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { AudioTrack } from '@/types/audio'
 import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward } from 'lucide-react'
 
+type MediaArtwork = { src: string; sizes?: string; type?: string }
+type MediaMetadataInitLite = { title?: string; artist?: string; artwork?: MediaArtwork[] }
+type MediaMetadataConstructor = new (init?: MediaMetadataInitLite) => unknown
+type MediaSessionLike = { metadata?: unknown; setActionHandler?: (action: string, handler: () => void) => void }
+type NavigatorWithMediaSession = Navigator & { mediaSession?: MediaSessionLike }
+type WindowWithMediaMetadata = Window & { MediaMetadata?: MediaMetadataConstructor }
+
 type Props = {
   tracks: AudioTrack[]
   initialIndex?: number
@@ -74,17 +81,21 @@ export default function AudioPlayer({ tracks, initialIndex = 0 }: Props) {
   }, [isPlaying, track?.src])
 
   useEffect(() => {
-    if (typeof navigator === 'undefined' || !(navigator as any).mediaSession) return
-    const ms = (navigator as any).mediaSession
-    ms.metadata = new (window as any).MediaMetadata?.({
-      title: track?.title,
-      artist: track?.artist,
-      artwork: track?.cover ? [{ src: track.cover, sizes: '512x512', type: 'image/png' }] : undefined,
-    })
-    ms.setActionHandler?.('play', () => setIsPlaying(true))
-    ms.setActionHandler?.('pause', () => setIsPlaying(false))
-    ms.setActionHandler?.('previoustrack', () => handlePrev())
-    ms.setActionHandler?.('nexttrack', () => handleNext())
+    if (typeof navigator === 'undefined' || !(navigator as NavigatorWithMediaSession).mediaSession) return
+    const ms = (navigator as NavigatorWithMediaSession).mediaSession!
+    const msLocal = ms as unknown as { metadata?: unknown; setActionHandler?: (action: string, handler: () => void) => void }
+    const MediaMetadataCtor = (window as WindowWithMediaMetadata).MediaMetadata
+    if (MediaMetadataCtor) {
+      msLocal.metadata = new MediaMetadataCtor({
+        title: track?.title,
+        artist: track?.artist,
+        artwork: track?.cover ? [{ src: track.cover, sizes: '512x512', type: 'image/png' }] : undefined,
+      })
+    }
+    msLocal.setActionHandler?.('play', () => setIsPlaying(true))
+    msLocal.setActionHandler?.('pause', () => setIsPlaying(false))
+    msLocal.setActionHandler?.('previoustrack', () => handlePrev())
+    msLocal.setActionHandler?.('nexttrack', () => handleNext())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track?.id])
 
@@ -238,4 +249,3 @@ export default function AudioPlayer({ tracks, initialIndex = 0 }: Props) {
     </div>
   )
 }
-

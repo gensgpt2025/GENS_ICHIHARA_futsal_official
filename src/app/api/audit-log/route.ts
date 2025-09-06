@@ -74,7 +74,13 @@ export async function POST(request: NextRequest) {
     if (raw.length > 10 * 1024) {
       return NextResponse.json({ error: 'Payload too large' }, { status: 413 })
     }
-    let body: any
+    type IncomingBody = {
+      action: string
+      formData: { category?: string }
+      status?: 'success' | 'error'
+      errorMessage?: string
+    }
+    let body: unknown
     try {
       body = JSON.parse(raw)
     } catch {
@@ -82,7 +88,12 @@ export async function POST(request: NextRequest) {
     }
     
     // 必要なフィールドの検証
-    if (!body.action || !body.formData) {
+    const isValid = (value: unknown): value is IncomingBody => {
+      if (typeof value !== 'object' || value === null) return false
+      const v = value as Record<string, unknown>
+      return typeof v.action === 'string' && typeof v.formData === 'object' && v.formData !== null
+    }
+    if (!isValid(body)) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
