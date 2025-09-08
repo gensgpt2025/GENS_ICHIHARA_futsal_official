@@ -23,46 +23,47 @@ export default function TeamPage() {
             <h3 className="font-garamond text-3xl sm:text-4xl lg:text-5xl text-gray-200 leading-relaxed mb-4">
               Switch Zero, Fight Hard.
             </h3>
-            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">0秒�E替�E�最強琁E��</p>
+            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">－ 0秒切替･最強球際 －</p>
           </div>
 
-          {/* チ�Eムポリシー */}
+          {/* チームポリシー */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Heart className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">献身</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">最後�E1歩まで走り�EめE/p>
+              <p className="text-gray-300 text-sm leading-relaxed">最後の1歩まで走り切る</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
-              <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">誠宁E/h4>
-              <p className="text-gray-300 text-sm leading-relaxed">正、E��、E���Eレーで示ぁE/p>
+              <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">誠実</h4>
+              <p className="text-gray-300 text-sm leading-relaxed">正々堂々、プレーで示す</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">尊重</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">相手･仲間･審判をリスペクチE/p>
+              <p className="text-gray-300 text-sm leading-relaxed">相手･仲間･審判をリスペクト</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Target className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
-              <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">感謁E/h4>
-              <p className="text-gray-300 text-sm leading-relaxed">支えるすべてに「ありがとぁE��E/p>
+              <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">感謝</h4>
+              <p className="text-gray-300 text-sm leading-relaxed">支えるすべてに「ありがとう」</p>
             </div>
           </div>
 
-          {/* チ�Eムビジョン */}
+          {/* チームビジョン */}
           <div className="text-center p-8 bg-gradient-to-r from-gray-900/40 to-gray-800/40 rounded-xl border border-yellow-400/20">
             <h4 className="font-garamond font-bold text-2xl text-yellow-400 mb-4">Our Vision</h4>
-            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-4">勝利に偶然などなぁE/p>
-            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-6">本気�E先へ</p>
+            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-4">勝利に偶然などない</p>
+            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-6">本気の先へ</p>
             <p className="text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              私たちは「情熱・挑戦・絁E��を胸に、Switch Zero, Fight Hard. を体現する、Ebr />
-              フットサルを通じて、人としても選手としても�E長を重ね、Ebr />
-              地域に信頼されるクラブとして、チーム一丸で頂点を目持E��続ける、E            </p>
+              私たちは「情熱・挑戦・絆」を胸に、Switch Zero, Fight Hard. を体現する。<br />
+              フットサルを通じて、人としても選手としても成長を重ね、<br />
+              地域に信頼されるクラブとして、チーム一丸で頂点を目指し続ける。
+            </p>
           </div>
         </section>
 
-        {/* メンバ�E紹介セクション */}
+        {/* メンバー紹介セクション */}
         <section className="mb-12">
           <div className="text-center mb-12">
             <h2 className="font-garamond font-bold text-2xl lg:text-3xl gold-gradient mb-4">
@@ -70,7 +71,7 @@ export default function TeamPage() {
             </h2>
           </div>
 
-          {/* 選手紹仁E*/}
+          {/* 選手紹介 */}
           <div className="mb-12">
             <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Players</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -103,7 +104,7 @@ export default function TeamPage() {
             </div>
           </div>
 
-          {/* スタチE��紹仁E*/}
+          {/* スタッフ紹介 */}
           <div>
             <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Staff</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -137,7 +138,7 @@ export default function TeamPage() {
           </div>
         </section>
 
-        {/* ホ�Eムに戻る�Eタン */}
+        {/* ホームに戻るボタン */}
         <div className="flex justify-center mt-12 pb-8">
           <Link
             href="/"
@@ -151,3 +152,4 @@ export default function TeamPage() {
     </div>
   )
 }
+
