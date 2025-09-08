@@ -24,6 +24,6 @@ export const players: Player[] = [
 
 // Staff data
 export const staff: Staff[] = [
-  { id: 1, name: "Hiroki Sugaya", role: "ヘッドコーチ", photo: "/team/coach-hiroki.png" },
-  { id: 2, name: "** **", role: "アシスタントコーチ", photo: "/team/coach2.jpg" },
+  { id: 1, name: "Sugaya", role: "ヘッドコーチ", photo: "/team/coach-hiroki.png" },
+  { id: 2, name: "AI sugaya", role: "マネージャー", photo: "/team/ai-sugaya.png" },
 ]
