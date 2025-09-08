@@ -4,6 +4,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
+import { players, staff } from '@/data/team'
+/*
 
 // サンプルメンバーデータ（実際のデータに置き換える）
 const teamMembers = [
@@ -101,6 +103,8 @@ const staff = [
   }
 ]
 
+*/
+
 export default function TeamPage() {
   return (
     <div className="min-h-screen bg-black cyber-grid">
@@ -185,10 +189,10 @@ export default function TeamPage() {
           <div className="mb-12">
             <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Players</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {teamMembers.map((member) => (
+              {[...players].sort((a, b) => a.number - b.number).map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
                   <div className="aspect-square bg-gray-800 flex items-center justify-center relative">
-                    {member.photo === "/team/hiroki-sugaya.png" ? (
+                    {member.photo ? (
                       <Image
                         src={member.photo}
                         alt={member.name}
@@ -221,7 +225,7 @@ export default function TeamPage() {
               {staff.map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
                   <div className="aspect-square bg-gray-800 flex items-center justify-center relative">
-                    {member.photo === "/team/coach-hiroki.png" ? (
+                    {member.photo ? (
                       <Image
                         src={member.photo}
                         alt={member.name}
