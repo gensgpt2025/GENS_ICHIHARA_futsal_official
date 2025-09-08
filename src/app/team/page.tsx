@@ -31,7 +31,7 @@ export default function TeamPage() {
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Heart className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">献身</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">最後まで走り切る</p>
+              <p className="text-gray-300 text-sm leading-relaxed">最後の1歩まで走り切る</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
@@ -41,7 +41,7 @@ export default function TeamPage() {
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">尊重</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">相手仲間審判をリスペクト</p>
+              <p className="text-gray-300 text-sm leading-relaxed">相手･仲間･審判をリスペクト</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Target className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
