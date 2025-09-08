@@ -23,7 +23,7 @@ export default function TeamPage() {
             <h3 className="font-garamond text-3xl sm:text-4xl lg:text-5xl text-gray-200 leading-relaxed mb-4">
               Switch Zero, Fight Hard.
             </h3>
-            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">0秒切替・最強集団</p>
+            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">0秒切替･最強球際</p>
           </div>
 
           {/* チームポリシー */}
@@ -31,22 +31,22 @@ export default function TeamPage() {
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Heart className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">献身</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">最後の一歩まで走り切る</p>
+              <p className="text-gray-300 text-sm leading-relaxed">最後まで走り切る</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">誠実</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">正直・公平・努力をプレーで示す</p>
+              <p className="text-gray-300 text-sm leading-relaxed">正々堂々、プレーで示す</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">尊重</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">相手・仲間・審判をリスペクトする</p>
+              <p className="text-gray-300 text-sm leading-relaxed">相手仲間審判をリスペクト</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Target className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">感謝</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">支えるすべてに「ありがとう」を</p>
+              <p className="text-gray-300 text-sm leading-relaxed">支えるすべてに「ありがとう」</p>
             </div>
           </div>
 
@@ -152,4 +152,3 @@ export default function TeamPage() {
     </div>
   )
 }
-
