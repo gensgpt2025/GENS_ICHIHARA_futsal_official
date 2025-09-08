@@ -5,127 +5,25 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
 import { players, staff } from '@/data/team'
-/*
-
-// サンプルメンバーデータ（実際のデータに置き換える）
-const teamMembers = [
-  {
-    id: 1,
-    name: "** **",
-    position: "FP",
-    number: 10,
-    photo: "/team/player1.jpg"
-  },
-  {
-    id: 2,
-    name: "** **",
-    position: "FP",
-    number: 9,
-    photo: "/team/player2.jpg"
-  },
-  {
-    id: 3,
-    name: "** **",
-    position: "FP",
-    number: 8,
-    photo: "/team/player3.jpg"
-  },
-  {
-    id: 4,
-    name: "** **",
-    position: "FP",
-    number: 7,
-    photo: "/team/player4.jpg"
-  },
-  {
-    id: 5,
-    name: "** **",
-    position: "FP",
-    number: 6,
-    photo: "/team/player5.jpg"
-  },
-  {
-    id: 6,
-    name: "** **",
-    position: "FP",
-    number: 5,
-    photo: "/team/player6.jpg"
-  },
-  {
-    id: 7,
-    name: "** **",
-    position: "FP",
-    number: 4,
-    photo: "/team/player7.jpg"
-  },
-  {
-    id: 8,
-    name: "** **",
-    position: "FP",
-    number: 3,
-    photo: "/team/player8.jpg"
-  },
-  {
-    id: 9,
-    name: "** **",
-    position: "FP",
-    number: 2,
-    photo: "/team/player9.jpg"
-  },
-  {
-    id: 10,
-    name: "** **",
-    position: "GK",
-    number: 1,
-    photo: "/team/player10.jpg"
-  },
-  {
-    id: 11,
-    name: "菅谷 裕樹　Hiroki Sugaya",
-    position: "GK",
-    number: 22,
-    photo: "/team/hiroki-sugaya.png"
-  }
-]
-
-const staff = [
-  {
-    id: 1,
-    name: "菅谷 裕樹　Hiroki Sugaya",
-    role: "ヘッドコーチ",
-    photo: "/team/coach-hiroki.png"
-  },
-  {
-    id: 2,
-    name: "** **",
-    role: "アシスタントコーチ",
-    photo: "/team/coach2.jpg"
-  }
-]
-
-*/
 
 export default function TeamPage() {
   return (
     <div className="min-h-screen bg-black cyber-grid">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* チームポリシー */}
+        {/* GENS SPIRIT */}
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="font-garamond font-bold text-2xl lg:text-3xl gold-gradient mb-8">
               GENS SPIRIT
             </h2>
           </div>
-          
+
           {/* メインスローガン */}
           <div className="text-center mb-12 p-8 bg-gray-900/50 rounded-xl border border-yellow-400/20">
             <h3 className="font-garamond text-3xl sm:text-4xl lg:text-5xl text-gray-200 leading-relaxed mb-4">
               Switch Zero, Fight Hard.
             </h3>
-            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">
-              — 0秒切替・最強球際 —
-            </p>
+            <p className="font-garamond text-xl sm:text-2xl lg:text-3xl text-yellow-400 mb-6">0秒切替・最強集団</p>
           </div>
 
           {/* チームポリシー */}
@@ -133,42 +31,30 @@ export default function TeamPage() {
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Heart className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">献身</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                最後の一歩まで走り切る
-              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">最後の一歩まで走り切る</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">誠実</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                正々堂々、プレーで示す
-              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">正直・公平・努力をプレーで示す</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">尊重</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                相手・仲間・審判をリスペクト
-              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">相手・仲間・審判をリスペクトする</p>
             </div>
             <div className="text-center p-6 bg-gray-900/30 rounded-lg border border-yellow-400/10 hover:border-yellow-400/30 transition-all duration-300">
               <Target className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <h4 className="font-garamond font-bold text-xl text-yellow-400 mb-2">感謝</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                支えるすべてに「ありがとう」
-              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">支えるすべてに「ありがとう」を</p>
             </div>
           </div>
 
           {/* チームビジョン */}
           <div className="text-center p-8 bg-gradient-to-r from-gray-900/40 to-gray-800/40 rounded-xl border border-yellow-400/20">
             <h4 className="font-garamond font-bold text-2xl text-yellow-400 mb-4">Our Vision</h4>
-            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-4">
-              勝利に偶然などない
-            </p>
-            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-6">
-              本気の先へ
-            </p>
+            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-4">勝利に偶然などない</p>
+            <p className="font-garamond text-xl text-gray-200 leading-relaxed mb-6">本気の先へ</p>
             <p className="text-gray-300 max-w-4xl mx-auto leading-relaxed">
               私たちは「情熱・挑戦・絆」を胸に、Switch Zero, Fight Hard. を体現する。<br />
               フットサルを通じて、人としても選手としても成長を重ね、<br />
@@ -254,7 +140,7 @@ export default function TeamPage() {
 
         {/* ホームに戻るボタン */}
         <div className="flex justify-center mt-12 pb-8">
-          <Link 
+          <Link
             href="/"
             className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
@@ -266,3 +152,4 @@ export default function TeamPage() {
     </div>
   )
 }
+
