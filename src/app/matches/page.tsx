@@ -12,7 +12,6 @@ interface UpcomingMatch {
   opponent: string
   venue: string
   competition: string
-  isHome: boolean
 }
 
 interface MatchResult {
@@ -38,7 +37,6 @@ const upcomingMatches: UpcomingMatch[] = [
     opponent: '相手調整中',
     venue: '晴れのち晴れ（浜野）タフレックスコート',
     competition: '',
-    isHome: true,
   },
   {
     id: '2025-11-01-pirata',
@@ -47,7 +45,6 @@ const upcomingMatches: UpcomingMatch[] = [
     opponent: 'FC Pirata',
     venue: '晴れのち晴れ（浜野）タフレックスコート',
     competition: '',
-    isHome: true,
   },
 ]
 
@@ -143,11 +140,7 @@ export default function MatchesPage() {
                             <span className="text-xs font-medium text-blue-400">{match.competition}</span>
                           </div>
                         )}
-                        {match.isHome && (
-                          <div className="bg-green-400/10 border border-green-400/30 px-3 py-1 rounded-full">
-                            <span className="text-xs font-medium text-green-400">HOME</span>
-                          </div>
-                        )}
+                        {/* HOME 表示は使用しないため削除 */}
                       </div>
                       
                       <h3 className="text-xl font-bold text-white mb-2">
