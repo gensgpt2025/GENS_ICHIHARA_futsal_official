@@ -30,7 +30,26 @@ interface MatchResult {
 
 
 // データ配列（現在は空）
-const upcomingMatches: UpcomingMatch[] = []
+const upcomingMatches: UpcomingMatch[] = [
+  {
+    id: '2025-10-04-training',
+    date: '2025-10-04',
+    time: '18:00～20:00',
+    opponent: '相手調整中',
+    venue: '晴れのち晴れ（浜野）タフレックスコート',
+    competition: '',
+    isHome: true,
+  },
+  {
+    id: '2025-11-01-pirata',
+    date: '2025-11-01',
+    time: '18:00～20:00',
+    opponent: 'FC Pirata',
+    venue: '晴れのち晴れ（浜野）タフレックスコート',
+    competition: '',
+    isHome: true,
+  },
+]
 
 const recentResults: MatchResult[] = []
 
@@ -119,9 +138,11 @@ export default function MatchesPage() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
-                        <div className="bg-blue-400/10 border border-blue-400/30 px-3 py-1 rounded-full">
-                          <span className="text-xs font-medium text-blue-400">{match.competition}</span>
-                        </div>
+                        {match.competition && (
+                          <div className="bg-blue-400/10 border border-blue-400/30 px-3 py-1 rounded-full">
+                            <span className="text-xs font-medium text-blue-400">{match.competition}</span>
+                          </div>
+                        )}
                         {match.isHome && (
                           <div className="bg-green-400/10 border border-green-400/30 px-3 py-1 rounded-full">
                             <span className="text-xs font-medium text-green-400">HOME</span>
@@ -183,9 +204,11 @@ export default function MatchesPage() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-3">
-                          <div className="bg-gray-400/10 border border-gray-400/30 px-3 py-1 rounded-full">
-                            <span className="text-xs font-medium text-gray-400">{match.competition}</span>
-                          </div>
+                          {match.competition && (
+                            <div className="bg-gray-400/10 border border-gray-400/30 px-3 py-1 rounded-full">
+                              <span className="text-xs font-medium text-gray-400">{match.competition}</span>
+                            </div>
+                          )}
                           <div className={`${resultStyle.bg} border ${resultStyle.border} px-3 py-1 rounded-full`}>
                             <span className={`text-xs font-bold ${resultStyle.text}`}>{resultStyle.label}</span>
                           </div>

@@ -75,7 +75,13 @@ export default function TeamPage() {
           <div className="mb-12">
             <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Players</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...players].sort((a, b) => a.number - b.number).map((member) => (
+              {[...players]
+                .sort((a, b) => {
+                  const an = a.number === 0 ? 9999 : a.number
+                  const bn = b.number === 0 ? 9999 : b.number
+                  return an - bn
+                })
+                .map((member) => (
                 <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
                   <div className="aspect-square bg-gray-800 flex items-center justify-center relative">
                     {member.photo ? (
@@ -89,7 +95,7 @@ export default function TeamPage() {
                     ) : (
                       <div className="text-center">
                         <div className="w-20 h-20 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                          <span className="text-2xl font-bold text-yellow-400">#{member.number}</span>
+                          <span className="text-2xl font-bold text-yellow-400">{member.number === 0 ? '—' : `#${member.number}`}</span>
                         </div>
                         <p className="text-gray-400 text-sm">Photo Coming Soon</p>
                       </div>
@@ -97,7 +103,7 @@ export default function TeamPage() {
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold text-lg text-white mb-1">{member.name}</h4>
-                    <p className="text-yellow-400 text-sm">{member.position} #{member.number}</p>
+                    <p className="text-yellow-400 text-sm">{member.position} {member.number === 0 ? '#—' : `#${member.number}`}</p>
                   </div>
                 </div>
               ))}
@@ -152,4 +158,3 @@ export default function TeamPage() {
     </div>
   )
 }
-
