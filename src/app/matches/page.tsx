@@ -22,7 +22,6 @@ interface MatchResult {
   awayScore: number
   venue: string
   competition: string
-  isHome: boolean
   result: 'win' | 'draw' | 'loss'
   goalScorers?: string[]
 }
@@ -205,11 +204,7 @@ export default function MatchesPage() {
                           <div className={`${resultStyle.bg} border ${resultStyle.border} px-3 py-1 rounded-full`}>
                             <span className={`text-xs font-bold ${resultStyle.text}`}>{resultStyle.label}</span>
                           </div>
-                          {match.isHome && (
-                            <div className="bg-green-400/10 border border-green-400/30 px-3 py-1 rounded-full">
-                              <span className="text-xs font-medium text-green-400">HOME</span>
-                            </div>
-                          )}
+                          {/* HOME/AWAY 表示は使用しない */}
                         </div>
                         
                         <h3 className="text-xl font-bold text-white mb-2">
@@ -237,7 +232,7 @@ export default function MatchesPage() {
                       
                       <div className="text-center sm:text-right">
                         <div className={`text-3xl font-bold mb-1 ${resultStyle.text}`}>
-                          {match.isHome ? `${match.homeScore} - ${match.awayScore}` : `${match.homeScore} - ${match.awayScore}`}
+                          {`${match.homeScore} - ${match.awayScore}`}
                         </div>
                         <div className="text-sm text-gray-400">
                           {formatDate(match.date)}
