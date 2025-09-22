@@ -77,6 +77,15 @@ export default function MatchesPage() {
     })
   }
 
+  // 日付順にソート
+  // 予定: 近い日付が先（昇順）/ 結果: 新しい日付が先（降順）
+  const sortedUpcomingMatches = [...upcomingMatches].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  )
+  const sortedRecentResults = [...recentResults].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+
   // 試合結果の表示スタイル
   const getResultStyle = (result: 'win' | 'draw' | 'loss') => {
     switch (result) {
@@ -137,7 +146,7 @@ export default function MatchesPage() {
                   <p className="text-gray-400 text-sm mt-2">新しい試合が決まり次第、こちらに掲載いたします。</p>
                 </div>
               ) : (
-                upcomingMatches.map((match) => (
+                sortedUpcomingMatches.map((match) => (
                 <div key={match.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6 hover:border-yellow-400/40 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
@@ -197,7 +206,7 @@ export default function MatchesPage() {
                   <p className="text-gray-400 text-sm mt-2">試合が終了次第、こちらに結果を掲載いたします。</p>
                 </div>
               ) : (
-                recentResults.map((match) => {
+                sortedRecentResults.map((match) => {
                 const resultStyle = getResultStyle(match.result)
                 return (
                   <div key={match.id} className={`bg-gray-900/50 rounded-xl border ${resultStyle.border} p-6 hover:border-opacity-60 transition-all duration-300`}>
