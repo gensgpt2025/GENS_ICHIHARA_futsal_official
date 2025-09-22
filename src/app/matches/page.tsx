@@ -30,6 +30,14 @@ interface MatchResult {
 // データ配列（現在は空）
 const upcomingMatches: UpcomingMatch[] = [
   {
+    id: '2025-10-11-ec-chibanespa',
+    date: '2025-10-11',
+    time: '19:00〜21:00',
+    opponent: 'e.c.chibanespa',
+    venue: '晴れのち晴れ（浜野）タフレックスコー',
+    competition: '',
+  },
+  {
     id: '2025-10-04-training',
     date: '2025-10-04',
     time: '18:00～20:00',
