@@ -40,5 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# audit logs - 個人情報を含む可能性があるため
-/logs
+# audit logs - 個人惁E��を含む可能性があるためE/logs
