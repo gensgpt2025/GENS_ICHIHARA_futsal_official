@@ -77,13 +77,27 @@ export default function MatchesPage() {
     })
   }
 
+  // 文字列 'YYYY-MM-DD' をローカル日付として解釈
+  const parseLocalDate = (s: string) => {
+    const [y, m, d] = s.split('-').map(Number)
+    return new Date(y, (m || 1) - 1, d || 1)
+  }
+  // 今日の0時（ローカル）
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
   // 日付順にソート
   // 予定: 近い日付が先（昇順）/ 結果: 新しい日付が先（降順）
   const sortedUpcomingMatches = [...upcomingMatches].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   )
   const sortedRecentResults = [...recentResults].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => parseLocalDate(b.date).getTime() - parseLocalDate(a.date).getTime()
+  )
+
+  // 今日以降の予定のみ
+  const futureUpcomingMatches = sortedUpcomingMatches.filter(
+    (m) => parseLocalDate(m.date).getTime() >= today.getTime()
   )
 
   // 試合結果の表示スタイル
@@ -138,7 +152,7 @@ export default function MatchesPage() {
         {activeSection === 'upcoming' && (
           <section className="mb-12">
             <div className="space-y-4">
-              {upcomingMatches.length === 0 ? (
+              {futureUpcomingMatches.length === 0 ? (
                 <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-8 text-center">
                   <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
                   <h3 className="text-xl font-bold text-white mb-2">試合予定</h3>
@@ -146,7 +160,7 @@ export default function MatchesPage() {
                   <p className="text-gray-400 text-sm mt-2">新しい試合が決まり次第、こちらに掲載いたします。</p>
                 </div>
               ) : (
-                sortedUpcomingMatches.map((match) => (
+                futureUpcomingMatches.map((match) => (
                 <div key={match.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-6 hover:border-yellow-400/40 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
