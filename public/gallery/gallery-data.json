@@ -6,28 +6,28 @@
       "filename": "gens.png",
       "date": "2025-08-17",
       "category": "team",
-      "thumbnail": "gens_thumb.png",
-      "description": "GENS ICHIHARAチームロゴ",
+      "thumbnail": "",
+      "description": "GENS ICHIHARA のロゴ",
       "year": "2025"
     },
     {
-      "id": "photo_002", 
-      "title": "SwitchZero Fight Hard",
-      "filename": "switchzero_fight_hard.png",
+      "id": "photo_002",
+      "title": "Switch Zero, Fight Hard.",
+      "filename": "SwitchZero Fight Hard.PNG",
       "date": "2025-08-17",
       "category": "event",
-      "thumbnail": "switchzero_fight_hard_thumb.png",
-      "description": "SwitchZero Fight Hardイベント画像",
+      "thumbnail": "",
+      "description": "Switch Zero, Fight Hard. のビジュアル",
       "year": "2025"
     },
     {
       "id": "photo_003",
-      "title": "炎冠の誓い",
+      "title": "炎の誓い",
       "filename": "enkan_no_chikai_gens.png",
       "date": "2025-08-17",
       "category": "team",
-      "thumbnail": "enkan_no_chikai_gens_thumb.png",
-      "description": "炎冠の誓い - GENSの心意気",
+      "thumbnail": "",
+      "description": "GENS のイメージビジュアル",
       "year": "2025"
     },
     {
@@ -37,7 +37,7 @@
       "date": "2025-09-04",
       "category": "event",
       "thumbnail": "",
-      "description": "CWG バナー画像",
+      "description": "CWG のバナー",
       "year": "2025"
     }
   ],
@@ -55,7 +55,7 @@
     },
     {
       "id": "video_002",
-      "title": "Episode 1", 
+      "title": "Episode 1",
       "youtubeId": "8tdQSdsDH2g",
       "youtubeUrl": "https://youtube.com/shorts/8tdQSdsDH2g?si=VbPhunuYqE3tTApm",
       "date": "2025-08-17",
@@ -82,7 +82,7 @@
       "youtubeUrl": "https://youtu.be/FraYb6UU54s",
       "date": "2025-08-17",
       "category": "anthem",
-      "description": "炎冠の賛美歌 - チームアンセム",
+      "description": "炎の賛美歌 - チームアンセム",
       "showInMovieGallery": true,
       "year": "2025"
     },
@@ -93,7 +93,7 @@
       "youtubeUrl": "https://youtu.be/odmGV9qn0DY",
       "date": "2025-08-17",
       "category": "motto",
-      "description": "チームモットー動画 - 0秒切替・最強球際",
+      "description": "チームモットー動画 - 0秒切替・最強思考",
       "showInMovieGallery": true,
       "year": "2025"
     }
@@ -102,7 +102,7 @@
     "photos": {
       "practice": "練習",
       "match": "試合",
-      "event": "イベント", 
+      "event": "イベント",
       "team": "チーム"
     },
     "videos": {
@@ -115,3 +115,4 @@
     }
   }
 }
+
