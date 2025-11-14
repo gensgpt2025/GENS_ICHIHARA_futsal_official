@@ -38,8 +38,10 @@ const SmartphoneVideoPlayer = () => {
     return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
   }
 
-  const openYouTube = (youtubeUrl: string) => {
-    window.open(youtubeUrl, '_blank')
+  const extractYouTubeId = (url?: string) => {
+    if (!url) return undefined
+    const m = url.match(/(?:v=|\.be\/|shorts\/)([A-Za-z0-9_-]{6,})/)
+    return m?.[1]
   }
 
   if (loading) {
@@ -59,6 +61,7 @@ const SmartphoneVideoPlayer = () => {
   }
 
   const currentVideo = videos[selectedEpisode]
+  const effectiveId = currentVideo?.youtubeId || extractYouTubeId(currentVideo?.youtubeUrl)
 
   return (
     <div className="flex justify-center items-center w-full py-6 sm:py-8 px-4">
@@ -86,32 +89,15 @@ const SmartphoneVideoPlayer = () => {
           </div>
 
           <div className="flex-1 bg-black relative overflow-hidden">
-            {currentVideo?.youtubeId ? (
-              <div 
-                className="w-full h-full relative cursor-pointer group"
-                onClick={() => currentVideo.youtubeUrl && openYouTube(currentVideo.youtubeUrl)}
-              >
-                <Image
-                  src={getYouTubeThumbnail(currentVideo.youtubeId)}
-                  alt={currentVideo.title}
-                  width={360}
-                  height={640}
-                  className="w-full h-full object-cover"
-                  style={{ aspectRatio: '9/16' }}
-                />
-                {/* 再生ボタンオーバーレイ */}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/50 transition-colors">
-                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                </div>
-                {/* 動画タイトル */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                  <p className="text-white text-xs font-medium truncate">{currentVideo.title}</p>
-                </div>
-              </div>
+            {effectiveId ? (
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube-nocookie.com/embed/${effectiveId}?rel=0&modestbranding=1&playsinline=1`}
+                title={currentVideo?.title || 'YouTube player'}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">
                 <div className="text-center">
