@@ -21,9 +21,9 @@ export const players: Player[] = [
   { id: 4, name: "Yuki",     position: "FP", number: 13, photo: "/team/coach-hiroki.png" },
   { id: 5, name: "Sugaya",   position: "GK", number: 22, photo: "/team/coach-hiroki.png" },
   // New
-  { id: 6, name: "Yokota",   position: "FP", number: 8,  photo: "/team/coach-hiroki.png" },
-  { id: 7, name: "Takagi",   position: "FP", number: 0,  photo: "/team/coach-hiroki.png" },
-  { id: 8, name: "Hoshino",  position: "FP", number: 0,  photo: "/team/coach-hiroki.png" },
+  { id: 6, name: "Yokota",   position: "FP", number: 7,  photo: "/team/coach-hiroki.png" },
+  { id: 7, name: "Takagi",   position: "FP", number: 8,  photo: "/team/coach-hiroki.png" },
+  { id: 8, name: "Hoshino",  position: "FP", number: 16, photo: "/team/coach-hiroki.png" },
   { id: 9, name: "Ogi",      position: "FP", number: 0,  photo: "/team/coach-hiroki.png" },
   { id:10, name: "Masudome", position: "FP", number: 0,  photo: "/team/coach-hiroki.png" },
   { id:11, name: "Ryuji",    position: "FP", number: 33, photo: "/team/coach-hiroki.png" },
