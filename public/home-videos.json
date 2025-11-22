@@ -1,3 +1,15 @@
 {
-  "videos": []
+  "videos": [
+    {
+      "id": "home_video_20251122",
+      "title": "Flame Crown Anthem",
+      "youtubeId": "dPBSMz2e9Zw",
+      "youtubeUrl": "https://youtu.be/dPBSMz2e9Zw",
+      "date": "2025-11-22",
+      "category": "anthem",
+      "description": "トップページ用のアンセム動画",
+      "showInMovieGallery": true,
+      "year": "2025"
+    }
+  ]
 }
