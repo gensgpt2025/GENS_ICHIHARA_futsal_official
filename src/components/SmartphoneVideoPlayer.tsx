@@ -14,6 +14,18 @@ const SmartphoneVideoPlayer = () => {
   useEffect(() => {
     const loadVideos = async () => {
       try {
+        // Prefer home-videos.json for Top page videos (keeps Gallery independent)
+        const res = await fetch('/home-videos.json', { cache: 'no-store' })
+        if (res.ok) {
+          const data = await res.json()
+          if (Array.isArray(data?.videos)) {
+            setVideos(data.videos as VideoItem[])
+            setLoading(false)
+            return
+          }
+        }
+
+        // Fallback to gallery videos flagged for movie gallery
         const movieVideos = await getMovieGalleryVideos()
         setVideos(movieVideos)
         setLoading(false)
@@ -65,8 +77,10 @@ const SmartphoneVideoPlayer = () => {
 
   return (
     <div className="flex justify-center items-center w-full py-6 sm:py-8 px-4">
+      {/* Phone frame */}
       <div className="relative w-72 sm:w-80 h-[540px] sm:h-[600px] bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden z-10">
-        <div className="absolute inset-3 sm:inset-4 bg-black rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden">
+        {/* Screen area */}
+        <div className="absolute inset-3 sm:inset-4 bg-black rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden flex flex-col">
           
           <div className="relative h-14 sm:h-16 bg-gray-800/50 backdrop-blur-sm border-b border-yellow-400/20 flex items-center justify-between px-2 sm:px-4">
             <button 
@@ -88,24 +102,29 @@ const SmartphoneVideoPlayer = () => {
             </button>
           </div>
 
-          <div className="flex-1 bg-black relative overflow-hidden">
-            {effectiveId ? (
-              <iframe
-                className="w-full h-full"
-                src={`https://www.youtube-nocookie.com/embed/${effectiveId}?rel=0&modestbranding=1&playsinline=1`}
-                title={currentVideo?.title || 'YouTube player'}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-400">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">🎬</div>
-                  <p>動画が利用できません</p>
-                </div>
+          <div className="flex-1 bg-black relative overflow-hidden p-0">
+            {/* Keep 9:16 aspect for the video screen */}
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="relative w-[92%] aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                {effectiveId ? (
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube-nocookie.com/embed/${effectiveId}?rel=0&modestbranding=1&playsinline=1`}
+                    title={currentVideo?.title || 'YouTube player'}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                ) : (
+                  <div className="absolute inset-0 w-full h-full flex items-center justify-center text-gray-400">
+                    <div className="text-center">
+                      <div className="text-4xl mb-4">🎬</div>
+                      <p>動画が利用できません</p>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
 
         </div>
