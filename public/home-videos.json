@@ -10,6 +10,17 @@
       "description": "トップページ用のアンセム動画",
       "showInMovieGallery": true,
       "year": "2025"
+    },
+    {
+      "id": "home_video_20251122_b",
+      "title": "Swith Zero,Fight Hard.",
+      "youtubeId": "odmGV9qn0DY",
+      "youtubeUrl": "https://youtu.be/odmGV9qn0DY",
+      "date": "2025-11-22",
+      "category": "motto",
+      "description": "トップページ用のモットー動画",
+      "showInMovieGallery": true,
+      "year": "2025"
     }
   ]
 }
