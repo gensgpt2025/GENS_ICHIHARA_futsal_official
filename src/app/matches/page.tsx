@@ -30,6 +30,14 @@ interface MatchResult {
 // データ配列（現在は空）
 const upcomingMatches: UpcomingMatch[] = [
   {
+    id: '2025-11-30-harenochihare-hamano',
+    date: '2025-11-30',
+    time: '19:00-21:00',
+    opponent: 'ふりむんFC',
+    venue: '晴れのち晴れ（浜野）タフレックスコート',
+    competition: '',
+  },
+  {
     id: '2025-12-13-harenochihare-hamano',
     date: '2025-12-13',
     time: '19:00-21:00',
