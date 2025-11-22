@@ -21,6 +21,17 @@
       "description": "トップページ用のモットー動画",
       "showInMovieGallery": true,
       "year": "2025"
+    },
+    {
+      "id": "home_video_20251122_c",
+      "title": "GENS ICHIHARA episode.0",
+      "youtubeId": "y-_7bNirJH4",
+      "youtubeUrl": "https://youtube.com/shorts/y-_7bNirJH4",
+      "date": "2025-11-22",
+      "category": "episode",
+      "description": "トップページ用のエピソード動画",
+      "showInMovieGallery": true,
+      "year": "2025"
     }
   ]
 }
