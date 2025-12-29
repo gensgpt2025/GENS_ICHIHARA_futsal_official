@@ -17,28 +17,22 @@ const Footer = () => {
                 <span className="text-black font-garamond font-black text-xl">G</span>
               </div>
               <div>
-                <h2 className="font-garamond font-bold text-xl gold-gradient">
-                  GENS ICHIHARA
-                </h2>
-                <p className="text-yellow-400/80 text-sm font-garamond">
-                  FUTSAL OFFICIAL
-                </p>
+                <h2 className="font-garamond font-bold text-xl gold-gradient">GENS ICHIHARA</h2>
+                <p className="text-yellow-400/80 text-sm font-garamond">FUTSAL OFFICIAL</p>
               </div>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed mb-4 font-inter">
               千葉県市原市を拠点とするフットサルチームです。<br />
-              練習試合・練習参加　大歓迎です。<br />
+              練習試合・練習参加 大歓迎です。<br />
               ☞{' '}
               <Link href="/contact" className="text-yellow-400 hover:text-yellow-300 transition-colors underline">
                 お問い合わせフォーム
               </Link>
             </p>
             <div className="mb-6">
-              <p className="text-gray-300 text-sm mb-2 font-inter">
-                公式SNSはこちら
-              </p>
+              <p className="text-gray-300 text-sm mb-2 font-inter">公式SNSはこちら</p>
               <div className="flex space-x-4">
-                <a 
+                <a
                   href="https://www.instagram.com/gens_ichihara_futsal?igsh=MXBlb3d1N2J6YzN5bg%3D%3D&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -47,7 +41,7 @@ const Footer = () => {
                 >
                   <Instagram size={20} />
                 </a>
-                <a 
+                <a
                   href="https://x.com/gens_ichihara?s=21&t=u0eICswe6_8pqSUQU224UA"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -56,7 +50,7 @@ const Footer = () => {
                 >
                   <XIcon size={20} />
                 </a>
-                <a 
+                <a
                   href="https://www.youtube.com/@gensichihara"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -71,9 +65,7 @@ const Footer = () => {
 
           {/* クイックリンク */}
           <div>
-            <h3 className="font-garamond font-bold text-yellow-400 mb-4">
-              クイックリンク
-            </h3>
+            <h3 className="font-garamond font-bold text-yellow-400 mb-4">クイックリンク</h3>
             <ul className="space-y-2 font-inter">
               <li>
                 <Link href="/team" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
@@ -81,13 +73,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/matches" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
-                  試合予定・結果
+                <Link href="/schedule" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                  スケジュール
                 </Link>
               </li>
               <li>
-                <Link href="/music" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
-                  Music
+                <Link href="/matches" className="text-gray-300 hover:text-yellow-400 transition-colors text-sm">
+                  試合予定・結果
                 </Link>
               </li>
               <li>
@@ -110,21 +102,17 @@ const Footer = () => {
 
           {/* スポンサー */}
           <div>
-            <h3 className="font-garamond font-bold text-yellow-400 mb-4">
-              Sponsor
-            </h3>
+            <h3 className="font-garamond font-bold text-yellow-400 mb-4">Sponsor</h3>
             <div className="space-y-4 font-inter">
-              <div className="text-sm text-gray-300">
-                CWG
-              </div>
+              <div className="text-sm text-gray-300">CWG</div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-300">ちゃとらAtelier GENS</span>
-                <a 
+                <span className="text-sm text-gray-300">Atelier GENS</span>
+                <a
                   href="https://www.instagram.com/chatora_atelier_gens?igsh=b3E2YnM3MWc4bWpq&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-yellow-400 hover:text-yellow-300 transition-colors"
-                  aria-label="ちゃとらAtelier GENS Instagram"
+                  aria-label="Atelier GENS Instagram"
                 >
                   <Instagram size={18} />
                 </a>
@@ -136,9 +124,7 @@ const Footer = () => {
         {/* 著作権 */}
         <div className="mt-8 pt-8 border-t border-yellow-400/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm font-inter">
-              © {currentYear} GENS ICHIHARA FUTSAL OFFICIAL. All rights reserved.
-            </p>
+            <p className="text-gray-400 text-sm font-inter">© {currentYear} GENS ICHIHARA FUTSAL OFFICIAL. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors font-inter">
                 プライバシーポリシー
@@ -155,3 +141,4 @@ const Footer = () => {
 }
 
 export default Footer
+

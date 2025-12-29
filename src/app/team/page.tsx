@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
-import { players, staff } from '@/data/team'
+import { players, staff, guestMembers } from '@/data/team'
 
 export default function TeamPage() {
   return (
@@ -61,6 +61,8 @@ export default function TeamPage() {
               地域に信頼されるクラブとして、チーム一丸で頂点を目指し続ける。
             </p>
           </div>
+          
+
         </section>
 
         {/* メンバー紹介セクション */}
@@ -70,6 +72,8 @@ export default function TeamPage() {
               Team Members
             </h2>
           </div>
+
+          
 
           {/* 選手紹介 */}
           <div className="mb-12">
@@ -112,6 +116,25 @@ export default function TeamPage() {
 
           {/* スタッフ紹介 */}
           <div>
+            {/* Guest Members */}
+            <div className="mb-12">
+              <div className="text-center mb-6">
+                <h3 className="font-garamond font-bold text-xl text-yellow-400">Guest Members</h3>
+              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...guestMembers]
+                .sort((a, b) => (a.number || 0) - (b.number || 0))
+                .map((member) => (
+                <div key={member.id} className="bg-gray-900/50 rounded-xl border border-yellow-400/20 overflow-hidden hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
+                  <div className="p-6 text-center">
+                    <div className="text-2xl font-bold text-yellow-400 mb-2">#{member.number}</div>
+                    <h4 className="font-bold text-lg text-white">{member.name}</h4>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
             <h3 className="font-garamond font-bold text-xl text-yellow-400 mb-6 text-center">Staff</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {staff.map((member) => (
