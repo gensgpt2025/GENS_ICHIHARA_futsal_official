@@ -7,24 +7,9 @@ import type { ScheduleItem } from '@/types/schedule'
 import Link from 'next/link'
 
 const typeBadge: Record<string, { label: string; color: string; border: string; bg: string }> = {
-  match: {
-    label: 'MATCH',
-    color: 'text-red-300',
-    border: 'border-red-400/40',
-    bg: 'bg-red-400/10',
-  },
-  training: {
-    label: 'TRAINING',
-    color: 'text-yellow-300',
-    border: 'border-yellow-400/40',
-    bg: 'bg-yellow-400/10',
-  },
-  event: {
-    label: 'EVENT',
-    color: 'text-blue-300',
-    border: 'border-blue-400/40',
-    bg: 'bg-blue-400/10',
-  },
+  match: { label: 'MATCH', color: 'text-red-300', border: 'border-red-400/40', bg: 'bg-red-400/10' },
+  training: { label: 'TRAINING', color: 'text-yellow-300', border: 'border-yellow-400/40', bg: 'bg-yellow-400/10' },
+  event: { label: 'EVENT', color: 'text-blue-300', border: 'border-blue-400/40', bg: 'bg-blue-400/10' },
 }
 
 function yyyymmddToDate(s: string) {
@@ -94,8 +79,7 @@ export default function SchedulePage() {
   }, [])
 
   const items = useMemo(() => {
-    return [...schedule]
-      .sort((a, b) => yyyymmddToDate(a.date).getTime() - yyyymmddToDate(b.date).getTime())
+    return [...schedule].sort((a, b) => yyyymmddToDate(a.date).getTime() - yyyymmddToDate(b.date).getTime())
   }, [])
 
   const upcoming = items.filter((i) => yyyymmddToDate(i.date).getTime() >= today.getTime())
@@ -113,7 +97,6 @@ export default function SchedulePage() {
             <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-8 text-center">
               <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
               <p className="text-gray-300">予定が登録されていません。</p>
-              <p className="text-gray-400 text-sm mt-2">データは src/data/schedule.ts で管理できます。</p>
             </div>
           ) : (
             upcoming.map((item) => {
@@ -172,12 +155,6 @@ export default function SchedulePage() {
             })
           )}
         </section>
-
-        <div className="mt-10 text-sm text-gray-400">
-          <p>スケジュールは <code>src/data/schedule.ts</code> を編集して更新できます。</p>
-          <p className="mt-1">型は <code>src/types/schedule.ts</code> を参照してください。</p>
-          <p className="mt-1">既存の「Matches」ページは試合中心の表示で、必要に応じて併用可能です。</p>
-        </div>
 
         <div className="flex justify-center mt-12 pb-8">
           <Link 
