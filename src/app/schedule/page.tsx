@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Calendar, Clock, MapPin, Download, ExternalLink } from 'lucide-react'
-import { schedule } from '@/data/schedule'
+import { schedule as fallbackSchedule } from '@/data/schedule'
 import type { ScheduleItem } from '@/types/schedule'
 import Link from 'next/link'
 
@@ -72,15 +72,26 @@ function escapeICS(text: string) {
 }
 
 export default function SchedulePage() {
+  const [itemsFromApi, setItemsFromApi] = useState<ScheduleItem[] | null>(null)
   const today = useMemo(() => {
     const t = new Date()
     t.setHours(0, 0, 0, 0)
     return t
   }, [])
 
-  const items = useMemo(() => {
-    return [...schedule].sort((a, b) => yyyymmddToDate(a.date).getTime() - yyyymmddToDate(b.date).getTime())
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/content/schedule', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((data) => { if (!cancelled) setItemsFromApi(Array.isArray(data?.items) ? data.items : []) })
+      .catch(() => { /* fallback stays */ })
+    return () => { cancelled = true }
   }, [])
+
+  const items = useMemo(() => {
+    const source = itemsFromApi ?? fallbackSchedule
+    return [...source].sort((a, b) => yyyymmddToDate(a.date).getTime() - yyyymmddToDate(b.date).getTime())
+  }, [itemsFromApi])
 
   const upcoming = items.filter((i) => yyyymmddToDate(i.date).getTime() >= today.getTime())
 
@@ -168,4 +179,3 @@ export default function SchedulePage() {
     </div>
   )
 }
-
