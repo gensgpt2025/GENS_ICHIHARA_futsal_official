@@ -111,7 +111,7 @@ export default function SchedulePage() {
             </div>
           ) : (
             upcoming.map((item) => {
-              const badge = typeBadge[item.type]
+              const badge = typeBadge[item.type] || typeBadge.event
               return (
                 <div key={item.id} className={`bg-gray-900/50 rounded-xl border ${badge.border} p-5 hover:border-opacity-60 transition-all`}>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
