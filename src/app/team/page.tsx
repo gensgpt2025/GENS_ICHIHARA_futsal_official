@@ -1,29 +1,13 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Users, Target, Heart, Award } from 'lucide-react'
-import { players as fallbackPlayers, staff as fallbackStaff, guestMembers as fallbackGuests } from '@/data/team'
+import { getTeam } from '@/lib/content/team'
 
-export default function TeamPage() {
-  const [players, setPlayers] = useState(fallbackPlayers)
-  const [guestMembers, setGuests] = useState(fallbackGuests)
-  const [staff, setStaff] = useState(fallbackStaff)
+export const revalidate = 300
 
-  useEffect(() => {
-    let cancelled = false
-    fetch('/api/content/team', { cache: 'no-store' })
-      .then((r) => r.json())
-      .then((data) => {
-        if (cancelled) return
-        if (Array.isArray(data?.players)) setPlayers(data.players)
-        if (Array.isArray(data?.guestMembers)) setGuests(data.guestMembers)
-        if (Array.isArray(data?.staff)) setStaff(data.staff)
-      })
-      .catch(() => { /* fallback */ })
-    return () => { cancelled = true }
-  }, [])
+export default async function TeamPage() {
+  const { players, guestMembers, staff } = await getTeam()
 
   return (
     <div className="min-h-screen bg-black cyber-grid">

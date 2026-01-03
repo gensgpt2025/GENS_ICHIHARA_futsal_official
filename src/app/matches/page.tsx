@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, MapPin, Trophy, Target } from 'lucide-react'
-import { schedule } from '@/data/schedule'
+import type { ScheduleItem } from '@/types/schedule'
 
 interface UpcomingMatch {
   id: string
@@ -26,44 +26,56 @@ interface MatchResultRow {
   goalScorers?: string[]
 }
 
-// schedule から試合予定（今後）を抽出
-const upcomingMatches: UpcomingMatch[] = schedule
-  .filter((i) => i.type === 'match')
-  .map((i) => ({
-    id: i.id,
-    date: i.date,
-    time: i.start && i.end ? `${i.start}-${i.end}` : (i.start || ''),
-    opponent: i.opponent || '相手調整中',
-    venue: i.location || '',
-    competition: i.competition || '',
-  }))
+function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
+  return items
+    .filter((i) => i.type === 'match')
+    .map((i) => ({
+      id: i.id,
+      date: i.date,
+      time: i.start && i.end ? `${i.start}-${i.end}` : (i.start || ''),
+      opponent: i.opponent || '相手調整中',
+      venue: i.location || '',
+      competition: i.competition || '',
+    }))
+}
 
-// schedule から結果入りの試合（過去）を抽出
-const recentResults: MatchResultRow[] = schedule
-  .filter((i) => i.type === 'match' && i.result)
-  .map((i) => ({
-    id: i.id,
-    date: i.date,
-    opponent: i.opponent || '相手',
-    homeScore: i.result!.homeScore,
-    awayScore: i.result!.awayScore,
-    venue: i.location || '',
-    competition: i.competition || '',
-    result: i.result!.outcome,
-    goalScorers: i.result!.goalScorers,
-  }))
+function toResults(items: ScheduleItem[]): MatchResultRow[] {
+  return items
+    .filter((i) => i.type === 'match' && i.result)
+    .map((i) => ({
+      id: i.id,
+      date: i.date,
+      opponent: i.opponent || '相手',
+      homeScore: i.result!.homeScore,
+      awayScore: i.result!.awayScore,
+      venue: i.location || '',
+      competition: i.competition || '',
+      result: i.result!.outcome,
+      goalScorers: i.result!.goalScorers,
+    }))
+}
 
 export default function MatchesPage() {
   const [activeSection, setActiveSection] = useState<'upcoming' | 'results'>('upcoming')
+  const [items, setItems] = useState<ScheduleItem[]>([])
 
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })
   const formatFullDate = (dateString: string) => new Date(dateString).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
   const parseLocalDate = (s: string) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, (m || 1) - 1, d || 1) }
 
   const today = new Date(); today.setHours(0, 0, 0, 0)
-  const sortedUpcomingMatches = [...upcomingMatches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  const sortedRecentResults = [...recentResults].sort((a, b) => parseLocalDate(b.date).getTime() - parseLocalDate(a.date).getTime())
+  const sortedUpcomingMatches = [...toUpcoming(items)].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  const sortedRecentResults = [...toResults(items)].sort((a, b) => parseLocalDate(b.date).getTime() - parseLocalDate(a.date).getTime())
   const futureUpcomingMatches = sortedUpcomingMatches.filter((m) => parseLocalDate(m.date).getTime() >= today.getTime())
+
+  React.useEffect(() => {
+    let cancelled = false
+    fetch('/api/content/schedule', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((data) => { if (!cancelled) setItems(Array.isArray(data?.items) ? data.items : []) })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   const getResultStyle = (result: 'win' | 'draw' | 'loss') => {
     switch (result) {
@@ -214,4 +226,3 @@ export default function MatchesPage() {
     </div>
   )
 }
-
