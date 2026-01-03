@@ -82,11 +82,6 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
       opponent: toString(opponent) || undefined,
       competition: toString(competition) || undefined,
     }
-    // Prefer date embedded in ID when present (e.g., 2026-01-25-...)
-    const idDateMatch = toString(id).match(/^(\d{4})-(\d{2})-(\d{2})\b/)
-    if (idDateMatch) {
-      item.date = `${idDateMatch[1]}-${idDateMatch[2]}-${idDateMatch[3]}`
-    }
     const home = toNumber(rh)
     const away = toNumber(ra)
     const oc = toString(outcome) as 'win' | 'draw' | 'loss'
