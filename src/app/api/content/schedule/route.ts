@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { batchGetRanges } from '@/lib/googleSheets'
-import { mapRowsToSchedule } from '@/lib/mappers'
+import { mapRowsToSchedule, mapRowsToScheduleWithHeaders } from '@/lib/mappers'
 
 export const revalidate = 300
 
@@ -15,12 +15,22 @@ export async function GET(req: NextRequest) {
     if (!spreadsheetId) {
       return NextResponse.json({ items: [], diag: { error: 'missing_spreadsheet_id', range } }, { status: 200 })
     }
-    const [vr] = await batchGetRanges(spreadsheetId, [range])
-    const rows = vr?.values || []
-    const items = mapRowsToSchedule(rows)
+    // Derive header range like Sheet!A1:N1 when possible
+    let headerRange = ''
+    const m = range.match(/^([^!]+)!([A-Z]+)\d+:([A-Z]+)/i)
+    if (m) {
+      const sheet = m[1]
+      const startCol = m[2]
+      const endCol = m[3]
+      headerRange = `${sheet}!${startCol}1:${endCol}1`
+    }
+    const vrs = await batchGetRanges(spreadsheetId, headerRange ? [range, headerRange] : [range])
+    const rows = vrs[0]?.values || []
+    const header = (vrs[1]?.values?.[0] as string[] | undefined) || undefined
+    const items = header ? mapRowsToScheduleWithHeaders(rows, header) : mapRowsToSchedule(rows)
     const base = { items }
     if (debug && expected && token === expected) {
-      return NextResponse.json({ ...base, diag: { spreadsheetId, ranges: [range], counts: [rows.length] } })
+      return NextResponse.json({ ...base, diag: { spreadsheetId, ranges: header ? [range, headerRange] : [range], counts: [rows.length], header } })
     }
     return NextResponse.json(base)
   } catch (e: unknown) {

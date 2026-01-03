@@ -100,6 +100,72 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
   return items
 }
 
+// Flexible version: map using header names when provided
+export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): ScheduleItem[] {
+  if (!rows) return []
+  const norm = (s: string) => s?.toString().trim().toLowerCase()
+  const idx = (keys: string[]) => {
+    if (!header) return -1
+    const set = header.map(norm)
+    for (const k of keys) {
+      const i = set.indexOf(k)
+      if (i >= 0) return i
+    }
+    return -1
+  }
+  const iId = idx(['id', '識別子'])
+  const iDate = idx(['date', '日付'])
+  const iStart = idx(['start', '開始'])
+  const iEnd = idx(['end', '終了'])
+  const iTitle = idx(['title', 'タイトル', '件名'])
+  const iType = idx(['type', '種別', '種類'])
+  const iLocation = idx(['location', '場所', '会場'])
+  const iNotes = idx(['notes', '備考', 'メモ'])
+  const iOpponent = idx(['opponent', '対戦相手', '相手'])
+  const iCompetition = idx(['competition', '大会', 'リーグ'])
+  const iHome = idx(['home', 'home score', 'ホーム'])
+  const iAway = idx(['away', 'away score', 'アウェイ'])
+  const iOutcome = idx(['outcome', '結果'])
+  const iScorers = idx(['scorers', 'goal scorers', '得点者'])
+
+  // If no header mapping, fallback to positional
+  if (!header || iDate < 0 || iTitle < 0) {
+    return mapRowsToSchedule(rows)
+  }
+
+  const out: ScheduleItem[] = []
+  for (const r of rows) {
+    const g = (i: number) => (i >= 0 ? r[i] : undefined)
+    const item: ScheduleItem = {
+      id: toString(g(iId)) || toString(g(iTitle)),
+      date: normalizeDate(g(iDate)),
+      start: normalizeTime(g(iStart)),
+      end: normalizeTime(g(iEnd)),
+      title: toString(g(iTitle)),
+      type: normalizeType(g(iType)),
+      location: toString(g(iLocation)) || undefined,
+      notes: toString(g(iNotes)) || undefined,
+      opponent: toString(g(iOpponent)) || undefined,
+      competition: toString(g(iCompetition)) || undefined,
+    }
+    const home = toNumber(g(iHome))
+    const away = toNumber(g(iAway))
+    const oc = toString(g(iOutcome)) as 'win' | 'draw' | 'loss'
+    if (Number.isFinite(home) && Number.isFinite(away) && oc) {
+      item.result = {
+        homeScore: home,
+        awayScore: away,
+        outcome: oc,
+        goalScorers: toString(g(iScorers))
+          ? toString(g(iScorers)).split(',').map((s) => s.trim()).filter(Boolean)
+          : undefined,
+      }
+    }
+    if (item.id && item.date && item.title && item.type) out.push(item)
+  }
+  return out
+}
+
 export type PlayerRow = { id: number; name: string; position: string; number: number; photo?: string }
 export type StaffRow = { id: number; name: string; role: string; photo?: string }
 
