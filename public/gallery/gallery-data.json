@@ -3,7 +3,7 @@
     {
       "id": "photo_001",
       "title": "GENS ICHIHARA Logo",
-      "filename": "gens.png",
+      "filename": "gens.webp",
       "date": "2025-08-17",
       "category": "team",
       "thumbnail": "",
@@ -13,7 +13,7 @@
     {
       "id": "photo_002",
       "title": "Switch Zero, Fight Hard.",
-      "filename": "SwitchZero Fight Hard.PNG",
+      "filename": "SwitchZero Fight Hard.webp",
       "date": "2025-08-17",
       "category": "event",
       "thumbnail": "",
@@ -23,7 +23,7 @@
     {
       "id": "photo_003",
       "title": "炎の誓い",
-      "filename": "enkan_no_chikai_gens.png",
+      "filename": "enkan_no_chikai_gens.webp",
       "date": "2025-08-17",
       "category": "team",
       "thumbnail": "",
@@ -33,7 +33,7 @@
     {
       "id": "photo_004",
       "title": "CWG バナー",
-      "filename": "CWG_512x256_fill.png",
+      "filename": "CWG_512x256_fill.webp",
       "date": "2025-09-04",
       "category": "event",
       "thumbnail": "",
@@ -115,4 +115,3 @@
     }
   }
 }
-

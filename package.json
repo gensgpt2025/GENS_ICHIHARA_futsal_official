@@ -7,7 +7,10 @@
     "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize:images": "npx -y @squoosh/cli --webp '{\"quality\":80}' -d public/gallery/photos public/gallery/photos/*.png",
+    "optimize:rewrite": "node scripts/replace-gallery-filenames.mjs",
+    "optimize:images:sharp": "node scripts/convert-to-webp.mjs 80"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -26,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^15.4.7",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

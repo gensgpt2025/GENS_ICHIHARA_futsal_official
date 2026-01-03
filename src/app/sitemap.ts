@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'privacy',
     'terms',
     'activities',
-    'news',
   ]
 
   const now = new Date()
