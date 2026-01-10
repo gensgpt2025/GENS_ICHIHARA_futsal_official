@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, revalidated: [path] })
     }
     // default: refresh key pages
-    const targets = ['/schedule', '/team']
+    const targets = ['/schedule', '/team', '/matches']
     targets.forEach((p) => revalidatePath(p))
     return NextResponse.json({ ok: true, revalidated: targets })
   } catch (e) {
@@ -25,4 +25,3 @@ export async function POST(req: NextRequest) {
 }
 
 export const GET = POST
-

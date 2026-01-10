@@ -46,3 +46,9 @@ See `.env.example` for a template. Use one of SHEETS_PRIVATE_KEY or SHEETS_PRIVA
 
 - Keep REVALIDATE_TOKEN long and secret. Do not expose it publicly.
 - If ranges/sheet names differ, override via environment variables as needed.
+
+## Update Checklist
+
+For routine site updates (content, media, deploy steps), see:
+
+- UPDATE_CHECKLIST.md
