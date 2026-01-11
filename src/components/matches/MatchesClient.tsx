@@ -34,7 +34,7 @@ function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
       time: i.start && i.end ? `${i.start}-${i.end}` : i.start || '',
       opponent: i.opponent || '相手調整中',
       venue: i.location || '',
-      competition: i.competition || '',
+      competition: i.competition || i.title || '',
     }))
 }
 
@@ -48,7 +48,7 @@ function toResults(items: ScheduleItem[]): MatchResultRow[] {
       homeScore: i.result!.homeScore,
       awayScore: i.result!.awayScore,
       venue: i.location || '',
-      competition: i.competition || '',
+      competition: i.competition || i.title || '',
       result: i.result!.outcome,
       goalScorers: i.result!.goalScorers,
     }))
