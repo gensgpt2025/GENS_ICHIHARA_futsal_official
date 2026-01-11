@@ -119,7 +119,8 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
           : undefined,
       }
     }
-    if (item.id && item.date && item.title && item.type) items.push(item)
+    // title is now optional (free-form). Do not require it to include the item.
+    if (item.id && item.date && item.type) items.push(item)
   }
   return items
 }
@@ -191,7 +192,8 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
           : undefined,
       }
     }
-    if (item.id && item.date && item.title && item.type) out.push(item)
+    // title is now optional (free-form). Do not require it to include the item.
+    if (item.id && item.date && item.type) out.push(item)
   }
   return out
 }

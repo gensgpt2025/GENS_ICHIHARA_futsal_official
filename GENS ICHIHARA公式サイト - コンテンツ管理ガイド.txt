@@ -216,3 +216,76 @@
 
   このガイドに従って、安全にコンテンツを追加・更新できます。
   質問や問題が発生した場合は、変更を行う前に相談することをお勧めします。
+
+  ---
+  📑 スプレッドシートのヘッダー運用ガイド（実務）
+
+  1) 全体方針
+
+  - Schedule: ヘッダー名で列を特定（列の入替OK）。`SCHEDULE_RANGE` の終端内にある列だけ取得。
+  - Team（players/guestMembers/staff）: 列順固定（入替NG）。ヘッダーは参照せず、`A2` 以降を位置ベースで解釈。
+
+  2) Schedule シート設定
+
+  - 既定レンジ: `Schedule!A2:N`（自動で `A1:N1` をヘッダーとして取得）
+  - 必須ヘッダー: `date`（または`日付`）、`title`（または`タイトル`/`件名`）
+  - 推奨ヘッダーと同義語:
+    - `id` / `識別子`
+    - `date` / `日付`
+    - `start` / `開始`、`end` / `終了`
+    - `title` / `タイトル` / `件名`
+    - `type` / `種別` / `種類`（`match`/`training`/`event`。日本語も自動正規化）
+    - `location` / `場所` / `会場`
+    - `notes` / `備考` / `メモ`
+    - `opponent` / `対戦相手` / `相手`
+    - `competition` / `大会` / `リーグ`
+    - スコア関連:
+      - `home`（`home score`/`ホーム`） or 代替: `result_home` / `home_score`
+      - `away`（`away score`/`アウェイ`） or 代替: `result_away` / `away_score`
+      - `outcome` / `結果`（`win/draw/loss` or `勝ち/引き分け/負け`。未入力時は自動判定）
+      - `scorers` / `goal scorers` / `得点者`（カンマ区切り）
+  - データ入力のルール:
+    - 日付: シリアル値（数値）または `YYYY-MM-DD`/`YYYY/MM/DD`/`YYYY.MM.DD`。2桁年は `20xx` 補完
+    - 時刻: シリアル値（0〜1の小数）または `H:mm`/`HH:mm`
+    - 種別: `match`/`training`/`event` の英日表記を自動正規化。未知は `event`
+    - スコア: `home` と `away` の両方がある行のみ結果オブジェクトを生成。`outcome` 空なら自動判定
+  - 列追加/入替の注意:
+    - ヘッダー名で認識するため入替OK
+    - ただしレンジ終端（例 `:N`）を超える列は読まれません。列を増やしたら `SCHEDULE_RANGE` の終端列を広げる（例 `:P`）
+  - フォールバック:
+    - `SCHEDULE_RANGE` が `Sheet!A2:N` 形式でない場合はヘッダー取得をスキップし、固定順（位置ベース）解釈にフォールバックします
+
+  3) Team シート設定（players / guestMembers / staff）
+
+  - 既定レンジ:
+    - `PLAYERS_RANGE=players!A2:E`
+    - `GUEST_RANGE=guestMembers!A2:E`
+    - `STAFF_RANGE=staff!A2:D`
+  - 列順（固定、ヘッダー無視）:
+    - players/guestMembers: `[id, name, position, number, photo]`
+    - staff: `[id, name, role, photo]`
+  - 注意:
+    - 1行目はヘッダー行にしてOK（`A2` から読取り）
+    - 列の入替・追加はNG（パース不能になります）
+    - position 空は `FP`、photo 空は未設定扱い
+
+  4) 運用のコツ / ありがちな落とし穴
+
+  - ヘッダー名は上記の同義語内で正確に（余計な絵文字などは避ける）
+  - スコアは `home`/`away` を両方埋める（片方のみだと結果が付与されない）
+  - Schedule で列を増やす時はレンジ終端を広げる
+  - Team 系は列順固定のためカラム追加は不可（追加したい場合は実装変更が必要）
+
+  5) 反映・デバッグ
+
+  - ISR再生成: `POST /api/revalidate?token=REVALIDATE_TOKEN&path=/schedule`（Teamは `/team`）
+  - デバッグ: `/api/content/schedule?debug=1&token=REVALIDATE_TOKEN`
+    - `diag.header` に実際に認識したヘッダー配列、`ranges` に実行レンジが出力されます
+
+  6) 環境変数
+
+  - `.env` に以下を設定（`.env.example` 参照）
+    - `SHEETS_SPREADSHEET_ID`
+    - `SHEETS_SERVICE_ACCOUNT_EMAIL`
+    - `SHEETS_PRIVATE_KEY` または `SHEETS_PRIVATE_KEY_BASE64`（どちらか一方）
+    - 必要に応じてレンジ: `SCHEDULE_RANGE` / `PLAYERS_RANGE` / `GUEST_RANGE` / `STAFF_RANGE`

@@ -11,6 +11,7 @@ type UpcomingMatch = {
   opponent: string
   venue: string
   competition: string
+  title: string
 }
 
 type MatchResultRow = {
@@ -23,6 +24,7 @@ type MatchResultRow = {
   competition: string
   result: 'win' | 'draw' | 'loss'
   goalScorers?: string[]
+  title: string
 }
 
 function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
@@ -35,6 +37,7 @@ function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
       opponent: i.opponent || '相手調整中',
       venue: i.location || '',
       competition: i.competition || i.title || '',
+      title: i.title || '',
     }))
 }
 
@@ -51,6 +54,7 @@ function toResults(items: ScheduleItem[]): MatchResultRow[] {
       competition: i.competition || i.title || '',
       result: i.result!.outcome,
       goalScorers: i.result!.goalScorers,
+      title: i.title || '',
     }))
 }
 
@@ -116,7 +120,8 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                           </div>
                         )}
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-2">vs {match.opponent}</h3>
+                      <h3 className="text-xl font-bold text-white mb-1">vs {match.opponent}</h3>
+                      <p className="text-gray-300 text-sm mb-2">{match.title || '対戦相手調整中'}</p>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                         <div className="flex items-center space-x-2 text-gray-300">
                           <Calendar size={16} className="text-yellow-400" />
@@ -171,7 +176,8 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                             <span className={`text-xs font-bold ${resultStyle.text}`}>{resultStyle.label}</span>
                           </div>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">vs {match.opponent}</h3>
+                        <h3 className="text-xl font-bold text-white mb-1">vs {match.opponent}</h3>
+                        <p className="text-gray-300 text-sm mb-2">{match.title || '対戦相手調整中'}</p>
                         <div className="flex items-center space-x-4 text-sm text-gray-300 mb-3">
                           <div className="flex items-center space-x-2">
                             <Calendar size={16} className="text-yellow-400" />
