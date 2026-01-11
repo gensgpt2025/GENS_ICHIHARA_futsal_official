@@ -171,7 +171,7 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                             <span className={`text-xs font-bold ${resultStyle.text}`}>{resultStyle.label}</span>
                           </div>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">GENS ICHIHARA vs {match.opponent}</h3>
+                        <h3 className="text-xl font-bold text-white mb-2">vs {match.opponent}</h3>
                         <div className="flex items-center space-x-4 text-sm text-gray-300 mb-3">
                           <div className="flex items-center space-x-2">
                             <Calendar size={16} className="text-yellow-400" />
@@ -195,7 +195,7 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                           <span className="text-gray-500 mx-2">-</span>
                           <span className="text-yellow-400">{match.awayScore}</span>
                         </div>
-                        <div className="text-sm text-gray-400">{match.venue}</div>
+                        {/* venue duplicate removed (left block already shows venue) */}
                       </div>
                     </div>
                   </div>
