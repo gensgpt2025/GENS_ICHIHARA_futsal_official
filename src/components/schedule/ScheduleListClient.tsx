@@ -110,8 +110,12 @@ export default function ScheduleListClient({ items }: { items: ScheduleItem[] })
                     )}
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
-                  {item.opponent && (
-                    <p className="text-gray-300 text-sm mt-1">vs {item.opponent}</p>
+                  {item.type === 'match' ? (
+                    <p className="text-gray-300 text-sm mt-1">vs {item.opponent || '対戦相手調整中'}</p>
+                  ) : (
+                    item.opponent ? (
+                      <p className="text-gray-300 text-sm mt-1">vs {item.opponent}</p>
+                    ) : null
                   )}
                   <div className="text-gray-300 text-sm flex items-center gap-2">
                     {item.location && (
