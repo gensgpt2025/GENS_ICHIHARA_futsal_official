@@ -110,6 +110,9 @@ export default function ScheduleListClient({ items }: { items: ScheduleItem[] })
                     )}
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
+                  {item.opponent && (
+                    <p className="text-gray-300 text-sm mt-1">vs {item.opponent}</p>
+                  )}
                   <div className="text-gray-300 text-sm flex items-center gap-2">
                     {item.location && (
                       <>
@@ -148,4 +151,3 @@ export default function ScheduleListClient({ items }: { items: ScheduleItem[] })
     </section>
   )
 }
-
