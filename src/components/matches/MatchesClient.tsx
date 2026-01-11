@@ -116,7 +116,7 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                           </div>
                         )}
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-2">GENS ICHIHARA vs {match.opponent}</h3>
+                      <h3 className="text-xl font-bold text-white mb-2">vs {match.opponent}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                         <div className="flex items-center space-x-2 text-gray-300">
                           <Calendar size={16} className="text-yellow-400" />
@@ -208,4 +208,3 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
     </>
   )
 }
-
