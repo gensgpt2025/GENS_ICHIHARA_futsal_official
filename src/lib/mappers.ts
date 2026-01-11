@@ -56,6 +56,28 @@ function normalizeTime(v: unknown): string | undefined {
   return undefined
 }
 
+function normalizeOutcome(v: unknown): 'win' | 'draw' | 'loss' | undefined {
+  const s = toString(v).toLowerCase()
+  if (!s) return undefined
+  if (s === 'win' || s === 'w') return 'win'
+  if (s === 'draw' || s === 'd') return 'draw'
+  if (s === 'loss' || s === 'lose' || s === 'l') return 'loss'
+  if (s === '勝ち' || s === '勝' || s === 'かち') return 'win'
+  if (s === '引き分け' || s === '分' || s === 'ひきわけ') return 'draw'
+  if (s === '負け' || s === '負' || s === 'まけ') return 'loss'
+  return undefined
+}
+
+function deriveOutcome(home: number, away: number): 'win' | 'draw' | 'loss' {
+  if (home > away) return 'win'
+  if (home < away) return 'loss'
+  return 'draw'
+}
+
+function isProvided(v: unknown): boolean {
+  return v != null && toString(v) !== ''
+}
+
 function normalizeType(v: unknown): ScheduleItem['type'] {
   const s = toString(v).toLowerCase()
   if (!s) return 'event'
@@ -82,10 +104,12 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
       opponent: toString(opponent) || undefined,
       competition: toString(competition) || undefined,
     }
-    const home = toNumber(rh)
-    const away = toNumber(ra)
-    const oc = toString(outcome) as 'win' | 'draw' | 'loss'
-    if (Number.isFinite(home) && Number.isFinite(away) && oc) {
+    const hasHome = isProvided(rh)
+    const hasAway = isProvided(ra)
+    if (hasHome && hasAway) {
+      const home = toNumber(rh)
+      const away = toNumber(ra)
+      const oc = normalizeOutcome(outcome) || deriveOutcome(home, away)
       item.result = {
         homeScore: home,
         awayScore: away,
@@ -125,6 +149,8 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
   const iCompetition = idx(['competition', '大会', 'リーグ'])
   const iHome = idx(['home', 'home score', 'ホーム'])
   const iAway = idx(['away', 'away score', 'アウェイ'])
+  const iHomeAlt = idx(['result_home', 'home_score', 'result home'])
+  const iAwayAlt = idx(['result_away', 'away_score', 'result away'])
   const iOutcome = idx(['outcome', '結果'])
   const iScorers = idx(['scorers', 'goal scorers', '得点者'])
 
@@ -148,10 +174,14 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
       opponent: toString(g(iOpponent)) || undefined,
       competition: toString(g(iCompetition)) || undefined,
     }
-    const home = toNumber(g(iHome))
-    const away = toNumber(g(iAway))
-    const oc = toString(g(iOutcome)) as 'win' | 'draw' | 'loss'
-    if (Number.isFinite(home) && Number.isFinite(away) && oc) {
+    const rh = g(iHome >= 0 ? iHome : iHomeAlt)
+    const ra = g(iAway >= 0 ? iAway : iAwayAlt)
+    const hasHome = isProvided(rh)
+    const hasAway = isProvided(ra)
+    if (hasHome && hasAway) {
+      const home = toNumber(rh)
+      const away = toNumber(ra)
+      const oc = normalizeOutcome(g(iOutcome)) || deriveOutcome(home, away)
       item.result = {
         homeScore: home,
         awayScore: away,
