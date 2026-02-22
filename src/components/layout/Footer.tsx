@@ -104,9 +104,20 @@ const Footer = () => {
           <div>
             <h3 className="font-garamond font-bold text-yellow-400 mb-4">Sponsor</h3>
             <div className="space-y-4 font-inter">
-              <div className="text-sm text-gray-300">CWG</div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-300">Atelier GENS</span>
+                <span className="text-sm text-gray-300">CWG</span>
+                <a
+                  href="https://cwgworks.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                  aria-label="CWG 公式サイト"
+                >
+                  HP
+                </a>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-300">chatora Atelier</span>
                 <a
                   href="https://www.instagram.com/chatora_atelier_gens?igsh=b3E2YnM3MWc4bWpq&utm_source=qr"
                   target="_blank"
