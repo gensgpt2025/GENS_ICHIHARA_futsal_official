@@ -13,18 +13,21 @@ const playfairDisplay = Playfair_Display({ variable: '--font-playfair', subsets:
 
 export const metadata: Metadata = {
   title: 'GENS ICHIHARA - フットサル公式サイト',
-  description: '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合結果、ニュース、練習・活動情報を発信しています。',
+  description:
+    '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合予定・結果、ニュース、活動情報を掲載。',
   keywords: ['GENS ICHIHARA', 'フットサル', '市原市', '千葉県', 'サッカー', 'スポーツ'],
   openGraph: {
     title: 'GENS ICHIHARA - フットサル公式サイト',
-    description: '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合結果、ニュース、練習・活動情報を発信しています。',
+    description:
+      '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合予定・結果、ニュース、活動情報を掲載。',
     type: 'website',
     locale: 'ja_JP',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'GENS ICHIHARA - フットサル公式サイト',
-    description: '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合結果、ニュース、練習・活動情報を発信しています。',
+    description:
+      '千葉県市原市を拠点とするフットサルチーム「GENS ICHIHARA」の公式サイト。チーム情報、試合予定・結果、ニュース、活動情報を掲載。',
   },
   viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',

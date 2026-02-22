@@ -22,7 +22,7 @@
     },
     {
       "id": "photo_003",
-      "title": "炎の誓い",
+      "title": "炎冠の誓い",
       "filename": "enkan_no_chikai_gens.webp",
       "date": "2025-08-17",
       "category": "team",
@@ -82,7 +82,7 @@
       "youtubeUrl": "https://youtu.be/FraYb6UU54s",
       "date": "2025-08-17",
       "category": "anthem",
-      "description": "炎の賛美歌 - チームアンセム",
+      "description": "チームアンセム",
       "showInMovieGallery": true,
       "year": "2025"
     },
@@ -93,7 +93,7 @@
       "youtubeUrl": "https://youtu.be/odmGV9qn0DY",
       "date": "2025-08-17",
       "category": "motto",
-      "description": "チームモットー動画 - 0秒切替・最強思考",
+      "description": "チームモットー動画 - 0秒切替",
       "showInMovieGallery": true,
       "year": "2025"
     }
@@ -115,3 +115,4 @@
     }
   }
 }
+
