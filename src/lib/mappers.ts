@@ -31,6 +31,7 @@ function normalizeDate(v: unknown): string {
   }
   const s = toString(v)
   if (!s) return ''
+  // Replace separators and split
   const t = s.replace(/[.\/]/g, '-').trim()
   const [yy, mm, dd] = t.split('-')
   if (!yy) return ''
@@ -43,14 +44,14 @@ function normalizeDate(v: unknown): string {
 function normalizeTime(v: unknown): string | undefined {
   if (v == null || v === '') return undefined
   if (typeof v === 'number' && Number.isFinite(v)) {
-    const total = Math.round(v * 24 * 60)
+    const total = Math.round(v * 24 * 60) // minutes
     const h = Math.floor(total / 60)
     const m = total % 60
     return `${pad2(h)}:${pad2(m)}`
   }
   const s = toString(v)
   if (!s) return undefined
-  const m = s.match(/^(\d{1,2}):(\d{2})/)
+  const m = s.match(/^(\d{1,2}):(\d{2})/) // HH:mm or H:mm
   if (m) return `${pad2(Number(m[1]))}:${m[2]}`
   return undefined
 }
@@ -61,10 +62,9 @@ function normalizeOutcome(v: unknown): 'win' | 'draw' | 'loss' | undefined {
   if (s === 'win' || s === 'w') return 'win'
   if (s === 'draw' || s === 'd') return 'draw'
   if (s === 'loss' || s === 'lose' || s === 'l') return 'loss'
-  // Japanese
-  if (s === '勝ち') return 'win'
-  if (s === '引き分け') return 'draw'
-  if (s === '負け') return 'loss'
+  if (s === '勝ち' || s === '勝' || s === 'かち') return 'win'
+  if (s === '引き分け' || s === '分' || s === 'ひきわけ') return 'draw'
+  if (s === '負け' || s === '負' || s === 'まけ') return 'loss'
   return undefined
 }
 
@@ -119,6 +119,7 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
           : undefined,
       }
     }
+    // title is now optional (free-form). Do not require it to include the item.
     if (item.id && item.date && item.type) items.push(item)
   }
   return items
@@ -142,7 +143,7 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
   const iStart = idx(['start', '開始'])
   const iEnd = idx(['end', '終了'])
   const iTitle = idx(['title', 'タイトル', '件名'])
-  const iType = idx(['type', '種別'])
+  const iType = idx(['type', '種別', '種類'])
   const iLocation = idx(['location', '場所', '会場'])
   const iNotes = idx(['notes', '備考', 'メモ'])
   const iOpponent = idx(['opponent', '対戦相手', '相手'])
@@ -154,6 +155,7 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
   const iOutcome = idx(['outcome', '結果'])
   const iScorers = idx(['scorers', 'goal scorers', '得点者'])
 
+  // If no header mapping, fallback to positional
   if (!header || iDate < 0 || iTitle < 0) {
     return mapRowsToSchedule(rows)
   }
@@ -190,6 +192,7 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
           : undefined,
       }
     }
+    // title is now optional (free-form). Do not require it to include the item.
     if (item.id && item.date && item.type) out.push(item)
   }
   return out
@@ -230,4 +233,3 @@ export function mapRowsToStaff(rows: any[][]): StaffRow[] {
   }
   return out
 }
-

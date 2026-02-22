@@ -11,7 +11,7 @@ import Link from 'next/link'
 const GalleryPage: React.FC = () => {
   const [photos, setPhotos] = useState<PhotoItem[]>([])
   const [loading, setLoading] = useState(true)
-
+  
   // Photo Viewer
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null)
   const [photoIndex, setPhotoIndex] = useState(0)
@@ -25,17 +25,17 @@ const GalleryPage: React.FC = () => {
     try {
       console.log('🔍 Starting gallery data load...')
       setLoading(true)
-
+      
       console.log('📡 Fetching photos...')
       const photoData = await getPhotos()
-
+      
       console.log('📸 Raw photos data:', photoData)
-
+      
       setPhotos(photoData)
-
+      
       console.log('✅ Photos loaded:', photoData.length, 'items')
       console.log('📄 Photos state:', photoData)
-
+      
       setLoading(false)
     } catch (error) {
       console.error('❌ Failed to load gallery data:', error)
@@ -49,6 +49,7 @@ const GalleryPage: React.FC = () => {
     setIsPhotoViewerOpen(true)
   }
 
+
   const handlePhotoViewerNext = () => {
     const nextIndex = (photoIndex + 1) % photos.length
     setPhotoIndex(nextIndex)
@@ -61,6 +62,7 @@ const GalleryPage: React.FC = () => {
     setSelectedPhoto(photos[prevIndex])
   }
 
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center relative z-0">
@@ -72,9 +74,12 @@ const GalleryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black cyber-grid relative z-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
         {/* ヘッダー */}
         <div className="text-center mb-8">
-          <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">Photo Gallery</h1>
+          <h1 className="font-garamond font-bold text-3xl lg:text-4xl gold-gradient mb-4">
+            Photo Gallery
+          </h1>
         </div>
 
         {/* YouTube動画リンク */}
@@ -85,10 +90,11 @@ const GalleryPage: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
           >
-            <span className="text-lg">動画は 公式YouTubeで公開中</span>
+            <span className="text-lg">動画は 公式youtubeで公開中</span>
             <ExternalLink size={20} />
           </a>
         </div>
+
 
         {/* ギャラリーグリッド */}
         <GalleryGrid
@@ -110,7 +116,7 @@ const GalleryPage: React.FC = () => {
 
         {/* ホームに戻るボタン */}
         <div className="flex justify-center mt-12 pb-8">
-          <Link
+          <Link 
             href="/"
             className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
@@ -124,4 +130,3 @@ const GalleryPage: React.FC = () => {
 }
 
 export default GalleryPage
-
