@@ -5,7 +5,13 @@ export const revalidate = 300
 
 export default async function MatchesPage() {
   const items = await getSchedule()
-  const matchItems = items.filter((i) => i.type === 'match')
+  const matchItems = items
+    .filter((i) => i.type === 'match' || i.type === 'league')
+    .map((i) => {
+      if (i.type === 'league') return { ...i, type: 'match' as const }
+      return { ...i, result: undefined }
+    })
+
   return (
     <div className="min-h-screen bg-black cyber-grid">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
