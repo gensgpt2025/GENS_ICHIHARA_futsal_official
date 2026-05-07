@@ -1,4 +1,4 @@
-export type ScheduleType = 'match' | 'training' | 'event'
+export type ScheduleType = 'match' | 'training' | 'league' | 'event'
 
 export interface ScheduleItem {
   id: string
