@@ -81,6 +81,7 @@ function isProvided(v: unknown): boolean {
 function normalizeType(v: unknown): ScheduleItem['type'] {
   const s = toString(v).toLowerCase()
   if (!s) return 'event'
+  if (['league', '公式戦', '県リーグ', 'リーグ'].some((w) => s.includes(w))) return 'league'
   if (['match', 'game', '試合', 'マッチ'].some((w) => s.includes(w))) return 'match'
   if (['training', 'practice', '練習', 'トレーニング'].some((w) => s.includes(w))) return 'training'
   if (['event', 'イベント'].some((w) => s.includes(w))) return 'event'
