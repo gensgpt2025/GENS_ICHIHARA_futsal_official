@@ -5,7 +5,8 @@ import type { ScheduleItem } from '@/types/schedule'
 import { Calendar, Clock, MapPin, Download, ExternalLink } from 'lucide-react'
 
 const typeBadge: Record<string, { label: string; color: string; border: string; bg: string }> = {
-  match: { label: 'MATCH', color: 'text-red-300', border: 'border-red-400/40', bg: 'bg-red-400/10' },
+  match: { label: '練習試合', color: 'text-red-300', border: 'border-red-400/40', bg: 'bg-red-400/10' },
+  league: { label: '公式戦', color: 'text-emerald-300', border: 'border-emerald-400/40', bg: 'bg-emerald-400/10' },
   training: { label: 'TRAINING', color: 'text-yellow-300', border: 'border-yellow-400/40', bg: 'bg-yellow-400/10' },
   event: { label: 'EVENT', color: 'text-blue-300', border: 'border-blue-400/40', bg: 'bg-blue-400/10' },
 }
@@ -69,6 +70,13 @@ function downloadICS(item: ScheduleItem) {
   URL.revokeObjectURL(url)
 }
 
+function fallbackTitle(type: ScheduleItem['type']) {
+  if (type === 'match') return '対戦相手調整中'
+  if (type === 'league') return '公式戦（県リーグ）'
+  if (type === 'training') return '練習'
+  return 'イベント'
+}
+
 export default function ScheduleListClient({ items }: { items: ScheduleItem[] }) {
   const today = useMemo(() => {
     const t = new Date()
@@ -92,6 +100,7 @@ export default function ScheduleListClient({ items }: { items: ScheduleItem[] })
       ) : (
         upcoming.map((item) => {
           const badge = typeBadge[item.type] || typeBadge.event
+          const isMatchType = item.type === 'match' || item.type === 'league'
           return (
             <div key={item.id} className={`bg-gray-900/50 rounded-xl border ${badge.border} p-5 hover:border-opacity-60 transition-all`}>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -110,9 +119,9 @@ export default function ScheduleListClient({ items }: { items: ScheduleItem[] })
                     )}
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">
-                    {item.title || (item.type === 'match' ? '対戦相手調整中' : item.type === 'training' ? '練習' : 'イベント')}
+                    {item.title || fallbackTitle(item.type)}
                   </h3>
-                  {item.type === 'match' ? (
+                  {isMatchType ? (
                     <p className="text-gray-300 text-sm mt-1">vs {item.opponent || '対戦相手調整中'}</p>
                   ) : (
                     item.opponent ? (
