@@ -7,6 +7,7 @@ export interface ScheduleItem {
   end?: string // HH:mm
   title: string
   type: ScheduleType
+  typeLabel?: string
   location?: string
   notes?: string
   opponent?: string

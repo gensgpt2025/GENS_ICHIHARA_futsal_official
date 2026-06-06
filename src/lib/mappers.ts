@@ -93,13 +93,15 @@ export function mapRowsToSchedule(rows: any[][]): ScheduleItem[] {
   const items: ScheduleItem[] = []
   for (const r of rows) {
     const [id, date, start, end, title, type, location, notes, opponent, competition, rh, ra, outcome, scorers] = r
+    const rawType = toString(type)
     const item: ScheduleItem = {
       id: toString(id),
       date: normalizeDate(date),
       start: normalizeTime(start),
       end: normalizeTime(end),
       title: toString(title),
-      type: normalizeType(type),
+      type: normalizeType(rawType),
+      typeLabel: rawType || undefined,
       location: toString(location) || undefined,
       notes: toString(notes) || undefined,
       opponent: toString(opponent) || undefined,
@@ -164,13 +166,15 @@ export function mapRowsToScheduleWithHeaders(rows: any[][], header?: string[]): 
   const out: ScheduleItem[] = []
   for (const r of rows) {
     const g = (i: number) => (i >= 0 ? r[i] : undefined)
+    const rawType = toString(g(iType))
     const item: ScheduleItem = {
       id: toString(g(iId)) || toString(g(iTitle)),
       date: normalizeDate(g(iDate)),
       start: normalizeTime(g(iStart)),
       end: normalizeTime(g(iEnd)),
       title: toString(g(iTitle)),
-      type: normalizeType(g(iType)),
+      type: normalizeType(rawType),
+      typeLabel: rawType || undefined,
       location: toString(g(iLocation)) || undefined,
       notes: toString(g(iNotes)) || undefined,
       opponent: toString(g(iOpponent)) || undefined,

@@ -11,6 +11,7 @@ type UpcomingMatch = {
   opponent: string
   venue: string
   competition: string
+  typeLabel: string
   title: string
 }
 
@@ -22,6 +23,7 @@ type MatchResultRow = {
   awayScore: number
   venue: string
   competition: string
+  typeLabel: string
   result: 'win' | 'draw' | 'loss'
   goalScorers?: string[]
   title: string
@@ -29,7 +31,7 @@ type MatchResultRow = {
 
 function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
   return items
-    .filter((i) => i.type === 'match')
+    .filter((i) => i.type === 'match' || i.type === 'league')
     .map((i) => ({
       id: i.id,
       date: i.date,
@@ -37,13 +39,14 @@ function toUpcoming(items: ScheduleItem[]): UpcomingMatch[] {
       opponent: i.opponent || '相手調整中',
       venue: i.location || '',
       competition: i.competition || i.title || '',
+      typeLabel: i.typeLabel || '',
       title: i.title || '',
     }))
 }
 
 function toResults(items: ScheduleItem[]): MatchResultRow[] {
   return items
-    .filter((i) => i.type === 'match' && i.result)
+    .filter((i) => i.type === 'league' && i.result)
     .map((i) => ({
       id: i.id,
       date: i.date,
@@ -52,6 +55,7 @@ function toResults(items: ScheduleItem[]): MatchResultRow[] {
       awayScore: i.result!.awayScore,
       venue: i.location || '',
       competition: i.competition || i.title || '',
+      typeLabel: i.typeLabel || '',
       result: i.result!.outcome,
       goalScorers: i.result!.goalScorers,
       title: i.title || '',
@@ -77,9 +81,9 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
 
   const getResultStyle = (result: 'win' | 'draw' | 'loss') => {
     switch (result) {
-      case 'win': return { bg: 'bg-green-400/10', border: 'border-green-400/30', text: 'text-green-400', label: 'W' }
-      case 'draw': return { bg: 'bg-yellow-400/10', border: 'border-yellow-400/30', text: 'text-yellow-400', label: 'D' }
-      case 'loss': return { bg: 'bg-red-400/10', border: 'border-red-400/30', text: 'text-red-400', label: 'L' }
+      case 'win': return { bg: 'bg-green-400/10', border: 'border-green-400/30', text: 'text-green-400', label: 'Win' }
+      case 'draw': return { bg: 'bg-yellow-400/10', border: 'border-yellow-400/30', text: 'text-yellow-400', label: 'Draw' }
+      case 'loss': return { bg: 'bg-red-400/10', border: 'border-red-400/30', text: 'text-red-400', label: 'Loss' }
     }
   }
 
@@ -114,9 +118,9 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
-                        {match.competition && (
+                        {match.typeLabel && (
                           <div className="bg-blue-400/10 border border-blue-400/30 px-3 py-1 rounded-full">
-                            <span className="text-xs font-medium text-blue-400">{match.competition}</span>
+                            <span className="text-xs font-medium text-blue-400">{match.typeLabel}</span>
                           </div>
                         )}
                       </div>
@@ -167,9 +171,9 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-3">
-                          {match.competition && (
+                          {match.typeLabel && (
                             <div className="bg-gray-400/10 border border-gray-400/30 px-3 py-1 rounded-full">
-                              <span className="text-xs font-medium text-gray-400">{match.competition}</span>
+                              <span className="text-xs font-medium text-gray-400">{match.typeLabel}</span>
                             </div>
                           )}
                           <div className={`${resultStyle.bg} border ${resultStyle.border} px-3 py-1 rounded-full`}>
