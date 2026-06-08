@@ -10,7 +10,6 @@ type PlayerStatRow = {
   memberId: number
   name: string
   number: number
-  appearances: number
   goals: number
   assists: number
 }
@@ -36,33 +35,31 @@ function getSeasonYear(dateString: string): number {
 }
 
 function playerLabel(row: PlayerStatRow) {
-  return row.number ? `#${row.number} ${row.name}` : row.name
+  return row.name
 }
 
 function aggregateStats(rows: JoinedStat[]): PlayerStatRow[] {
   const map = new Map<number, PlayerStatRow & { eventIds: Set<string> }>()
   for (const row of rows) {
-    const current = map.get(row.memberId) || {
-      memberId: row.memberId,
+    const memberId = row.member?.id || row.memberId
+    const current = map.get(memberId) || {
+      memberId,
       name: row.member?.name || `member ${row.memberId}`,
       number: row.member?.number || 0,
-      appearances: 0,
       goals: 0,
       assists: 0,
       eventIds: new Set<string>(),
     }
     current.eventIds.add(row.eventId)
-    current.appearances = current.eventIds.size
     current.goals += row.goals
     current.assists += row.assists
-    map.set(row.memberId, current)
+    map.set(memberId, current)
   }
   return Array.from(map.values())
     .map((row) => ({
       memberId: row.memberId,
       name: row.name,
       number: row.number,
-      appearances: row.appearances,
       goals: row.goals,
       assists: row.assists,
     }))
@@ -83,11 +80,12 @@ export default function StatsClient({
   const { joinedStats, seasons } = useMemo(() => {
     const eventMap = new Map(schedule.map((item) => [item.id, item]))
     const memberMap = new Map(members.map((member) => [member.id, member]))
+    const memberNumberMap = new Map(members.map((member) => [member.number, member]))
     const joined = stats
       .map((item) => {
         const event = eventMap.get(item.eventId)
         if (!event) return undefined
-        return { ...item, event, member: memberMap.get(item.memberId) }
+        return { ...item, event, member: memberMap.get(item.memberId) || memberNumberMap.get(item.memberId) }
       })
       .filter((item): item is JoinedStat => Boolean(item))
 
@@ -102,7 +100,6 @@ export default function StatsClient({
   }, [joinedStats, selectedSeason])
 
   const playerRows = useMemo(() => aggregateStats(activeRows), [activeRows])
-  const totalRows = useMemo(() => aggregateStats(joinedStats), [joinedStats])
 
   const eventRows = useMemo(() => {
     const map = new Map<string, JoinedStat[]>()
@@ -122,7 +119,6 @@ export default function StatsClient({
         <thead className="bg-yellow-400 text-black">
           <tr>
             <th className="px-4 py-3 font-bold">Player</th>
-            <th className="px-4 py-3 text-right font-bold">Apps</th>
             <th className="px-4 py-3 text-right font-bold">Goals</th>
             <th className="px-4 py-3 text-right font-bold">Assists</th>
           </tr>
@@ -131,7 +127,6 @@ export default function StatsClient({
           {rows.map((row) => (
             <tr key={row.memberId} className="text-gray-200">
               <td className="px-4 py-3 font-semibold">{playerLabel(row)}</td>
-              <td className="px-4 py-3 text-right">{row.appearances}</td>
               <td className="px-4 py-3 text-right text-yellow-400">{row.goals}</td>
               <td className="px-4 py-3 text-right">{row.assists}</td>
             </tr>
@@ -191,52 +186,44 @@ export default function StatsClient({
           {selectedSeason !== 'total' && (
             <section className="space-y-4">
               <div className="flex items-center gap-2">
-                <Users className="text-yellow-400" size={22} />
-                <h2 className="font-garamond text-2xl font-bold text-white">Total Player Stats</h2>
+                <Calendar className="text-yellow-400" size={22} />
+                <h2 className="font-garamond text-2xl font-bold text-white">Match Goals / Assists</h2>
               </div>
-              {renderTable(totalRows)}
+              {eventRows.map(({ eventId, event, rows }) => {
+                const goals = rows.filter((row) => row.goals > 0)
+                const assists = rows.filter((row) => row.assists > 0)
+                return (
+                  <div key={eventId} className="rounded-xl border border-yellow-400/20 bg-gray-900/50 p-5">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <div className="text-lg font-bold text-white">vs {event.opponent || event.title}</div>
+                        <div className="text-sm text-gray-400">{formatDate(event.date)} / {event.typeLabel || event.type}</div>
+                      </div>
+                      <div className="text-sm font-semibold text-yellow-400">{eventId}</div>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div>
+                        <div className="mb-2 text-sm font-bold text-yellow-400">Goals</div>
+                        <div className="space-y-1 text-sm text-gray-300">
+                          {goals.length ? goals.map((row) => (
+                            <div key={`${row.memberId}-goals`}>{row.member?.name || `member ${row.memberId}`} {row.goals}</div>
+                          )) : <div className="text-gray-500">-</div>}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="mb-2 text-sm font-bold text-yellow-400">Assists</div>
+                        <div className="space-y-1 text-sm text-gray-300">
+                          {assists.length ? assists.map((row) => (
+                            <div key={`${row.memberId}-assists`}>{row.member?.name || `member ${row.memberId}`} {row.assists}</div>
+                          )) : <div className="text-gray-500">-</div>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </section>
           )}
-
-          <section className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="text-yellow-400" size={22} />
-              <h2 className="font-garamond text-2xl font-bold text-white">Match Goals / Assists</h2>
-            </div>
-            {eventRows.map(({ eventId, event, rows }) => {
-              const goals = rows.filter((row) => row.goals > 0)
-              const assists = rows.filter((row) => row.assists > 0)
-              return (
-                <div key={eventId} className="rounded-xl border border-yellow-400/20 bg-gray-900/50 p-5">
-                  <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <div className="text-lg font-bold text-white">vs {event.opponent || event.title}</div>
-                      <div className="text-sm text-gray-400">{formatDate(event.date)} / {event.typeLabel || event.type}</div>
-                    </div>
-                    <div className="text-sm font-semibold text-yellow-400">{eventId}</div>
-                  </div>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div>
-                      <div className="mb-2 text-sm font-bold text-yellow-400">Goals</div>
-                      <div className="space-y-1 text-sm text-gray-300">
-                        {goals.length ? goals.map((row) => (
-                          <div key={`${row.memberId}-goals`}>{row.member?.name || `member ${row.memberId}`} {row.goals}</div>
-                        )) : <div className="text-gray-500">-</div>}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="mb-2 text-sm font-bold text-yellow-400">Assists</div>
-                      <div className="space-y-1 text-sm text-gray-300">
-                        {assists.length ? assists.map((row) => (
-                          <div key={`${row.memberId}-assists`}>{row.member?.name || `member ${row.memberId}`} {row.assists}</div>
-                        )) : <div className="text-gray-500">-</div>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </section>
         </>
       )}
     </div>
