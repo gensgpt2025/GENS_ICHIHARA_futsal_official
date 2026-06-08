@@ -80,12 +80,11 @@ export default function StatsClient({
   const { joinedStats, seasons } = useMemo(() => {
     const eventMap = new Map(schedule.map((item) => [item.id, item]))
     const memberMap = new Map(members.map((member) => [member.id, member]))
-    const memberNumberMap = new Map(members.map((member) => [member.number, member]))
     const joined = stats
       .map((item) => {
         const event = eventMap.get(item.eventId)
         if (!event) return undefined
-        return { ...item, event, member: memberMap.get(item.memberId) || memberNumberMap.get(item.memberId) }
+        return { ...item, event, member: memberMap.get(item.memberId) }
       })
       .filter((item): item is JoinedStat => Boolean(item))
 

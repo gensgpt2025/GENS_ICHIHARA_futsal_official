@@ -13,7 +13,7 @@ export default async function StatsPage() {
 
   return (
     <div className="min-h-screen bg-black cyber-grid">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-12 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
           <h1 className="font-garamond text-3xl font-bold gold-gradient lg:text-4xl">Stats</h1>
         </div>
@@ -32,4 +32,3 @@ export default async function StatsPage() {
     </div>
   )
 }
-
