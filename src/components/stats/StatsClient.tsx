@@ -12,6 +12,7 @@ type PlayerStatRow = {
   number: number
   goals: number
   assists: number
+  total: number
 }
 
 type JoinedStat = StatItem & {
@@ -39,7 +40,7 @@ function playerLabel(row: PlayerStatRow) {
 }
 
 function aggregateStats(rows: JoinedStat[]): PlayerStatRow[] {
-  const map = new Map<number, PlayerStatRow & { eventIds: Set<string> }>()
+  const map = new Map<number, Omit<PlayerStatRow, 'total'> & { eventIds: Set<string> }>()
   for (const row of rows) {
     const memberId = row.member?.id || row.memberId
     const current = map.get(memberId) || {
@@ -62,8 +63,9 @@ function aggregateStats(rows: JoinedStat[]): PlayerStatRow[] {
       number: row.number,
       goals: row.goals,
       assists: row.assists,
+      total: row.goals + row.assists,
     }))
-    .sort((a, b) => b.goals - a.goals || b.assists - a.assists || a.number - b.number)
+    .sort((a, b) => b.total - a.total || b.goals - a.goals || b.assists - a.assists || a.number - b.number)
 }
 
 export default function StatsClient({
@@ -117,14 +119,16 @@ export default function StatsClient({
       <table className="w-full table-fixed text-left text-xs sm:text-sm">
         <colgroup>
           <col className="w-[52%]" />
-          <col className="w-[24%]" />
-          <col className="w-[24%]" />
+          <col className="w-[16%]" />
+          <col className="w-[16%]" />
+          <col className="w-[16%]" />
         </colgroup>
         <thead className="bg-yellow-400 text-black">
           <tr>
             <th className="px-3 py-3 font-bold sm:px-4">Player</th>
             <th className="px-2 py-3 text-right font-bold sm:px-4">Goals</th>
             <th className="px-2 py-3 text-right font-bold sm:px-4">Assists</th>
+            <th className="px-2 py-3 text-right font-bold sm:px-4">Total</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-yellow-400/10 bg-gray-900/50">
@@ -133,6 +137,7 @@ export default function StatsClient({
               <td className="break-words px-3 py-3 font-semibold sm:px-4">{playerLabel(row)}</td>
               <td className="px-2 py-3 text-right text-yellow-400 sm:px-4">{row.goals}</td>
               <td className="px-2 py-3 text-right sm:px-4">{row.assists}</td>
+              <td className="px-2 py-3 text-right font-bold text-yellow-400 sm:px-4">{row.total}</td>
             </tr>
           ))}
         </tbody>
@@ -198,12 +203,11 @@ export default function StatsClient({
                 const assists = rows.filter((row) => row.assists > 0)
                 return (
                   <div key={eventId} className="rounded-xl border border-yellow-400/20 bg-gray-900/50 p-4 sm:p-5">
-                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="mb-4">
                       <div className="min-w-0">
                         <div className="break-words text-base font-bold text-white sm:text-lg">vs {event.opponent || event.title}</div>
                         <div className="text-sm text-gray-400">{formatDate(event.date)} / {event.typeLabel || event.type}</div>
                       </div>
-                      <div className="break-all text-sm font-semibold text-yellow-400 sm:text-right">{eventId}</div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2">
                       <div>

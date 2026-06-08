@@ -3,6 +3,8 @@
 import React, { useMemo, useState } from 'react'
 import { Calendar, Clock, MapPin, Trophy } from 'lucide-react'
 import type { ScheduleItem } from '@/types/schedule'
+import type { StatItem } from '@/types/stats'
+import type { PlayerRow } from '@/lib/mappers'
 
 type UpcomingMatch = {
   id: string
@@ -67,7 +69,37 @@ function getSeasonYear(dateString: string): number {
   return month >= 4 ? year : year - 1
 }
 
-export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
+type MatchStatsSummary = {
+  goals: string[]
+  assists: string[]
+}
+
+function buildStatLines(rows: StatItem[], members: PlayerRow[], field: 'goals' | 'assists'): string[] {
+  const memberNumberMap = new Map(members.map((member) => [member.number, member]))
+  const totals = new Map<number, { name: string; value: number }>()
+  for (const row of rows) {
+    const value = row[field]
+    if (value <= 0) continue
+    const member = memberNumberMap.get(row.memberId)
+    const key = member?.id || row.memberId
+    const current = totals.get(key) || { name: member?.name || `member ${row.memberId}`, value: 0 }
+    current.value += value
+    totals.set(key, current)
+  }
+  return Array.from(totals.values())
+    .sort((a, b) => b.value - a.value || a.name.localeCompare(b.name))
+    .map((item) => `${item.name} ${item.value}`)
+}
+
+export default function MatchesClient({
+  items,
+  stats = [],
+  members = [],
+}: {
+  items: ScheduleItem[]
+  stats?: StatItem[]
+  members?: PlayerRow[]
+}) {
   const [activeSection, setActiveSection] = useState<'upcoming' | 'results'>('upcoming')
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null)
 
@@ -108,6 +140,23 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
       { win: 0, draw: 0, loss: 0, goalsFor: 0, goalsAgainst: 0 },
     )
   }, [seasonResults])
+
+  const matchStatsMap = useMemo(() => {
+    const grouped = new Map<string, StatItem[]>()
+    for (const row of stats) {
+      const rows = grouped.get(row.eventId) || []
+      rows.push(row)
+      grouped.set(row.eventId, rows)
+    }
+    const summaries = new Map<string, MatchStatsSummary>()
+    for (const [eventId, rows] of grouped.entries()) {
+      summaries.set(eventId, {
+        goals: buildStatLines(rows, members, 'goals'),
+        assists: buildStatLines(rows, members, 'assists'),
+      })
+    }
+    return summaries
+  }, [members, stats])
 
   const getResultStyle = (result: 'win' | 'draw' | 'loss') => {
     switch (result) {
@@ -228,6 +277,7 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
 
                 {seasonResults.map((match) => {
                 const resultStyle = getResultStyle(match.result)
+                const statSummary = matchStatsMap.get(match.id)
                 return (
                   <div key={match.id} className={`bg-gray-900/50 rounded-xl border ${resultStyle.border} p-6 hover:border-opacity-60 transition-all duration-300`}>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -258,6 +308,18 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                           <div className="text-sm text-gray-300">
                             <span className="text-gray-400">得点者: </span>
                             <span>{match.goalScorers.join(', ')}</span>
+                          </div>
+                        )}
+                        {statSummary && (statSummary.goals.length > 0 || statSummary.assists.length > 0) && (
+                          <div className="mt-3 grid gap-2 text-sm text-gray-300 sm:grid-cols-2">
+                            <div>
+                              <span className="font-semibold text-yellow-400">Goals: </span>
+                              <span>{statSummary.goals.length ? statSummary.goals.join(', ') : '-'}</span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-yellow-400">Assists: </span>
+                              <span>{statSummary.assists.length ? statSummary.assists.join(', ') : '-'}</span>
+                            </div>
                           </div>
                         )}
                       </div>
