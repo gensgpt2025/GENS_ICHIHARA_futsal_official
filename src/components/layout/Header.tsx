@@ -11,6 +11,7 @@ const Header = () => {
     { name: 'Team', href: '/team' },
     { name: 'Schedule', href: '/schedule' },
     { name: 'Matches', href: '/matches' },
+    { name: 'Stats', href: '/stats' },
     { name: 'SNS', href: '/sns' },
     { name: 'Gallery', href: '/gallery' },
   ]

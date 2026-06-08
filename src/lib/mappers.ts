@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ScheduleItem } from '@/types/schedule'
+import type { StatItem } from '@/types/stats'
 
 function toString(v: unknown): string {
   return (v ?? '').toString().trim()
@@ -235,6 +236,58 @@ export function mapRowsToStaff(rows: any[][]): StaffRow[] {
       photo: toString(photo) || undefined,
     }
     if (s.id && s.name) out.push(s)
+  }
+  return out
+}
+
+export function mapRowsToStats(rows: any[][]): StatItem[] {
+  if (!rows) return []
+  const out: StatItem[] = []
+  for (const r of rows) {
+    const [eventId, memberId, goals, assists, notes] = r
+    const item: StatItem = {
+      eventId: toString(eventId),
+      memberId: toNumber(memberId),
+      goals: toNumber(goals),
+      assists: toNumber(assists),
+      notes: toString(notes) || undefined,
+    }
+    if (item.eventId && item.memberId) out.push(item)
+  }
+  return out
+}
+
+export function mapRowsToStatsWithHeaders(rows: any[][], header?: string[]): StatItem[] {
+  if (!rows) return []
+  if (!header) return mapRowsToStats(rows)
+  const norm = (s: string) => s?.toString().trim().toLowerCase()
+  const set = header.map(norm)
+  const idx = (keys: string[]) => {
+    for (const k of keys) {
+      const i = set.indexOf(k)
+      if (i >= 0) return i
+    }
+    return -1
+  }
+  const iEventId = idx(['event_id', 'eventid', 'match_id', 'matchid'])
+  const iMemberId = idx(['member_id', 'memberid', 'player_id', 'playerid'])
+  const iGoals = idx(['goals', 'goal'])
+  const iAssists = idx(['assists', 'assist'])
+  const iNotes = idx(['notes', 'note'])
+
+  if (iEventId < 0 || iMemberId < 0) return mapRowsToStats(rows)
+
+  const out: StatItem[] = []
+  for (const r of rows) {
+    const g = (i: number) => (i >= 0 ? r[i] : undefined)
+    const item: StatItem = {
+      eventId: toString(g(iEventId)),
+      memberId: toNumber(g(iMemberId)),
+      goals: toNumber(g(iGoals)),
+      assists: toNumber(g(iAssists)),
+      notes: toString(g(iNotes)) || undefined,
+    }
+    if (item.eventId && item.memberId) out.push(item)
   }
   return out
 }

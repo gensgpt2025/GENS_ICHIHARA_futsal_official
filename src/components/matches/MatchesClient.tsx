@@ -62,8 +62,14 @@ function toResults(items: ScheduleItem[]): MatchResultRow[] {
     }))
 }
 
+function getSeasonYear(dateString: string): number {
+  const [year, month] = dateString.split('-').map(Number)
+  return month >= 4 ? year : year - 1
+}
+
 export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
   const [activeSection, setActiveSection] = useState<'upcoming' | 'results'>('upcoming')
+  const [selectedSeason, setSelectedSeason] = useState<number | null>(null)
 
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })
   const formatFullDate = (dateString: string) => new Date(dateString).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -78,6 +84,30 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
       sortedRecentResults: results,
     }
   }, [items])
+
+  const resultSeasons = useMemo(() => {
+    return Array.from(new Set(sortedRecentResults.map((match) => getSeasonYear(match.date))))
+      .sort((a, b) => b - a)
+  }, [sortedRecentResults])
+
+  const activeSeason = selectedSeason && resultSeasons.includes(selectedSeason) ? selectedSeason : resultSeasons[0]
+
+  const seasonResults = useMemo(() => {
+    if (!activeSeason) return sortedRecentResults
+    return sortedRecentResults.filter((match) => getSeasonYear(match.date) === activeSeason)
+  }, [activeSeason, sortedRecentResults])
+
+  const seasonSummary = useMemo(() => {
+    return seasonResults.reduce(
+      (summary, match) => {
+        summary[match.result] += 1
+        summary.goalsFor += match.homeScore
+        summary.goalsAgainst += match.awayScore
+        return summary
+      },
+      { win: 0, draw: 0, loss: 0, goalsFor: 0, goalsAgainst: 0 },
+    )
+  }, [seasonResults])
 
   const getResultStyle = (result: 'win' | 'draw' | 'loss') => {
     switch (result) {
@@ -164,7 +194,39 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                 <p className="text-gray-400 text-sm mt-2">試合が終わり次第、こちらに掲載します。</p>
               </div>
             ) : (
-              sortedRecentResults.map((match) => {
+              <>
+                <div className="bg-gray-900/50 rounded-xl border border-yellow-400/20 p-5">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <div className="text-2xl font-bold text-yellow-400">{activeSeason}年度</div>
+                      <div className="mt-2 flex flex-wrap gap-3 text-sm text-gray-300">
+                        <span>Win {seasonSummary.win}</span>
+                        <span>Draw {seasonSummary.draw}</span>
+                        <span>Loss {seasonSummary.loss}</span>
+                        <span>GF {seasonSummary.goalsFor}</span>
+                        <span>GA {seasonSummary.goalsAgainst}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {resultSeasons.map((season) => (
+                        <button
+                          key={season}
+                          type="button"
+                          onClick={() => setSelectedSeason(season)}
+                          className={`rounded-md border px-3 py-2 text-sm font-semibold transition-all duration-300 ${
+                            season === activeSeason
+                              ? 'border-yellow-400 bg-yellow-400 text-black'
+                              : 'border-yellow-400/30 bg-black/20 text-gray-300 hover:border-yellow-400/60 hover:text-white'
+                          }`}
+                        >
+                          {season}年度
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {seasonResults.map((match) => {
                 const resultStyle = getResultStyle(match.result)
                 return (
                   <div key={match.id} className={`bg-gray-900/50 rounded-xl border ${resultStyle.border} p-6 hover:border-opacity-60 transition-all duration-300`}>
@@ -210,7 +272,8 @@ export default function MatchesClient({ items }: { items: ScheduleItem[] }) {
                     </div>
                   </div>
                 )
-              })
+              })}
+              </>
             )}
           </div>
         </section>
