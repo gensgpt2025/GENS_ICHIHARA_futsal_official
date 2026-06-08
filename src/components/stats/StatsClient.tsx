@@ -79,12 +79,12 @@ export default function StatsClient({
 
   const { joinedStats, seasons } = useMemo(() => {
     const eventMap = new Map(schedule.map((item) => [item.id, item]))
-    const memberMap = new Map(members.map((member) => [member.id, member]))
+    const memberNumberMap = new Map(members.map((member) => [member.number, member]))
     const joined = stats
       .map((item) => {
         const event = eventMap.get(item.eventId)
         if (!event) return undefined
-        return { ...item, event, member: memberMap.get(item.memberId) }
+        return { ...item, event, member: memberNumberMap.get(item.memberId) }
       })
       .filter((item): item is JoinedStat => Boolean(item))
 
@@ -113,21 +113,26 @@ export default function StatsClient({
   }, [activeRows])
 
   const renderTable = (rows: PlayerStatRow[]) => (
-    <div className="overflow-x-auto rounded-lg border border-yellow-400/20">
-      <table className="w-full min-w-[560px] text-left text-sm">
+    <div className="w-full overflow-hidden rounded-lg border border-yellow-400/20">
+      <table className="w-full table-fixed text-left text-xs sm:text-sm">
+        <colgroup>
+          <col className="w-[52%]" />
+          <col className="w-[24%]" />
+          <col className="w-[24%]" />
+        </colgroup>
         <thead className="bg-yellow-400 text-black">
           <tr>
-            <th className="px-4 py-3 font-bold">Player</th>
-            <th className="px-4 py-3 text-right font-bold">Goals</th>
-            <th className="px-4 py-3 text-right font-bold">Assists</th>
+            <th className="px-3 py-3 font-bold sm:px-4">Player</th>
+            <th className="px-2 py-3 text-right font-bold sm:px-4">Goals</th>
+            <th className="px-2 py-3 text-right font-bold sm:px-4">Assists</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-yellow-400/10 bg-gray-900/50">
           {rows.map((row) => (
             <tr key={row.memberId} className="text-gray-200">
-              <td className="px-4 py-3 font-semibold">{playerLabel(row)}</td>
-              <td className="px-4 py-3 text-right text-yellow-400">{row.goals}</td>
-              <td className="px-4 py-3 text-right">{row.assists}</td>
+              <td className="break-words px-3 py-3 font-semibold sm:px-4">{playerLabel(row)}</td>
+              <td className="px-2 py-3 text-right text-yellow-400 sm:px-4">{row.goals}</td>
+              <td className="px-2 py-3 text-right sm:px-4">{row.assists}</td>
             </tr>
           ))}
         </tbody>
@@ -174,8 +179,8 @@ export default function StatsClient({
         <>
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <Target className="text-yellow-400" size={22} />
-              <h2 className="font-garamond text-2xl font-bold text-white">
+              <Target className="shrink-0 text-yellow-400" size={22} />
+              <h2 className="font-garamond text-xl font-bold text-white sm:text-2xl">
                 {selectedSeason === 'total' ? 'Total Player Stats' : `${selectedSeason}年度 Player Stats`}
               </h2>
             </div>
@@ -185,20 +190,20 @@ export default function StatsClient({
           {selectedSeason !== 'total' && (
             <section className="space-y-4">
               <div className="flex items-center gap-2">
-                <Calendar className="text-yellow-400" size={22} />
-                <h2 className="font-garamond text-2xl font-bold text-white">Match Goals / Assists</h2>
+                <Calendar className="shrink-0 text-yellow-400" size={22} />
+                <h2 className="font-garamond text-xl font-bold text-white sm:text-2xl">Match Goals / Assists</h2>
               </div>
               {eventRows.map(({ eventId, event, rows }) => {
                 const goals = rows.filter((row) => row.goals > 0)
                 const assists = rows.filter((row) => row.assists > 0)
                 return (
-                  <div key={eventId} className="rounded-xl border border-yellow-400/20 bg-gray-900/50 p-5">
+                  <div key={eventId} className="rounded-xl border border-yellow-400/20 bg-gray-900/50 p-4 sm:p-5">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <div className="text-lg font-bold text-white">vs {event.opponent || event.title}</div>
+                      <div className="min-w-0">
+                        <div className="break-words text-base font-bold text-white sm:text-lg">vs {event.opponent || event.title}</div>
                         <div className="text-sm text-gray-400">{formatDate(event.date)} / {event.typeLabel || event.type}</div>
                       </div>
-                      <div className="text-sm font-semibold text-yellow-400">{eventId}</div>
+                      <div className="break-all text-sm font-semibold text-yellow-400 sm:text-right">{eventId}</div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2">
                       <div>
